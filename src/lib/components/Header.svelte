@@ -4,7 +4,7 @@
 	let currentPath = $derived($page.url.pathname);
 </script>
 
-<header class="sticky top-0 z-50 glass-nav border-b border-primary/5 dark:border-white/5 px-6 pt-12 pb-4 flex justify-between items-center transition-colors">
+<header class="sticky top-0 z-50 glass-nav border-b border-primary/5 dark:border-white/5 px-6 pt-4 pb-4 flex justify-between items-center transition-colors">
 	<a href="/" class="flex items-center gap-2">
 		<!-- Logo Image -->
 		<img src="/isotipo.webp" alt="Hyper House Logo" class="w-10 h-10 rounded-xl shadow-lg" />
