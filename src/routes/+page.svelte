@@ -21,17 +21,29 @@
 			<!-- Search & Filter Block -->
 			<div class="bg-white dark:bg-[#1a2329] p-2 rounded-2xl shadow-soft dark:shadow-none">
 				<div class="flex bg-slate-100 dark:bg-black/20 rounded-xl p-1 mb-3">
-					<button class="flex-1 py-2.5 rounded-lg text-sm font-bold text-center bg-white dark:bg-primary shadow-sm text-primary dark:text-white transition-all">Venta</button>
-					<button class="flex-1 py-2.5 rounded-lg text-sm font-medium text-center text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-all">Alquiler</button>
+				<button class="flex-1 py-2.5 rounded-lg text-sm font-bold text-center bg-white dark:bg-primary shadow-sm text-primary dark:text-white transition-all">Alquilar</button>
+				<button class="flex-1 py-2.5 rounded-lg text-sm font-medium text-center text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-all">Comprar</button>
+				<button class="flex-1 py-2.5 rounded-lg text-sm font-medium text-center text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-all">Proyectos</button>
 				</div>
 				<div class="flex gap-3">
-					<div class="flex-1 relative">
-						<span class="material-icons-round absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
-						<input class="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-white/5 border border-transparent focus:border-brand-green focus:bg-white dark:focus:bg-black/20 focus:ring-0 rounded-xl text-sm transition-all placeholder:text-slate-400 dark:text-white" placeholder="Ciudad, zona o calle..." type="text" />
-					</div>
-					<button class="bg-primary hover:bg-primary/90 text-white p-3 rounded-xl flex items-center justify-center transition-colors shadow-lg shadow-primary/20 aspect-square">
-						<span class="material-icons-round">tune</span>
-					</button>
+				<div class="relative">
+					<select class="px-4 py-3 bg-slate-50 dark:bg-white/5 border border-transparent focus:border-brand-green focus:bg-white dark:focus:bg-black/20 focus:ring-0 rounded-xl text-sm transition-all dark:text-white appearance-none pr-8 cursor-pointer">
+						<option value="">Tipo de Propiedad</option>
+						<option value="lotizacion-urbana">Lotización Urbana</option>
+						<option value="habilitacion-urbana">Habilitación Urbana</option>
+						<option value="lotizacion-industrial">Lotización Industrial</option>
+						<option value="edificios-multifamiliares">Edificios Multifamiliares</option>
+						<option value="centros-comerciales">Centros Comerciales</option>
+						<option value="alquiler">Alquiler</option>
+						<option value="compra">Compra</option>
+						<option value="proyectos">Proyectos</option>
+					</select>
+					<span class="material-icons-round absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">expand_more</span>
+				</div>
+				<div class="flex-1 relative">
+					<span class="material-icons-round absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+					<input class="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-white/5 border border-transparent focus:border-brand-green focus:bg-white dark:focus:bg-black/20 focus:ring-0 rounded-xl text-sm transition-all placeholder:text-slate-400 dark:text-white" placeholder="Ciudad, zona o calle..." type="text" />
+				</div>
 				</div>
 			</div>
 		</section>
@@ -73,7 +85,7 @@
 		<section class="mb-10">
 			<div class="flex justify-between items-end mb-5">
 				<div>
-					<h2 class="text-xl font-bold text-slate-900 dark:text-white leading-tight">Propiedades que<br />se adaptan a ti</h2>
+					<h2 class="text-xl font-bold text-slate-900 dark:text-white leading-tight">Nuestras<br />recomendaciones para ti</h2>
 				</div>
 				<button class="text-brand-green font-bold text-sm hover:underline">Ver todo</button>
 			</div>
@@ -239,6 +251,88 @@
 							</button>
 						</div>
 					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Stats Section -->
+		<section class="mb-16">
+			<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+				<div class="bg-white dark:bg-[#1a2329] p-6 rounded-2xl shadow-soft dark:shadow-none text-center border border-slate-100 dark:border-white/5">
+					<div class="text-3xl font-extrabold text-brand-green mb-1">2022</div>
+					<div class="text-sm text-slate-600 dark:text-slate-400 font-medium">Año de creación</div>
+				</div>
+				<div class="bg-white dark:bg-[#1a2329] p-6 rounded-2xl shadow-soft dark:shadow-none text-center border border-slate-100 dark:border-white/5">
+					<div class="text-3xl font-extrabold text-brand-green mb-1">389</div>
+					<div class="text-sm text-slate-600 dark:text-slate-400 font-medium">Clientes felices</div>
+				</div>
+				<div class="bg-white dark:bg-[#1a2329] p-6 rounded-2xl shadow-soft dark:shadow-none text-center border border-slate-100 dark:border-white/5">
+					<div class="text-3xl font-extrabold text-brand-green mb-1">17</div>
+					<div class="text-sm text-slate-600 dark:text-slate-400 font-medium">Socios Inmobiliarios</div>
+				</div>
+				<div class="bg-white dark:bg-[#1a2329] p-6 rounded-2xl shadow-soft dark:shadow-none text-center border border-slate-100 dark:border-white/5">
+					<div class="text-3xl font-extrabold text-brand-green mb-1">178</div>
+					<div class="text-sm text-slate-600 dark:text-slate-400 font-medium">Operaciones</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Testimonials Section -->
+		<section class="mb-16">
+			<div class="text-center mb-8">
+				<h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">Qué dicen nuestros clientes</h2>
+				<p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-3xl mx-auto">
+					En cada operación, nuestro compromiso es brindar un servicio profesional, cercano y efectivo. Ya sea para vender o alquilar una propiedad, nos enfocamos en lograr resultados concretos y una experiencia sin complicaciones. Estas son algunas opiniones reales de quienes confiaron en nosotros:
+				</p>
+			</div>
+			
+			<div class="grid md:grid-cols-3 gap-5">
+				<!-- Testimonial 1 -->
+				<div class="bg-white dark:bg-[#1a2329] p-6 rounded-2xl shadow-soft dark:shadow-none border border-slate-100 dark:border-white/5">
+					<div class="flex items-center gap-3 mb-4">
+						<div class="w-12 h-12 bg-gradient-to-br from-brand-green to-primary rounded-full flex items-center justify-center text-white font-bold text-lg">
+							MC
+						</div>
+						<div>
+							<div class="font-bold text-slate-900 dark:text-white">María Castro</div>
+							<div class="text-xs text-slate-500 dark:text-slate-400">Cliente - Venta</div>
+						</div>
+					</div>
+					<p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+						"Excelente servicio, me ayudaron a vender mi casa en tiempo récord. Muy profesionales y atentos en todo momento."
+					</p>
+				</div>
+
+				<!-- Testimonial 2 -->
+				<div class="bg-white dark:bg-[#1a2329] p-6 rounded-2xl shadow-soft dark:shadow-none border border-slate-100 dark:border-white/5">
+					<div class="flex items-center gap-3 mb-4">
+						<div class="w-12 h-12 bg-gradient-to-br from-brand-green to-primary rounded-full flex items-center justify-center text-white font-bold text-lg">
+							JR
+						</div>
+						<div>
+							<div class="font-bold text-slate-900 dark:text-white">Jorge Rodríguez</div>
+							<div class="text-xs text-slate-500 dark:text-slate-400">Cliente - Alquiler</div>
+						</div>
+					</div>
+					<p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+						"Encontré el departamento ideal gracias a su equipo. Todo el proceso fue rápido y sin complicaciones."
+					</p>
+				</div>
+
+				<!-- Testimonial 3 -->
+				<div class="bg-white dark:bg-[#1a2329] p-6 rounded-2xl shadow-soft dark:shadow-none border border-slate-100 dark:border-white/5">
+					<div class="flex items-center gap-3 mb-4">
+						<div class="w-12 h-12 bg-gradient-to-br from-brand-green to-primary rounded-full flex items-center justify-center text-white font-bold text-lg">
+							AS
+						</div>
+						<div>
+							<div class="font-bold text-slate-900 dark:text-white">Ana Sánchez</div>
+							<div class="text-xs text-slate-500 dark:text-slate-400">Cliente - Compra</div>
+						</div>
+					</div>
+					<p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+						"Confianza total. Me asesoraron en cada paso de la compra de mi primera casa. Altamente recomendados."
+					</p>
 				</div>
 			</div>
 		</section>
