@@ -1,5 +1,88 @@
 <footer class="bg-slate-900 text-slate-300 pt-16 pb-8 mt-24">
 	<div class="max-w-7xl mx-auto px-6 lg:px-8">
+		<!-- Stats Section -->
+		<div class="pb-12 mb-12 border-b border-slate-800">
+			<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+				<div class="text-center">
+					<div class="text-4xl font-extrabold text-brand-green mb-2">2022</div>
+					<div class="text-sm text-slate-400 font-medium">Año de creación</div>
+				</div>
+				<div class="text-center">
+					<div class="text-4xl font-extrabold text-brand-green mb-2">389</div>
+					<div class="text-sm text-slate-400 font-medium">Clientes felices</div>
+				</div>
+				<div class="text-center">
+					<div class="text-4xl font-extrabold text-brand-green mb-2">17</div>
+					<div class="text-sm text-slate-400 font-medium">Socios Inmobiliarios</div>
+				</div>
+				<div class="text-center">
+					<div class="text-4xl font-extrabold text-brand-green mb-2">178</div>
+					<div class="text-sm text-slate-400 font-medium">Operaciones</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Testimonials Section -->
+		<div class="pb-12 mb-12 border-b border-slate-800">
+			<div class="text-center mb-8">
+				<h3 class="text-2xl font-bold text-white mb-3">Qué dicen nuestros clientes</h3>
+				<p class="text-slate-400 text-sm leading-relaxed max-w-3xl mx-auto">
+					En cada operación, nuestro compromiso es brindar un servicio profesional, cercano y efectivo. Ya sea para vender o alquilar una propiedad, nos enfocamos en lograr resultados concretos y una experiencia sin complicaciones.
+				</p>
+			</div>
+			
+			<div class="grid md:grid-cols-3 gap-6">
+				<!-- Testimonial 1 -->
+				<div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700">
+					<div class="flex items-center gap-3 mb-4">
+						<div class="w-12 h-12 bg-gradient-to-br from-brand-green to-primary rounded-full flex items-center justify-center text-white font-bold text-lg">
+							MC
+						</div>
+						<div>
+							<div class="font-bold text-white">María Castro</div>
+							<div class="text-xs text-slate-400">Cliente - Venta</div>
+						</div>
+					</div>
+					<p class="text-sm text-slate-300 leading-relaxed">
+						"Excelente servicio, me ayudaron a vender mi casa en tiempo récord. Muy profesionales y atentos en todo momento."
+					</p>
+				</div>
+
+				<!-- Testimonial 2 -->
+				<div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700">
+					<div class="flex items-center gap-3 mb-4">
+						<div class="w-12 h-12 bg-gradient-to-br from-brand-green to-primary rounded-full flex items-center justify-center text-white font-bold text-lg">
+							JR
+						</div>
+						<div>
+							<div class="font-bold text-white">Jorge Rodríguez</div>
+							<div class="text-xs text-slate-400">Cliente - Alquiler</div>
+						</div>
+					</div>
+					<p class="text-sm text-slate-300 leading-relaxed">
+						"Encontré el departamento ideal gracias a su equipo. Todo el proceso fue rápido y sin complicaciones."
+					</p>
+				</div>
+
+				<!-- Testimonial 3 -->
+				<div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700">
+					<div class="flex items-center gap-3 mb-4">
+						<div class="w-12 h-12 bg-gradient-to-br from-brand-green to-primary rounded-full flex items-center justify-center text-white font-bold text-lg">
+							AS
+						</div>
+						<div>
+							<div class="font-bold text-white">Ana Sánchez</div>
+							<div class="text-xs text-slate-400">Cliente - Compra</div>
+						</div>
+					</div>
+					<p class="text-sm text-slate-300 leading-relaxed">
+						"Confianza total. Me asesoraron en cada paso de la compra de mi primera casa. Altamente recomendados."
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<!-- Footer Info Grid -->
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
 			<!-- Logo y Descripción -->
 			<div class="space-y-4">
@@ -107,88 +190,6 @@
 						Suscríbete
 					</button>
 				</form>
-			</div>
-		</div>
-
-		<!-- Stats Section -->
-		<div class="border-t border-slate-800 pt-12 pb-12">
-			<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-				<div class="text-center">
-					<div class="text-4xl font-extrabold text-brand-green mb-2">2022</div>
-					<div class="text-sm text-slate-400 font-medium">Año de creación</div>
-				</div>
-				<div class="text-center">
-					<div class="text-4xl font-extrabold text-brand-green mb-2">389</div>
-					<div class="text-sm text-slate-400 font-medium">Clientes felices</div>
-				</div>
-				<div class="text-center">
-					<div class="text-4xl font-extrabold text-brand-green mb-2">17</div>
-					<div class="text-sm text-slate-400 font-medium">Socios Inmobiliarios</div>
-				</div>
-				<div class="text-center">
-					<div class="text-4xl font-extrabold text-brand-green mb-2">178</div>
-					<div class="text-sm text-slate-400 font-medium">Operaciones</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Testimonials Section -->
-		<div class="border-t border-slate-800 pt-12 pb-12">
-			<div class="text-center mb-8">
-				<h3 class="text-2xl font-bold text-white mb-3">Qué dicen nuestros clientes</h3>
-				<p class="text-slate-400 text-sm leading-relaxed max-w-3xl mx-auto">
-					En cada operación, nuestro compromiso es brindar un servicio profesional, cercano y efectivo. Ya sea para vender o alquilar una propiedad, nos enfocamos en lograr resultados concretos y una experiencia sin complicaciones.
-				</p>
-			</div>
-			
-			<div class="grid md:grid-cols-3 gap-6">
-				<!-- Testimonial 1 -->
-				<div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700">
-					<div class="flex items-center gap-3 mb-4">
-						<div class="w-12 h-12 bg-gradient-to-br from-brand-green to-primary rounded-full flex items-center justify-center text-white font-bold text-lg">
-							MC
-						</div>
-						<div>
-							<div class="font-bold text-white">María Castro</div>
-							<div class="text-xs text-slate-400">Cliente - Venta</div>
-						</div>
-					</div>
-					<p class="text-sm text-slate-300 leading-relaxed">
-						"Excelente servicio, me ayudaron a vender mi casa en tiempo récord. Muy profesionales y atentos en todo momento."
-					</p>
-				</div>
-
-				<!-- Testimonial 2 -->
-				<div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700">
-					<div class="flex items-center gap-3 mb-4">
-						<div class="w-12 h-12 bg-gradient-to-br from-brand-green to-primary rounded-full flex items-center justify-center text-white font-bold text-lg">
-							JR
-						</div>
-						<div>
-							<div class="font-bold text-white">Jorge Rodríguez</div>
-							<div class="text-xs text-slate-400">Cliente - Alquiler</div>
-						</div>
-					</div>
-					<p class="text-sm text-slate-300 leading-relaxed">
-						"Encontré el departamento ideal gracias a su equipo. Todo el proceso fue rápido y sin complicaciones."
-					</p>
-				</div>
-
-				<!-- Testimonial 3 -->
-				<div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700">
-					<div class="flex items-center gap-3 mb-4">
-						<div class="w-12 h-12 bg-gradient-to-br from-brand-green to-primary rounded-full flex items-center justify-center text-white font-bold text-lg">
-							AS
-						</div>
-						<div>
-							<div class="font-bold text-white">Ana Sánchez</div>
-							<div class="text-xs text-slate-400">Cliente - Compra</div>
-						</div>
-					</div>
-					<p class="text-sm text-slate-300 leading-relaxed">
-						"Confianza total. Me asesoraron en cada paso de la compra de mi primera casa. Altamente recomendados."
-					</p>
-				</div>
 			</div>
 		</div>
 
