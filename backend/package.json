@@ -1,0 +1,17 @@
+{
+  "name": "hyper-hause-backend",
+  "version": "1.0.0",
+  "description": "Backend API para Hyper Hause con Cloudflare Workers",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "start": "wrangler dev"
+  },
+  "keywords": ["cloudflare", "workers", "api"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "wrangler": "^4.36.0"
+  }
+}

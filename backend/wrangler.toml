@@ -1,0 +1,14 @@
+name = "hyper-hause-backend"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+# Configuración de Workers
+workers_dev = true
+
+# Variables de entorno (opcional)
+[vars]
+ENVIRONMENT = "development"
+
+# CORS headers
+[env.production]
+vars = { ENVIRONMENT = "production" }
