@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Property Detail View - Tarjetas Estructuradas</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=DM+Sans:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0F172A", // Slate 900
+                        "background-light": "#F8FAFC", // Slate 50
+                        "background-dark": "#0F172A", 
+                        "surface": "#FFFFFF",
+                        "text-main": "#334155", // Slate 700
+                        "text-muted": "#94A3B8", // Slate 400
+                        "border-color": "#E2E8F0", // Slate 200
+                        "accent": "#4F46E5", // Indigo 600
+                        "success": "#10B981",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["DM Sans", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "4px",
+                        "sm": "2px",
+                        "lg": "8px",
+                    },
+                    spacing: {
+                        "safe-bottom": "env(safe-area-inset-bottom)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar hiding for carousel */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light text-primary font-body antialiased min-h-screen flex flex-col relative">
+<!-- Sticky Header -->
+<header class="sticky top-0 z-50 bg-background-light/95 backdrop-blur-sm border-b border-border-color px-4 h-16 flex items-center justify-between">
+<button class="flex items-center justify-center size-10 rounded hover:bg-slate-200 transition-colors text-primary">
+<span class="material-symbols-outlined text-2xl">arrow_back</span>
+</button>
+<!-- Optional: Small Title on Scroll could go here -->
+<button class="flex items-center justify-center size-10 rounded hover:bg-slate-200 transition-colors text-primary">
+<span class="material-symbols-outlined text-xl">share</span>
+</button>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 w-full max-w-3xl mx-auto pb-24">
+<!-- Image Carousel Section -->
+<section class="relative w-full aspect-[4/3] bg-slate-200 overflow-hidden group">
+<img alt="Modern minimalist penthouse living room with large windows" class="w-full h-full object-cover" data-alt="Modern minimalist penthouse living room with large windows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvqHtuDr0ZY5kGI1LSYVjA6f-S91lEcQChKqOOp99_R5Z-EKniY7_7srWPej48paL6QINCvG_H3Q49fNAu09VqqlwbipcenhkKLDapkspFaKAXw83sK0S6O_9TgA-6Y92RNq8N4ak3VSO6OjAQPod38V18wlHL7asyuUPO8sOqov2-5rR0HOAVJn2K58WnHwf-uq-FUkIKVOQt9FXYnTcCLP54QfaqvwcNziOeci7KuFdFWbF0ybWb-I0PVKvkOzSl9-ntgorF-LE"/>
+<!-- Counter Badge -->
+<div class="absolute bottom-4 right-4 bg-primary text-white px-3 py-1 rounded font-mono text-xs tracking-wider flex items-center justify-center shadow-sm">
+                1/12
+            </div>
+<!-- Image Navigation Hints (Desktop) -->
+<div class="hidden md:flex absolute inset-0 justify-between items-center px-4 pointer-events-none">
+<div class="size-8 rounded-full bg-white/20 backdrop-blur flex items-center justify-center text-white pointer-events-auto cursor-pointer hover:bg-white/40"><span class="material-symbols-outlined">chevron_left</span></div>
+<div class="size-8 rounded-full bg-white/20 backdrop-blur flex items-center justify-center text-white pointer-events-auto cursor-pointer hover:bg-white/40"><span class="material-symbols-outlined">chevron_right</span></div>
+</div>
+</section>
+<!-- Primary Data Card -->
+<section class="bg-surface border-b border-border-color p-5">
+<div class="flex items-start justify-between mb-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded border border-primary text-primary text-[10px] font-mono font-medium uppercase tracking-wider">
+                    Venta
+                </span>
+<span class="inline-flex items-center gap-1 text-success text-xs font-mono font-medium">
+<span class="size-1.5 rounded-full bg-success"></span> Available
+                </span>
+</div>
+<h1 class="font-display font-bold text-3xl md:text-4xl text-primary tracking-tight mb-1">
+                $450,000 USD
+            </h1>
+<h2 class="font-display font-semibold text-lg text-primary mb-1">
+                Penthouse Minimalista
+            </h2>
+<div class="flex items-center text-text-muted text-sm font-body">
+<span class="material-symbols-outlined text-[18px] mr-1 text-accent">location_on</span>
+                Av. Libertador 2400, Palermo
+            </div>
+</section>
+<!-- The Utility Grid (Specs) -->
+<section class="bg-surface border-b border-border-color">
+<div class="grid grid-cols-2">
+<!-- Cell 1: Beds -->
+<div class="border-r border-b border-border-color p-4 flex flex-col gap-2">
+<span class="material-symbols-outlined text-accent text-[24px]">bed</span>
+<div>
+<span class="block font-display font-bold text-xl text-primary">3</span>
+<span class="block font-mono text-[10px] text-text-muted uppercase tracking-wider">Dormitorios</span>
+</div>
+</div>
+<!-- Cell 2: Baths -->
+<div class="border-b border-border-color p-4 flex flex-col gap-2">
+<span class="material-symbols-outlined text-accent text-[24px]">bathtub</span>
+<div>
+<span class="block font-display font-bold text-xl text-primary">2</span>
+<span class="block font-mono text-[10px] text-text-muted uppercase tracking-wider">Baños</span>
+</div>
+</div>
+<!-- Cell 3: Parking -->
+<div class="border-r border-border-color p-4 flex flex-col gap-2">
+<span class="material-symbols-outlined text-accent text-[24px]">directions_car</span>
+<div>
+<span class="block font-display font-bold text-xl text-primary">2</span>
+<span class="block font-mono text-[10px] text-text-muted uppercase tracking-wider">Cocheras</span>
+</div>
+</div>
+<!-- Cell 4: Area -->
+<div class="p-4 flex flex-col gap-2">
+<span class="material-symbols-outlined text-accent text-[24px]">square_foot</span>
+<div>
+<span class="block font-display font-bold text-xl text-primary">145 m²</span>
+<span class="block font-mono text-[10px] text-text-muted uppercase tracking-wider">Superficie Total</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Description Card -->
+<section class="bg-surface border-b border-border-color p-5">
+<h3 class="font-mono text-xs text-text-muted uppercase tracking-wider mb-3">Resumen</h3>
+<div class="prose prose-sm max-w-none text-text-main font-body leading-relaxed">
+<p>
+                    Espectacular penthouse de diseño minimalista con vistas panorámicas al río y la ciudad. Reciclado a nuevo con materiales de primera categoría: pisos de roble de Eslavonia, carpintería DVH de alta prestación y cocina integrada con isla de mármol Carrara. La unidad cuenta con...
+                </p>
+</div>
+<button class="mt-3 text-accent text-sm font-medium hover:underline flex items-center gap-1">
+                Leer completo
+                <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</section>
+<!-- Features List (Bonus based on context) -->
+<section class="bg-surface border-b border-border-color p-5">
+<h3 class="font-mono text-xs text-text-muted uppercase tracking-wider mb-3">Detalles</h3>
+<ul class="space-y-3">
+<li class="flex justify-between items-center text-sm border-b border-border-color pb-2 border-dashed last:border-0 last:pb-0">
+<span class="text-text-muted">Antigüedad</span>
+<span class="font-medium text-primary">5 Años</span>
+</li>
+<li class="flex justify-between items-center text-sm border-b border-border-color pb-2 border-dashed last:border-0 last:pb-0">
+<span class="text-text-muted">Expensas</span>
+<span class="font-medium text-primary">$45,000 ARS</span>
+</li>
+<li class="flex justify-between items-center text-sm border-b border-border-color pb-2 border-dashed last:border-0 last:pb-0">
+<span class="text-text-muted">Disposición</span>
+<span class="font-medium text-primary">Frente</span>
+</li>
+</ul>
+</section>
+<!-- Location Card -->
+<section class="bg-surface p-5">
+<div class="flex items-center justify-between mb-3">
+<h3 class="font-mono text-xs text-text-muted uppercase tracking-wider">Ubicación</h3>
+<span class="text-xs text-text-muted font-mono">Palermo, CABA</span>
+</div>
+<div class="relative w-full h-48 bg-slate-100 rounded overflow-hidden border border-border-color mb-3 group">
+<!-- Static Map Image Placeholder -->
+<div class="absolute inset-0 bg-[url('https://maps.googleapis.com/maps/api/staticmap?center=Palermo,Buenos+Aires&amp;zoom=14&amp;size=600x300&amp;style=feature:all|element:all|saturation:-100&amp;sensor=false')] bg-cover bg-center opacity-80 group-hover:opacity-100 transition-opacity" data-location="Buenos Aires, Palermo" style=""></div>
+<!-- Map Pin -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-8 bg-accent/20 rounded-full flex items-center justify-center animate-pulse">
+<div class="size-3 bg-accent rounded-full border-2 border-white shadow-lg"></div>
+</div>
+</div>
+<button class="w-full flex items-center justify-center h-10 border border-border-color rounded bg-transparent hover:bg-background-light text-primary font-display font-semibold text-sm transition-colors">
+<span class="material-symbols-outlined text-[18px] mr-2">map</span>
+                Abrir Mapa
+            </button>
+</section>
+</main>
+<!-- Sticky Footer (CTAs) -->
+<footer class="fixed bottom-0 left-0 w-full bg-white border-t border-border-color px-4 py-3 z-40 pb-[calc(12px+env(safe-area-inset-bottom))]">
+<div class="max-w-3xl mx-auto flex gap-3">
+<!-- Secondary Action: Agent Profile/Call -->
+<button class="flex-1 h-12 flex items-center justify-center gap-2 border border-border-color rounded bg-white text-primary font-display font-bold text-sm hover:bg-slate-50 transition-colors">
+<div class="size-6 rounded-full bg-slate-200 overflow-hidden">
+<img alt="Agent Carlos Avatar" class="w-full h-full object-cover" data-alt="Portrait of real estate agent Carlos" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLlbWpklOho_n2UoWdQweYp_ok1PXxZhQIbxG89o4QtDjo7gHp4-h0kCLORd07-dKPZzsB7OqT-k5sfjAjOouaUTwG1q39gQHzcbZ_AlwviSMlvQUalGCPCy6eKDLRbrIwnzWUMmWVePq71Y7-DuZN6dzGczaxE-TQCOuoxQ3hkxPO2MSCBUlXjUcjoTevVj4jYyYQf7ABBWM3zLGwKgPITYGsMO8kl5rXlGGdA9ZLqO6lvqF7F4-sPGqS-8rGs8mlzoxf4-4AjX4"/>
+</div>
+<span>Contactar</span>
+</button>
+<!-- Primary Action: WhatsApp -->
+<button class="flex-[2] h-12 flex items-center justify-center gap-2 rounded bg-primary text-white font-display font-bold text-sm hover:bg-slate-800 transition-colors shadow-lg shadow-slate-200">
+<span class="material-symbols-outlined text-[20px]">chat</span>
+                Consultar por WhatsApp
+            </button>
+</div>
+</footer>
+</body></html>

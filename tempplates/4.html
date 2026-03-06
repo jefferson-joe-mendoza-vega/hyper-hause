@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Listing Cover - Cálido &amp; Orgánico</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Newsreader (Serif) and Karla (Sans) as per design request -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,300;0,400;0,500;0,700;1,400&amp;family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#C8553D",      /* Terracotta */
+                        "background-light": "#FDFBF7", /* Cream Paper */
+                        "background-dark": "#221310", /* Dark fallback */
+                        "surface": "#F2EFE9",      /* Stone */
+                        "text-main": "#2C2420",    /* Espresso */
+                        "text-muted": "#8A817C",   /* Clay */
+                        "accent-sage": "#7F9C96",  /* Sage */
+                    },
+                    fontFamily: {
+                        "display": ["Newsreader", "serif"],
+                        "sans": ["Karla", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "4xl": "32px", /* Custom large radius */
+                        "full": "9999px"
+                    },
+                    boxShadow: {
+                        "soft": "0 10px 40px -10px rgba(44, 36, 32, 0.08)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Smooth scrolling for the whole page */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Custom scrollbar hiding for clean look */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Parallax effect utility */
+        .parallax-wrapper {
+            perspective: 1px;
+            height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .parallax-group {
+            position: relative;
+            transform-style: preserve-3d;
+        }
+        .parallax-layer-back {
+            transform: translateZ(-1px) scale(2);
+            z-index: -1;
+        }
+        .parallax-layer-base {
+            transform: translateZ(0);
+            z-index: 1;
+        }
+
+        /* Loading Shimmer Animation */
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+        .animate-shimmer {
+            animation: shimmer 2s infinite linear;
+            background: linear-gradient(to right, #f2efe9 4%, #e7d3cf 25%, #f2efe9 36%);
+            background-size: 1000px 100%;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-text-main font-sans antialiased overflow-hidden">
+<!-- Mobile Viewport Simulation Wrapper -->
+<div class="parallax-wrapper relative w-full h-screen mx-auto max-w-md bg-background-light shadow-2xl overflow-y-auto overflow-x-hidden">
+<!-- Sticky Header Controls (Back & Actions) -->
+<div class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-6 w-full max-w-md mx-auto pointer-events-none">
+<!-- Back Button -->
+<button class="pointer-events-auto h-12 w-12 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white shadow-soft hover:bg-white/30 transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<!-- Actions -->
+<div class="flex gap-3 pointer-events-auto">
+<button class="h-12 w-12 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white shadow-soft hover:bg-white/30 transition-colors group">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors fill-current">favorite</span>
+</button>
+<button class="h-12 w-12 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white shadow-soft hover:bg-white/30 transition-colors">
+<span class="material-symbols-outlined">ios_share</span>
+</button>
+</div>
+</div>
+<!-- Parallax Container -->
+<div class="relative w-full">
+<!-- Hero Image Section (Fixed/Slow Scroll) -->
+<div class="sticky top-0 h-[65vh] w-full overflow-hidden z-0">
+<!-- Image Carousel -->
+<div class="relative h-full w-full">
+<!-- Image 1 -->
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Sunlit rustic pottery studio with terracotta tiles and large windows" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAxN02lM2zrNLt1ldOgEjWADFKCRiHwBPsCH_ZY2i2dBtA80Xg_IDzKW-Nu0Q_EdCP8k--1oxmVFmt8Y9alCKgSwTRJxewvzMmiA5kDKfKyf77uFxG3O2bDHnTppJb_fkcqqeYZR_fwzRau5iGXH-iz32IptslKjTIMsgrkN7RG_XpM7TA6PO7aDz2P15b6XFsmvQ2XA1OlBkeCBma78R-qGLRK6xKJCFLugWhRo_JU_FueJ1hVveg-bdMBf5pXDfC1bPuz3QcuNd8');">
+<!-- subtle gradient overlay for text readability -->
+<div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/10"></div>
+</div>
+<!-- Floating Price Pill -->
+<div class="absolute top-28 right-6 bg-white/95 backdrop-blur-sm px-5 py-2.5 rounded-full shadow-soft flex items-center gap-1 z-10 animate-fade-in-up">
+<span class="font-sans font-bold text-primary text-lg">€ 450,000</span>
+</div>
+<!-- Carousel Dots -->
+<div class="absolute bottom-12 left-0 right-0 flex justify-center gap-2 z-10">
+<div class="h-2 w-2 rounded-full bg-white shadow-sm cursor-pointer"></div>
+<div class="h-2 w-2 rounded-full bg-white/50 backdrop-blur-sm cursor-pointer hover:bg-white transition-colors"></div>
+<div class="h-2 w-2 rounded-full bg-white/50 backdrop-blur-sm cursor-pointer hover:bg-white transition-colors"></div>
+<div class="h-2 w-2 rounded-full bg-white/50 backdrop-blur-sm cursor-pointer hover:bg-white transition-colors"></div>
+</div>
+</div>
+</div>
+<!-- Content Sheet (Overlapping) -->
+<div class="relative z-10 -mt-8 bg-background-light rounded-t-4xl px-6 pt-8 pb-32 min-h-[50vh] shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.1)]">
+<!-- Drag Handle Indicator -->
+<div class="w-12 h-1.5 bg-text-muted/20 rounded-full mx-auto mb-6"></div>
+<!-- Title Block -->
+<div class="flex flex-col gap-2 mb-8">
+<!-- Eyebrow -->
+<div class="flex items-center gap-2 mb-1">
+<span class="text-[10px] font-bold tracking-[0.1em] text-accent-sage uppercase bg-accent-sage/10 px-2 py-1 rounded-md">For Sale</span>
+<div class="flex gap-1">
+<span class="material-symbols-outlined text-primary text-[14px]">star</span>
+<span class="text-xs font-medium text-text-main">4.98 (128)</span>
+</div>
+</div>
+<!-- Title -->
+<h1 class="font-display font-bold text-[32px] leading-[1.1] text-text-main tracking-tight">
+                        The Old Pottery Studio
+                    </h1>
+<!-- Subtitle / Location -->
+<div class="flex items-center gap-1.5 mt-1 text-text-muted">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<p class="font-sans text-[15px] font-normal">San Miguel de Allende, Mexico</p>
+</div>
+</div>
+<!-- User/Host Info (Mini) -->
+<div class="flex items-center justify-between py-6 border-t border-text-muted/10 mb-2">
+<div class="flex items-center gap-3">
+<div class="relative">
+<img class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm" data-alt="Portrait of the property host, a smiling woman" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZjHUTo_NnDRoxwDETHiWkwTGwHI1axetYwLRfXH7qLUJRlDY3W0W2G_R49zAytjxcwNqLibJVu2RW70V-SR8zSBpjscGUTkOTcMXiPlsH-Pb91TnkfBMSD0vdmxC3X3G0gJt-xdNvWO6I6FdtjSQNJkEQt6PxkJqSMkNPEeJSnfjataPoQNiDujtFak_P7llKbez1yoYXWv6jEDCAETrBtV_F-VLkss3Y9jP2x18OueYjktcnGsaf8Yt1RXIFUlDNaC8bFNpYmwo"/>
+<div class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 border-2 border-white rounded-full"></div>
+</div>
+<div class="flex flex-col">
+<span class="font-display font-semibold text-lg text-text-main leading-tight">Isabella Rossi</span>
+<span class="text-xs text-text-muted font-sans">Superhost · 5 years hosting</span>
+</div>
+</div>
+<button class="h-10 w-10 rounded-full bg-surface text-text-main flex items-center justify-center hover:bg-text-muted/20 transition-colors">
+<span class="material-symbols-outlined">chat_bubble</span>
+</button>
+</div>
+<!-- Narrative Section Preview (Visual Placeholder for next section) -->
+<div class="prose prose-stone">
+<p class="font-display text-[20px] leading-[1.6] text-text-main/90 italic">
+                        "Bathed in morning light, this restored studio features original clay tiles and a garden that smells of jasmine..."
+                    </p>
+</div>
+<!-- Gradient fade to indicate more content -->
+<div class="h-16 w-full bg-gradient-to-b from-transparent to-background-light mt-4"></div>
+</div>
+</div>
+<!-- Sticky Bottom CTA (To simulate full context) -->
+<div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 pb-8 z-50 flex items-center justify-between shadow-[0_-5px_20px_rgba(0,0,0,0.03)] max-w-md mx-auto">
+<div class="flex flex-col">
+<span class="text-xs text-text-muted font-bold uppercase tracking-wider">Price</span>
+<span class="font-display text-xl font-bold text-text-main">€ 450,000</span>
+</div>
+<button class="bg-primary hover:bg-primary/90 text-white font-sans font-medium text-base py-3 px-8 rounded-full shadow-lg shadow-primary/30 transition-all active:scale-95 flex items-center gap-2">
+                Schedule Visit
+                <span class="material-symbols-outlined text-[18px]">calendar_today</span>
+</button>
+</div>
+</div>
+<script>
+        // Simple script to handle parallax effect on scroll if native CSS sticky isn't enough for the specific "slower" feel
+        // Note: The CSS sticky position handles the basic locking, but for true parallax (bg moving slower), JS helps smooth it out.
+        // For this demo, sticking to pure CSS layout structure as requested, relying on the 'sticky' behavior of the image container behind the scrolling content.
+    </script>
+</body></html>

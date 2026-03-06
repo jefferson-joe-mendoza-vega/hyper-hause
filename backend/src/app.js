@@ -86,8 +86,8 @@ export function createApp(env) {
       if (err.message?.includes('no encontrada') || err.message?.includes('not found')) {
         return jsonError(err.message, 404);
       }
-      console.error('[app]', err);
-      return jsonError('Error interno del servidor.', 500);
+      console.error('[app]', err.message, err);
+      return jsonError(err.message || 'Error interno del servidor.', 500);
     }
   };
 }

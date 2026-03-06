@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Professional Property Detail View</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<div class="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Header -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-slate-200 dark:border-b-slate-800 px-10 py-4 bg-white dark:bg-slate-900 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<span class="material-symbols-outlined text-3xl">real_estate_agent</span>
+<h2 class="text-slate-900 dark:text-white text-xl font-bold leading-tight tracking-tight">RealEstate Pro</h2>
+</div>
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Buy</a>
+<a class="text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Rent</a>
+<a class="text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Sell</a>
+<a class="text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Agents</a>
+<a class="text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">About</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<label class="hidden lg:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full border border-slate-200 dark:border-slate-700 overflow-hidden bg-background-light dark:bg-slate-800 focus-within:ring-2 focus-within:ring-primary focus-within:border-primary transition-all">
+<div class="text-slate-500 flex items-center justify-center pl-3">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden text-slate-900 dark:text-white focus:outline-0 focus:ring-0 border-none bg-transparent h-full placeholder:text-slate-500 px-3 text-sm font-normal" placeholder="Search properties..." value=""/>
+</div>
+</label>
+<button class="text-slate-700 dark:text-slate-300 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/20" data-alt="User profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDxHDpXeGBzvI6hAvEPeRMfYc9dBZqD2p_Zxu4LASDE7dawMG0ZRsuZxQ9Za64m-YX86e2kkADv4nSOKJUJAzTAJ848Csh5qMPYRL8HUFTDLseHafUr582xDeW6B9NEDC8tAJ9cmav2vVXXQNHzGy6pZXwkNuMzbXZZ3CViy5mNcxtM1BGxw3P6_30o6evNlRZEIUUNIcfbvxEqVqVPbh4p3s2z4ujJXiQTuaDbbDJUoJwZakq8H43wj-eGhn9n3QNUOfSdmZolf8YJ");'></div>
+</div>
+</header>
+<main class="flex-1 flex justify-center py-8 px-4 sm:px-6 lg:px-8">
+<div class="max-w-[1200px] w-full flex flex-col gap-8">
+<!-- Breadcrumbs & Quick Tags -->
+<div class="flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+<a class="hover:text-primary transition-colors" href="#">Home</a>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<a class="hover:text-primary transition-colors" href="#">Rent</a>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<span class="text-slate-900 dark:text-white font-medium">San Isidro</span>
+</div>
+<div class="flex gap-2 flex-wrap">
+<span class="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary">
+<span class="material-symbols-outlined text-sm">key</span> Alquilar
+                            </span>
+<span class="inline-flex items-center gap-1.5 rounded-full bg-slate-200 dark:bg-slate-800 px-3 py-1 text-sm font-medium text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-sm">home</span> Casa
+                            </span>
+</div>
+</div>
+<!-- Title Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="flex flex-col gap-2">
+<h1 class="text-slate-900 dark:text-white text-3xl md:text-5xl font-black leading-tight tracking-tight">Modern Luxury Villa in San Isidro</h1>
+<div class="flex items-center gap-2 text-slate-600 dark:text-slate-400 text-lg">
+<span class="material-symbols-outlined">location_on</span>
+<p>Av. Javier Prado 1234, San Isidro, Lima</p>
+</div>
+</div>
+<div class="flex flex-col md:items-end">
+<span class="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Monthly Rent</span>
+<h2 class="text-primary text-4xl font-bold leading-tight">$2,500</h2>
+</div>
+</div>
+<!-- Image Gallery Hero -->
+<div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-4 h-[500px] rounded-xl overflow-hidden">
+<div class="col-span-1 md:col-span-3 row-span-2 relative group cursor-pointer">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Main exterior view of luxury villa" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB3axpvDq8xifmUEtK6RXKf3gVk1gh0pDBz_QCtpp_PoNqBG3t6c6KIndsBMMzlOr6R4B5p1eJBz4JNb76ndhUQPxexuBFJP1qvzKY2VBW5kOVUVkxieXNgsSdFqFyzkCe_C6WifHSdC0-L-iA0_FBIuiGZ7L0d4AyuAAUZNngY45FkgGpE9QD6iD5uVV0lCmME0bDQB5Plvawg0tMHoWsjOMx612poVBYrGh45rDFbBZBWRz9iMCOKK7s3iHBEE0mOyufVXIcP_PP3");'></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-6 left-6 flex gap-2">
+<button class="bg-white/90 backdrop-blur-sm hover:bg-white text-slate-900 px-4 py-2 rounded-lg text-sm font-semibold shadow-sm transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">photo_library</span> View All 24 Photos
+                                </button>
+<button class="bg-white/90 backdrop-blur-sm hover:bg-white text-slate-900 p-2 rounded-lg shadow-sm transition-all">
+<span class="material-symbols-outlined text-lg">360</span>
+</button>
+</div>
+</div>
+<div class="hidden md:block col-span-1 row-span-1 relative group cursor-pointer overflow-hidden rounded-tr-xl">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Modern living room interior" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDqCXF4IHymtdl6QXcwNcYZR4ZPA6EyXfb60QFypuqLbfQpyhoBHJUp1DtCY9jN8UR2kKzM2hNffTxyTIy1LJbqI4MJHvu94VIr7CafDn-gQDPVqptOPCa5gCohON-grC0mJu0n2DQgOQo7bzXKVRSdTwGZCBVGKqc0aP9HpcdzdK-9NbA50G4vOfRKF3QhCXWjimwVy6CoKsJ8cXC9GL0qcDRbxs3pVlj7C9xSc1YFx6SuKeigF8IBpKwjvxpHaibvME94KkGu8WMe");'></div>
+</div>
+<div class="hidden md:block col-span-1 row-span-1 relative group cursor-pointer overflow-hidden rounded-br-xl">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Spacious luxury kitchen" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBQM-sClmnkrXt--dqBEdEHc4d32h3l-fUQhVxis8ZNDeWuucDKWu2-d577QTF5brV8M1uJAWqve28EZxEPXuMJNmbLq3l1CJ2O64ps_KJFmD34-Lz_0rzfshDpNaqnxojsOFBukQjrycgmOLDooOQdYrqFTex_hhwAMFNY7zLneOVfUzlCIEPpv84rcQZ7dIULRW37k0xtTDj2VpNX4dcvXo58gMmIzSl0KTTdwndPMXGvTVbF1PO39AYb9iyKwWs_MCWver7n5fDg");'></div>
+<div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+</div>
+</div>
+<!-- Main Content Layout -->
+<div class="flex flex-col lg:flex-row gap-10">
+<!-- Left Column: Details -->
+<div class="flex-1 flex flex-col gap-10">
+<!-- Quick Stats -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 py-6 border-y border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-4 p-4 rounded-xl bg-white dark:bg-slate-900 shadow-sm border border-slate-100 dark:border-slate-800">
+<div class="p-3 bg-primary/10 rounded-lg text-primary">
+<span class="material-symbols-outlined text-2xl">bed</span>
+</div>
+<div>
+<p class="text-xl font-bold text-slate-900 dark:text-white">4</p>
+<p class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Bedrooms</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-xl bg-white dark:bg-slate-900 shadow-sm border border-slate-100 dark:border-slate-800">
+<div class="p-3 bg-primary/10 rounded-lg text-primary">
+<span class="material-symbols-outlined text-2xl">bathtub</span>
+</div>
+<div>
+<p class="text-xl font-bold text-slate-900 dark:text-white">3.5</p>
+<p class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Bathrooms</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-xl bg-white dark:bg-slate-900 shadow-sm border border-slate-100 dark:border-slate-800">
+<div class="p-3 bg-primary/10 rounded-lg text-primary">
+<span class="material-symbols-outlined text-2xl">directions_car</span>
+</div>
+<div>
+<p class="text-xl font-bold text-slate-900 dark:text-white">2</p>
+<p class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Parking</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-xl bg-white dark:bg-slate-900 shadow-sm border border-slate-100 dark:border-slate-800">
+<div class="p-3 bg-primary/10 rounded-lg text-primary">
+<span class="material-symbols-outlined text-2xl">square_foot</span>
+</div>
+<div>
+<p class="text-xl font-bold text-slate-900 dark:text-white">350</p>
+<p class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">m² Area</p>
+</div>
+</div>
+</div>
+<!-- Description -->
+<section>
+<h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Property Description</h3>
+<div class="prose prose-slate dark:prose-invert max-w-none text-slate-600 dark:text-slate-300 space-y-4 leading-relaxed">
+<p>
+                                        Experience unparalleled luxury in this stunning modern villa located in the heart of San Isidro. Designed with meticulous attention to detail, this residence offers a seamless blend of indoor and outdoor living.
+                                    </p>
+<p>
+                                        The ground floor features an expansive open-concept layout with floor-to-ceiling windows that flood the space with natural light. The gourmet kitchen is equipped with top-of-the-line stainless steel appliances, custom cabinetry, and a large center island perfect for entertaining. Step outside to your private oasis featuring a landscaped garden, a covered patio, and a sparkling swimming pool.
+                                    </p>
+<p>
+                                        Upstairs, the master suite is a true sanctuary, complete with a walk-in closet and a spa-like en-suite bathroom featuring a soaking tub and dual vanities. Three additional generously sized bedrooms provide ample space for family or guests.
+                                    </p>
+</div>
+<button class="mt-4 text-primary font-semibold flex items-center gap-1 hover:underline">
+                                    Read more <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+</section>
+<!-- Amenities -->
+<section>
+<h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Amenities &amp; Features</h3>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-y-4 gap-x-8">
+<div class="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-primary">ac_unit</span>
+<span>Air Conditioning</span>
+</div>
+<div class="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-primary">pool</span>
+<span>Swimming Pool</span>
+</div>
+<div class="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-primary">security</span>
+<span>24/7 Security</span>
+</div>
+<div class="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-primary">local_laundry_service</span>
+<span>Laundry Room</span>
+</div>
+<div class="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-primary">balcony</span>
+<span>Balcony/Terrace</span>
+</div>
+<div class="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-primary">pets</span>
+<span>Pet Friendly</span>
+</div>
+</div>
+</section>
+<!-- Map Placeholder -->
+<section>
+<h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Location</h3>
+<div class="h-64 bg-slate-200 dark:bg-slate-800 rounded-xl relative overflow-hidden flex items-center justify-center">
+<div class="absolute inset-0 bg-cover bg-center opacity-50 grayscale" data-location="Lima, Peru" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDba9S3cS59HdZX40feVWVaaha3VeSsbzaur4G2WGLEcR0z8Oy_bb-W25Tn6J4PKwkxo9iMFNQY7Sc-8IdYYfszBjMQI8iSQJ6-gs208gmAbnGGs2MWff0LA8MG0KNsyjxrNhZCIrtryCm9W8j3iCxSt4RLkeP6w4A1ooGQFj5fjKB1pHAL36RIPtoPsldi6a2BbUxzKAOtVme-mbN6To4lglN5gESrSDyVuNfoY8586Ee3C9vhfnM0hbfp7hcpDAVQamJOVGDOEcf3");'></div>
+<button class="relative z-10 bg-white dark:bg-slate-900 text-slate-900 dark:text-white px-6 py-3 rounded-lg font-semibold shadow-md border border-slate-200 dark:border-slate-700 flex items-center gap-2 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-primary">map</span> View on Map
+                                     </button>
+</div>
+</section>
+</div>
+<!-- Right Column: Sticky Contact Card -->
+<aside class="w-full lg:w-[400px]">
+<div class="sticky top-24 bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 p-6 flex flex-col gap-6">
+<!-- Agent Info -->
+<div class="flex items-center gap-4 pb-6 border-b border-slate-100 dark:border-slate-800">
+<div class="size-16 rounded-full bg-cover bg-center border-2 border-primary/20" data-alt="Real estate agent portrait" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBshQH_Sch5sNownGLo6POtVTHZBd0ER0Oxgy_nUzi2IY6tgBacrnDDppVDi8HBLqlCjSzl0Iw1VY4yUsrUOxlI_edvE3eLi6nACvQLW3EEsXIB9A0g52hYqOrkxx7_GGj3ijrCNafKB9SsYNPJT2n_Qpo9X9r981KmK4BcFduk2mKc89RZ-MJF1QVOWrz55JWmgJILEf8Z_7hUFNfv0ms9TwFv1S7nqXABgH_l2ndxMHziwNDa7TgT7_DVxXyZCYPp4zrOzw4qv4e_");'></div>
+<div>
+<p class="text-xs font-bold text-primary uppercase tracking-wider mb-1">Listing Agent</p>
+<h4 class="text-lg font-bold text-slate-900 dark:text-white">Maria Rodriguez</h4>
+<div class="flex items-center gap-1 text-sm text-slate-500 mt-1">
+<span class="material-symbols-outlined text-amber-400 text-sm">star</span>
+<span class="font-medium text-slate-700 dark:text-slate-300">4.9</span>
+<span>(124 reviews)</span>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex gap-3">
+<button class="flex-1 bg-primary hover:bg-primary/90 text-white py-3 rounded-lg font-semibold transition-colors flex justify-center items-center gap-2">
+<span class="material-symbols-outlined">call</span> Call Agent
+                                    </button>
+<button class="flex-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-900 dark:text-white py-3 rounded-lg font-semibold transition-colors flex justify-center items-center gap-2 border border-slate-200 dark:border-slate-700">
+<span class="material-symbols-outlined text-[#25D366]">chat</span> WhatsApp
+                                    </button>
+</div>
+<!-- Contact Form -->
+<form class="flex flex-col gap-4 mt-2">
+<h5 class="font-bold text-slate-900 dark:text-white">Request Information</h5>
+<div>
+<label class="sr-only" for="name">Full Name</label>
+<input class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all dark:text-white placeholder:text-slate-400" id="name" placeholder="Full Name" type="text"/>
+</div>
+<div>
+<label class="sr-only" for="email">Email Address</label>
+<input class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all dark:text-white placeholder:text-slate-400" id="email" placeholder="Email Address" type="email"/>
+</div>
+<div>
+<label class="sr-only" for="phone">Phone Number</label>
+<input class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all dark:text-white placeholder:text-slate-400" id="phone" placeholder="Phone Number" type="tel"/>
+</div>
+<div>
+<label class="sr-only" for="message">Message</label>
+<textarea class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all resize-none dark:text-white placeholder:text-slate-400" id="message" placeholder="I am interested in this property..." rows="3"></textarea>
+</div>
+<button class="w-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-100 py-3 rounded-lg font-bold transition-colors shadow-sm mt-2" type="submit">
+                                        Send Message
+                                    </button>
+<p class="text-xs text-center text-slate-500 mt-2">By sending this message you agree to our Terms of Use and Privacy Policy.</p>
+</form>
+</div>
+</aside>
+</div>
+</div>
+</main>
+<!-- Footer (Simple) -->
+<footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-8 mt-12">
+<div class="max-w-[1200px] mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-2xl">real_estate_agent</span>
+<span class="text-slate-900 dark:text-white font-bold">RealEstate Pro</span>
+</div>
+<p class="text-sm text-slate-500">© 2024 RealEstate Pro. All rights reserved.</p>
+</div>
+</footer>
+</div>
+</div>
+</body></html>
