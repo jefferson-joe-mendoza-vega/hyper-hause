@@ -1,5 +1,7 @@
 import { PropiedadesService }          from './propiedades.service.js';
 import { extractImages, uploadImages } from '../../providers/imgbb/index.js';
+import { crearPropiedadDto }          from './dtos/crear-propiedad.dto.js';
+import { actualizarPropiedadDto }     from './dtos/actualizar-propiedad.dto.js';
 
 const CORS = {
   'Access-Control-Allow-Origin':  '*',
@@ -75,6 +77,15 @@ export class PropiedadesController {
     return json({ success: true, data: propiedad });
   }
 
+  // GET /api/propiedades/recomendadas
+  async getRecomendadas(request) {
+    const url   = new URL(request.url);
+    const limit = Number(url.searchParams.get('limit') || 10);
+
+    const data = await this.service.getRecomendadas(limit);
+    return json({ success: true, total: data.length, data });
+  }
+
   // POST /api/propiedades  (multipart/form-data)
   async create(request) {
     const formData = await request.formData();
@@ -87,11 +98,12 @@ export class PropiedadesController {
     const etiquetas   = this._extractEtiquetas(formData);
     const imagenesConEtiqueta = imagenes.map((img, i) => ({ ...img, etiqueta: etiquetas[i] ?? '' }));
 
-    // Extraer campos de texto del formData
+    // Extraer campos de texto del formData y aplicar DTO
     const body = this._formDataToObject(formData);
     body.imagenes = imagenesConEtiqueta;
 
-    const created = await this.service.create(body);
+    const dto = crearPropiedadDto(body);
+    const created = await this.service.create(dto);
     return json({ success: true, data: created }, 201);
   }
 
@@ -113,8 +125,42 @@ export class PropiedadesController {
       body = await request.json();
     }
 
-    const updated = await this.service.update(id, body);
+    // Aplicar DTO para limpiar/coercionar datos (incluyendo amenidades JSON parse)
+    const dto = actualizarPropiedadDto(body);
+
+    const updated = await this.service.update(id, dto);
     return json({ success: true, data: updated });
+  }
+
+  // DEBUG: Endpoint para testear FormData
+  async debugFormData(request) {
+    try {
+      const formData = await request.formData();
+      
+      const received = {};
+      const files = [];
+      for (const [key, value] of formData.entries()) {
+        if (value instanceof File) {
+          files.push({ key, name: value.name, size: value.size, type: value.type });
+        } else {
+          received[key] = value;
+        }
+      }
+
+      console.log('🧪 DEBUG FormData:', { received, files });
+
+      return json({
+        success: true,
+        message: 'FormData recibido correctamente',
+        received,
+        files,
+        totalFields: Object.keys(received).length,
+        totalFiles: files.length
+      });
+    } catch (err) {
+      console.error('❌ Error en debugFormData:', err);
+      return error(`Error: ${err.message}`);
+    }
   }
 
   // DELETE /api/propiedades/:id

@@ -70,6 +70,9 @@ export function createPropiedadModel(data) {
     slug:               data.slug ?? '',
 
     activo:             data.activo             ?? true,
+    recomendado:        data.recomendado        ?? false,
+    recomendadoEtiqueta: data.recomendadoEtiqueta ?? '',
+    recomendadoColor:   data.recomendadoColor   ?? '',
     creadoEn:           data.creadoEn           ?? new Date().toISOString(),
     actualizadoEn:      new Date().toISOString()
   };

@@ -38,6 +38,16 @@ export class PropiedadesRepository {
     return results[0] ?? null;
   }
 
+  /** Busca propiedades recomendadas (recomendado = true) */
+  async findByRecomendadas(limit = 10) {
+    return this.db.query(
+      COLLECTION,
+      [{ field: 'recomendado', op: 'EQUAL', value: true }],
+      null,
+      limit
+    );
+  }
+
   async update(id, data) {
     const partial = {
       ...data,

@@ -5,8 +5,14 @@ import { TIPO_OPERACION, TIPO_INMUEBLE } from '../propiedades.model.js';
  * Limpia y coerciona los datos de entrada antes de pasarlos al service.
  */
 export function crearPropiedadDto(raw) {
-  return {
-    // Información principal
+  // Verificar que raw no sea null/undefined
+  if (!raw || typeof raw !== 'object') {
+    console.warn('⚠️ crearPropiedadDto recibió datos inválidos:', raw);
+    raw = {};
+  }
+
+  const dto = {
+    // Información básica
     titulo:             String(raw.titulo             ?? '').trim(),
     descripcion:        String(raw.descripcion        ?? '').trim(),
     precio:             Number(raw.precio             ?? 0),
@@ -17,11 +23,19 @@ export function crearPropiedadDto(raw) {
     direccion:          String(raw.direccion          ?? '').trim(),
     mapaUrl:            String(raw.mapaUrl            ?? '').trim(),
 
-    // Amenidades
+    // Amenidades - Manejo robusto de JSON
     amenidades:         (() => {
-      if (Array.isArray(raw.amenidades)) return raw.amenidades;
-      if (typeof raw.amenidades === 'string') { try { const p = JSON.parse(raw.amenidades); return Array.isArray(p) ? p : []; } catch { return []; } }
-      return [];
+      try {
+        if (Array.isArray(raw.amenidades)) return raw.amenidades;
+        if (typeof raw.amenidades === 'string') {
+          const parsed = JSON.parse(raw.amenidades);
+          return Array.isArray(parsed) ? parsed : [];
+        }
+        return [];
+      } catch (err) {
+        console.warn('⚠️ Error al parsear amenidades:', raw.amenidades, err.message);
+        return [];
+      }
     })(),
 
     // Características
@@ -30,9 +44,14 @@ export function crearPropiedadDto(raw) {
     estacionamientos:   Number(raw.estacionamientos   ?? 0),
     area:               Number(raw.area               ?? 0),
 
-    // Imágenes — se asignan después de subir a ImgBB
+    // Flags
+    recomendado:        raw.recomendado === 'true' || raw.recomendado === true,
+    recomendadoEtiqueta: String(raw.recomendadoEtiqueta ?? '').trim().slice(0, 30),
+    recomendadoColor:    String(raw.recomendadoColor    ?? '').trim(),
     imagenes:           Array.isArray(raw.imagenes) ? raw.imagenes : []
   };
+
+  return dto;
 }
 
 export { TIPO_OPERACION, TIPO_INMUEBLE };

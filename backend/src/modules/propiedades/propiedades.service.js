@@ -43,6 +43,10 @@ export class PropiedadesService {
     return propiedad;
   }
 
+  async getRecomendadas(limit = 10) {
+    return this.repo.findByRecomendadas(limit);
+  }
+
   async update(id, data) {
     await this.getById(id); // verifica que existe
     return this.repo.update(id, data);

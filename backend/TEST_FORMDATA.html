@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test FormData - Backend</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #22c55e;
+            border-bottom: 3px solid #22c55e;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #22c55e;
+            box-shadow: 0 0 5px rgba(34, 197, 94, 0.5);
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-test {
+            background: #22c55e;
+            color: white;
+            flex: 1;
+        }
+        .btn-test:hover {
+            background: #16a34a;
+        }
+        .btn-clear {
+            background: #94a3b8;
+            color: white;
+            flex: 1;
+        }
+        .btn-clear:hover {
+            background: #64748b;
+        }
+        .output {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 15px;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .output.error {
+            background: #fee;
+            border-color: #fcc;
+            color: #c33;
+        }
+        .output.success {
+            background: #efe;
+            border-color: #cfc;
+            color: #3c3;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            display: none;
+        }
+        .status.show {
+            display: block;
+        }
+        .status.info {
+            background: #dbeafe;
+            color: #0c4a6e;
+            border-left: 4px solid #0284c7;
+        }
+        .status.loading {
+            background: #fef3c7;
+            color: #92400e;
+            border-left: 4px solid #f59e0b;
+        }
+        .status.success {
+            background: #dcfce7;
+            color: #166534;
+            border-left: 4px solid #22c55e;
+        }
+        .status.error {
+            background: #fee2e2;
+            color: #7f1d1d;
+            border-left: 4px solid #ef4444;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test FormData Backend</h1>
+        <p>Usa este formulario para testear si el backend recibe datos correctamente.</p>
+
+        <div class="status info show">
+            Backend URL: <strong>http://127.0.0.1:8787</strong>
+        </div>
+
+        <form id="testForm">
+            <div class="form-group">
+                <label for="titulo">Título *</label>
+                <input type="text" id="titulo" name="titulo" value="Casa moderna en San Isidro" required>
+            </div>
+
+            <div class="form-group">
+                <label for="descripcion">Descripción</label>
+                <textarea id="descripcion" name="descripcion" rows="3">Hermosa propiedad con todos los servicios</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="precio">Precio *</label>
+                <input type="number" id="precio" name="precio" value="250000" required>
+            </div>
+
+            <div class="form-group">
+                <label for="tipoOperacion">Tipo de Operación *</label>
+                <select id="tipoOperacion" name="tipoOperacion" required>
+                    <option value="">-- Seleccionar --</option>
+                    <option value="Comprar" selected>Comprar</option>
+                    <option value="Alquilar">Alquilar</option>
+                    <option value="Temporal">Temporal</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="tipoInmueble">Tipo de Inmueble *</label>
+                <select id="tipoInmueble" name="tipoInmueble" required>
+                    <option value="">-- Seleccionar --</option>
+                    <option value="Departamento" selected>Departamento</option>
+                    <option value="Casa">Casa</option>
+                    <option value="Terreno / Lote">Terreno / Lote</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="direccion">Dirección</label>
+                <input type="text" id="direccion" name="direccion" value="Av. Principal 123">
+            </div>
+
+            <div class="form-group">
+                <label for="dormitorios">Dormitorios</label>
+                <input type="number" id="dormitorios" name="dormitorios" value="3">
+            </div>
+
+            <div class="form-group">
+                <label for="banos">Baños</label>
+                <input type="number" id="banos" name="banos" value="2">
+            </div>
+
+            <div class="form-group">
+                <label for="area">Área (m²)</label>
+                <input type="number" id="area" name="area" value="120">
+            </div>
+
+            <div class="form-group">
+                <label for="amenidades">Amenidades (JSON Array)</label>
+                <input type="text" id="amenidades" name="amenidades" value='["Piscina","Gimnasio","Estacionamiento"]' placeholder='["item1","item2"]'>
+            </div>
+
+            <div class="form-group">
+                <label for="image">Imagen (opcional)</label>
+                <input type="file" id="image" name="imagen_1" accept="image/*">
+                <small style="color: #999;">No es obligatorio para este test</small>
+            </div>
+
+            <div class="button-group">
+                <button type="button" class="btn-test" onclick="testDebugEndpoint()">
+                    🚀 Test Debug Endpoint
+                </button>
+                <button type="button" class="btn-test" onclick="testCreateEndpoint()" style="background: #3b82f6;">
+                    ✨ Test Create Endpoint
+                </button>
+                <button type="button" class="btn-clear" onclick="clearForm()">
+                    🗑️ Limpiar
+                </button>
+            </div>
+        </form>
+
+        <div id="status" class="status"></div>
+        <div id="output" class="output"></div>
+    </div>
+
+    <script>
+        const outputEl = document.getElementById('output');
+        const statusEl = document.getElementById('status');
+        const apiUrl = 'http://127.0.0.1:8787';
+
+        function setStatus(message, type = 'info') {
+            statusEl.textContent = message;
+            statusEl.className = `status show ${type}`;
+        }
+
+        function setOutput(data, isError = false) {
+            outputEl.textContent = JSON.stringify(data, null, 2);
+            outputEl.className = `output ${isError ? 'error' : 'success'}`;
+        }
+
+        async function testDebugEndpoint() {
+            try {
+                setStatus('Enviando a /api/propiedades/debug/formdata...', 'loading');
+                
+                const form = document.getElementById('testForm');
+                const formData = new FormData(form);
+
+                // Log de lo que se envía
+                console.log('📤 Enviando FormData:', {
+                    fields: [...formData.entries()].filter(([k, v]) => !(v instanceof File)).map(([k, v]) => [k, v]),
+                    files: [...formData.entries()].filter(([k, v]) => v instanceof File).map(([k, v]) => [k, v.name])
+                });
+
+                const response = await fetch(`${apiUrl}/api/propiedades/debug/formdata`, {
+                    method: 'POST',
+                    body: formData  // FormData se envía sin Content-Type (navegador lo pone automaticamente)
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    setStatus(`❌ Error HTTP ${response.status}`, 'error');
+                    setOutput(data, true);
+                    return;
+                }
+
+                setStatus('✅ FormData recibido correctamente por debug endpoint', 'success');
+                setOutput(data, false);
+            } catch (err) {
+                setStatus(`❌ Error: ${err.message}`, 'error');
+                setOutput({ error: err.message }, true);
+            }
+        }
+
+        async function testCreateEndpoint() {
+            try {
+                setStatus('Enviando a /api/propiedades (CREATE)...', 'loading');
+                
+                const form = document.getElementById('testForm');
+                const formData = new FormData(form);
+
+                // Verificar que tiene imagen
+                const hasImage = formData.get('imagen_1');
+                if (!hasImage) {
+                    setStatus('⚠️ Se requiere seleccionar una imagen para crear propiedad', 'error');
+                    return;
+                }
+
+                const response = await fetch(`${apiUrl}/api/propiedades`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    setStatus(`❌ Error HTTP ${response.status}`, 'error');
+                    setOutput(data, true);
+                    return;
+                }
+
+                setStatus('✅ Propiedad creada exitosamente', 'success');
+                setOutput(data, false);
+            } catch (err) {
+                setStatus(`❌ Error: ${err.message}`, 'error');
+                setOutput({ error: err.message }, true);
+            }
+        }
+
+        function clearForm() {
+            document.getElementById('testForm').reset();
+            outputEl.textContent = '';
+            statusEl.textContent = '';
+            statusEl.className = 'status';
+        }
+    </script>
+</body>
+</html>

@@ -32,6 +32,9 @@ export function actualizarPropiedadDto(raw) {
   if (Array.isArray(raw.imagenes)) dto.imagenes = raw.imagenes;
 
   if (raw.activo        !== undefined) dto.activo        = Boolean(raw.activo);
+  if (raw.recomendado        !== undefined) dto.recomendado        = raw.recomendado === 'true' || raw.recomendado === true;
+  if (raw.recomendadoEtiqueta !== undefined) dto.recomendadoEtiqueta = String(raw.recomendadoEtiqueta).trim().slice(0, 30);
+  if (raw.recomendadoColor    !== undefined) dto.recomendadoColor    = String(raw.recomendadoColor).trim();
 
   return dto;
 }
