@@ -15,6 +15,7 @@ export function crearPropiedadDto(raw) {
 
     // Ubicación
     direccion:          String(raw.direccion          ?? '').trim(),
+    mapaUrl:            String(raw.mapaUrl            ?? '').trim(),
 
     // Amenidades
     amenidades:         (() => {

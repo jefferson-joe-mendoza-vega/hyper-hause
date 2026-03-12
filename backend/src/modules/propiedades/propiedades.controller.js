@@ -28,12 +28,23 @@ export class PropiedadesController {
   _formDataToObject(formData) {
     const obj = {};
     for (const [key, value] of formData.entries()) {
-      // Ignorar los campos de imagen (imagen_1 ... imagen_10)
+      // Ignorar los campos de imagen y etiqueta (imagen_1 ... imagen_10, etiqueta_1 ... etiqueta_10)
       if (/^imagen_\d+$/.test(key)) continue;
+      if (/^etiqueta_\d+$/.test(key)) continue;
       if (value instanceof File) continue;
       obj[key] = value;
     }
     return obj;
+  }
+
+  _extractEtiquetas(formData) {
+    const etiquetas = [];
+    for (let i = 1; i <= 10; i++) {
+      const val = formData.get(`etiqueta_${i}`);
+      if (val !== null) etiquetas.push(String(val).trim());
+      else break;
+    }
+    return etiquetas;
   }
 
   // GET /api/propiedades
@@ -72,11 +83,13 @@ export class PropiedadesController {
     const { files, error: imgError } = extractImages(formData);
     if (imgError) return error(imgError, 422);
 
-    const imagenes = await uploadImages(files, this.env.IMGBB_API_KEY);
+    const imagenes    = await uploadImages(files, this.env.IMGBB_API_KEY);
+    const etiquetas   = this._extractEtiquetas(formData);
+    const imagenesConEtiqueta = imagenes.map((img, i) => ({ ...img, etiqueta: etiquetas[i] ?? '' }));
 
     // Extraer campos de texto del formData
     const body = this._formDataToObject(formData);
-    body.imagenes = imagenes;
+    body.imagenes = imagenesConEtiqueta;
 
     const created = await this.service.create(body);
     return json({ success: true, data: created }, 201);

@@ -52,6 +52,7 @@ export function createPropiedadModel(data) {
 
     // Ubicación
     direccion:          data.direccion          ?? '',
+    mapaUrl:            data.mapaUrl            ?? '',
 
     // Amenidades
     amenidades:         Array.isArray(data.amenidades) ? data.amenidades : [],

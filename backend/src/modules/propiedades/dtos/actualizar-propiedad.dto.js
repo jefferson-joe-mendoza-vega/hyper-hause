@@ -14,6 +14,7 @@ export function actualizarPropiedadDto(raw) {
 
   // Ubicación
   if (raw.direccion     !== undefined) dto.direccion     = String(raw.direccion).trim();
+  if (raw.mapaUrl       !== undefined) dto.mapaUrl       = String(raw.mapaUrl).trim();
 
   // Amenidades
   if (raw.amenidades !== undefined) {
