@@ -52,15 +52,21 @@ export function createPropiedadModel(data) {
 
     // Ubicación
     direccion:          data.direccion          ?? '',
-    distrito:           data.distrito           ?? '',
+
+    // Amenidades
+    amenidades:         Array.isArray(data.amenidades) ? data.amenidades : [],
 
     // Características
     dormitorios:        Number(data.dormitorios      ?? 0),
     banos:              Number(data.banos            ?? 0),
     estacionamientos:   Number(data.estacionamientos ?? 0),
+    area:               Number(data.area             ?? 0),
 
     // Imágenes (array de objetos { url, thumbUrl, deleteUrl })
     imagenes:           Array.isArray(data.imagenes) ? data.imagenes : [],
+
+    // Slug para URL pública (se genera después de crear en Firestore)
+    slug:               data.slug ?? '',
 
     activo:             data.activo             ?? true,
     creadoEn:           data.creadoEn           ?? new Date().toISOString(),

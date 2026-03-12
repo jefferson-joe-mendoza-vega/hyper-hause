@@ -1,5 +1,6 @@
 import { PropiedadesRepository } from './propiedades.repository.js';
 import { validatePropiedad }      from './propiedades.model.js';
+import { generateSlug }           from '../../common/utils/slugify.js';
 
 export class PropiedadesService {
   constructor(env) {
@@ -23,7 +24,23 @@ export class PropiedadesService {
   async create(data) {
     const errors = validatePropiedad(data);
     if (errors.length) throw new ValidationError(errors);
-    return this.repo.create(data);
+
+    // 1. Crear documento → Firestore genera el ID
+    const created = await this.repo.create(data);
+
+    // 2. Generar slug: "casa-moderna-san-isidro-xk92mn"
+    const slug = generateSlug(data.titulo, created.id);
+
+    // 3. Guardar slug en el documento
+    await this.repo.update(created.id, { slug });
+
+    return { ...created, slug };
+  }
+
+  async getBySlug(slug) {
+    const propiedad = await this.repo.findBySlug(slug);
+    if (!propiedad) throw new Error('Propiedad no encontrada.');
+    return propiedad;
   }
 
   async update(id, data) {

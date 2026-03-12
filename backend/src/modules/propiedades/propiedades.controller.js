@@ -58,6 +58,12 @@ export class PropiedadesController {
     return json({ success: true, data: propiedad });
   }
 
+  // GET /api/propiedades/slug/:slug
+  async getBySlug(request, { slug }) {
+    const propiedad = await this.service.getBySlug(slug);
+    return json({ success: true, data: propiedad });
+  }
+
   // POST /api/propiedades  (multipart/form-data)
   async create(request) {
     const formData = await request.formData();

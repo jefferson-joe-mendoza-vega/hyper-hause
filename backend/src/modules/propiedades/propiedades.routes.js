@@ -11,10 +11,13 @@ export function registerPropiedadesRoutes(router, env) {
   const ctrl = new PropiedadesController(env);
 
   // Listar / buscar
-  router.get('/api/propiedades',     (req, params) => ctrl.getAll(req, params));
+  router.get('/api/propiedades',              (req, params) => ctrl.getAll(req, params));
 
-  // Obtener por id
-  router.get('/api/propiedades/:id', (req, params) => ctrl.getById(req, params));
+  // Obtener por slug (ruta específica ANTES que /:id para evitar conflicto)
+  router.get('/api/propiedades/slug/:slug',   (req, params) => ctrl.getBySlug(req, params));
+
+  // Obtener por id (admin)
+  router.get('/api/propiedades/:id',          (req, params) => ctrl.getById(req, params));
 
   // Crear
   router.post('/api/propiedades',    (req, params) => ctrl.create(req, params));

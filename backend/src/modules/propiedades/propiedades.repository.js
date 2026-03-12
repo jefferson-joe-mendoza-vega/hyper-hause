@@ -27,6 +27,17 @@ export class PropiedadesRepository {
     return this.db.create(COLLECTION, model);
   }
 
+  /** Busca por el campo slug (para URLs públicas) */
+  async findBySlug(slug) {
+    const results = await this.db.query(
+      COLLECTION,
+      [{ field: 'slug', op: 'EQUAL', value: slug }],
+      null,
+      1
+    );
+    return results[0] ?? null;
+  }
+
   async update(id, data) {
     const partial = {
       ...data,

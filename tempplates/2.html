@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-
-<html lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -25,219 +25,218 @@
             },
         }
     </script>
-<title>Property Details View</title>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
-  </head>
+    <title>Detalles de la Propiedad</title>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
 <body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
-<!-- Sticky Top Navigation -->
-<nav class="sticky top-0 z-50 flex items-center bg-white/80 dark:bg-background-dark/80 backdrop-blur-md px-4 py-3 justify-between border-b border-slate-200 dark:border-slate-800">
-<div class="text-slate-900 dark:text-slate-100 flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer">
-<span class="material-symbols-outlined">arrow_back</span>
-</div>
-<h2 class="text-slate-900 dark:text-slate-100 text-base font-semibold leading-tight tracking-tight flex-1 text-center">Property Details</h2>
-<div class="flex items-center gap-2">
-<button class="flex size-10 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-<span class="material-symbols-outlined text-slate-900 dark:text-slate-100">share</span>
-</button>
-<button class="flex size-10 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-<span class="material-symbols-outlined text-slate-900 dark:text-slate-100">favorite</span>
-</button>
-</div>
-</nav>
-<main class="pb-32">
-<!-- Hero Image Gallery -->
-<div class="@container">
-<div class="@[480px]:px-4 @[480px]:py-4">
-<div class="w-full bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden bg-slate-200 dark:bg-slate-800 @[480px]:rounded-xl min-h-[45vh] relative" data-alt="Exterior view of a modern luxury apartment building" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC1X0jGWjfGgNjqkxEGvbsKDpyxFJDLhIcZOhQb_tprzBULxaTi14dMZcUvzP-zr5urSESxjylX7kE5BzjaTDpDiCkN-y5rp175WYhepX0klT0UXMAgDJdhbXgLUA7F65D6bmrp3o17dBR7DQIDG9LkTpQfR17tbGm__yfrF9B4let6pzo2ZeFsoVuQvLOwccDZaVUV33KMd8CfODiVUTqqJBSb3olGwxHgdQCaO--7b603iIFt-DyhDthvAK6UvFaVO8gCHQObo7s");'>
-<div class="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
-                        For Sale
+    <nav class="sticky top-0 z-50 flex items-center bg-white/80 dark:bg-background-dark/80 backdrop-blur-md px-4 py-3 justify-between border-b border-slate-200 dark:border-slate-800">
+        <div class="text-slate-900 dark:text-slate-100 flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer">
+            <span class="material-symbols-outlined">arrow_back</span>
+        </div>
+        <h2 class="text-slate-900 dark:text-slate-100 text-base font-semibold leading-tight tracking-tight flex-1 text-center">Detalles de la Propiedad</h2>
+        <div class="flex items-center gap-2">
+            <button class="flex size-10 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                <span class="material-symbols-outlined text-slate-900 dark:text-slate-100">share</span>
+            </button>
+            <button class="flex size-10 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                <span class="material-symbols-outlined text-slate-900 dark:text-slate-100">favorite</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="pb-32">
+        <div class="@container">
+            <div class="@[480px]:px-4 @[480px]:py-4">
+                <div class="w-full bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden bg-slate-200 dark:bg-slate-800 @[480px]:rounded-xl min-h-[45vh] relative" data-alt="Vista exterior de un edificio de apartamentos de lujo moderno" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC1X0jGWjfGgNjqkxEGvbsKDpyxFJDLhIcZOhQb_tprzBULxaTi14dMZcUvzP-zr5urSESxjylX7kE5BzjaTDpDiCkN-y5rp175WYhepX0klT0UXMAgDJdhbXgLUA7F65D6bmrp3o17dBR7DQIDG9LkTpQfR17tbGm__yfrF9B4let6pzo2ZeFsoVuQvLOwccDZaVUV33KMd8CfODiVUTqqJBSb3olGwxHgdQCaO--7b603iIFt-DyhDthvAK6UvFaVO8gCHQObo7s");'>
+                    <div class="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
+                        En Venta
                     </div>
-<div class="absolute bottom-4 right-4 bg-black/50 backdrop-blur-sm text-white text-xs px-3 py-1.5 rounded-lg flex items-center gap-1">
-<span class="material-symbols-outlined text-sm">photo_library</span>
+                    <div class="absolute bottom-4 right-4 bg-black/50 backdrop-blur-sm text-white text-xs px-3 py-1.5 rounded-lg flex items-center gap-1">
+                        <span class="material-symbols-outlined text-sm">photo_library</span>
                         1/12
                     </div>
-</div>
-</div>
-</div>
-<!-- Thumbnail Carousel -->
-<div class="flex overflow-y-auto [-ms-scrollbar-style:none] [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden">
-<div class="flex items-stretch px-4 py-4 gap-3">
-<div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-32">
-<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg border-2 border-primary" data-alt="Living room with floor to ceiling windows" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuACUrado0s5Tno6xtrXp5oh29u68b-eYrDWdiWW_3-A1lSg14S3H-ptBdjOEvoIdLWJBp72TbiQwJlDppT0pyg0KeyHOK0Z8cfBj34PAkra2fiyqMPcw0zPZP0oAf34pzJdBeDsTTBx9VJqdLt4xTSldJw2vfeVAc5px5gTGoPJf5A3xXwT9zig6CUZrgxVrcnw3ahK4SFh0BdMe-n44Z7R9-MCH19qBJL9j8SCbVuVQMvSuxaPR9G-bCbjKUrK9Y3zJDWA26GY-OE");'></div>
-<p class="text-slate-900 dark:text-slate-100 text-xs font-medium text-center">Living Room</p>
-</div>
-<div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-32">
-<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg" data-alt="Gourmet kitchen with marble island" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuARC4Y5Vpg2eiHyZmjTEYoy4sAticHh3WzUmPQgTV5BIc7-T06-rZzroQny5a1Lhwr-GFmyTuHr8cvNkmIfsBgwPvGSvpi3Ju5oSgbDMIiE_vdQeRFE6nHwc-Wna7et8IE_KsoUM2JX7h7FiiA33-YtTWHMUY4pmUvAc9jvgblRcxNk5vqan7iinBqMO4K50gUW_4CrhO8sJNUhGF7m461xtbSSF_lWXhjSNHloRbkDXZCfj62ZJ2to_RO__FyIiv6Tq6_-r2Ozf_o");'></div>
-<p class="text-slate-600 dark:text-slate-400 text-xs font-medium text-center">Kitchen</p>
-</div>
-<div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-32">
-<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg" data-alt="Spacious primary bedroom suite" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBciKjqRsUNCTYeQ6RGReXOnHxKeZ165GW-AIEXuRx9Lja49zFsXC8VgfM-CVy7XclBIkbuB5-h4DeKdZpwfmB9kyQ0wXSMgX180cLc-olVKRQsquifmuJGFTH70REOe37cE97NbT89bjpeq8_rcsCaT_IjG4AfsYh95vIk0_wr_tFq_iLnsttWNgWChFRobgnLsns4Cmwfz8qKGA9tLUEsnjp5maWaRyp8_zfCUI2nWnsoTIQHJuv_kggTAaSjiwM_UL_8xWItB_E");'></div>
-<p class="text-slate-600 dark:text-slate-400 text-xs font-medium text-center">Master Suite</p>
-</div>
-<div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-32">
-<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg" data-alt="Modern bathroom with spa features" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBTV_UKfxCQ-zzam2V3ma5sj-Zn4Isw157cXCVFFEBj2taf-dL14Mpv8h7wk6dz9DAp5vFEc8jTFdMMTwAguaoUyNbscjaOH1ClJUoyswtt7cTSaOQrJw5_-ZdeYRilSWIGubS3hz3fI2R2elz2QiO_rkhs0XAkUFF42-fB_t90VaZyBHrN9Iawd_54kvfSyHhnEDgqLrCRMSRXrZjIA4tdMD8nPbHQzLYBV-YT9usKsh96Qe8Y-0Gel62Qnr8AqEoxBbGsLZdYN4M");'></div>
-<p class="text-slate-600 dark:text-slate-400 text-xs font-medium text-center">Bathrooms</p>
-</div>
-</div>
-</div>
-<!-- Title and Price Section -->
-<div class="px-4 pt-2">
-<div class="flex justify-between items-start mb-2">
-<div>
-<span class="inline-block bg-primary/10 text-primary dark:bg-primary/20 text-xs font-semibold px-2 py-0.5 rounded mb-2">Apartment</span>
-<h1 class="text-slate-900 dark:text-slate-100 text-2xl font-bold leading-tight tracking-tight">Modern Luxury Apartment</h1>
-<p class="text-slate-500 dark:text-slate-400 text-sm mt-1 flex items-center gap-1">
-<span class="material-symbols-outlined text-sm">location_on</span>
-                        Upper East Side, New York, NY
+                </div>
+            </div>
+        </div>
+
+        <div class="flex overflow-y-auto [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div class="flex items-stretch px-4 py-4 gap-3">
+                <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-32">
+                    <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg border-2 border-primary" data-alt="Sala de estar con ventanales de piso a techo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuACUrado0s5Tno6xtrXp5oh29u68b-eYrDWdiWW_3-A1lSg14S3H-ptBdjOEvoIdLWJBp72TbiQwJlDppT0pyg0KeyHOK0Z8cfBj34PAkra2fiyqMPcw0zPZP0oAf34pzJdBeDsTTBx9VJqdLt4xTSldJw2vfeVAc5px5gTGoPJf5A3xXwT9zig6CUZrgxVrcnw3ahK4SFh0BdMe-n44Z7R9-MCH19qBJL9j8SCbVuVQMvSuxaPR9G-bCbjKUrK9Y3zJDWA26GY-OE");'></div>
+                    <p class="text-slate-900 dark:text-slate-100 text-xs font-medium text-center">Sala de Estar</p>
+                </div>
+                <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-32">
+                    <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg" data-alt="Cocina gourmet con isla de mármol" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuARC4Y5Vpg2eiHyZmjTEYoy4sAticHh3WzUmPQgTV5BIc7-T06-rZzroQny5a1Lhwr-GFmyTuHr8cvNkmIfsBgwPvGSvpi3Ju5oSgbDMIiE_vdQeRFE6nHwc-Wna7et8IE_KsoUM2JX7h7FiiA33-YtTWHMUY4pmUvAc9jvgblRcxNk5vqan7iinBqMO4K50gUW_4CrhO8sJNUhGF7m461xtbSSF_lWXhjSNHloRbkDXZCfj62ZJ2to_RO__FyIiv6Tq6_-r2Ozf_o");'></div>
+                    <p class="text-slate-600 dark:text-slate-400 text-xs font-medium text-center">Cocina</p>
+                </div>
+                <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-32">
+                    <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg" data-alt="Suite principal espaciosa" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBciKjqRsUNCTYeQ6RGReXOnHxKeZ165GW-AIEXuRx9Lja49zFsXC8VgfM-CVy7XclBIkbuB5-h4DeKdZpwfmB9kyQ0wXSMgX180cLc-olVKRQsquifmuJGFTH70REOe37cE97NbT89bjpeq8_rcsCaT_IjG4AfsYh95vIk0_wr_tFq_iLnsttWNgWChFRobgnLsns4Cmwfz8qKGA9tLUEsnjp5maWaRyp8_zfCUI2nWnsoTIQHJuv_kggTAaSjiwM_UL_8xWItB_E");'></div>
+                    <p class="text-slate-600 dark:text-slate-400 text-xs font-medium text-center">Suite Principal</p>
+                </div>
+                <div class="flex h-full flex-1 flex-col gap-2 rounded-lg min-w-32">
+                    <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg" data-alt="Baño moderno con spa" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBTV_UKfxCQ-zzam2V3ma5sj-Zn4Isw157cXCVFFEBj2taf-dL14Mpv8h7wk6dz9DAp5vFEc8jTFdMMTwAguaoUyNbscjaOH1ClJUoyswtt7cTSaOQrJw5_-ZdeYRilSWIGubS3hz3fI2R2elz2QiO_rkhs0XAkUFF42-fB_t90VaZyBHrN9Iawd_54kvfSyHhnEDgqLrCRMSRXrZjIA4tdMD8nPbHQzLYBV-YT9usKsh96Qe8Y-0Gel62Qnr8AqEoxBbGsLZdYN4M");'></div>
+                    <p class="text-slate-600 dark:text-slate-400 text-xs font-medium text-center">Baños</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="px-4 pt-2">
+            <div class="flex justify-between items-start mb-2">
+                <div>
+                    <span class="inline-block bg-primary/10 text-primary dark:bg-primary/20 text-xs font-semibold px-2 py-0.5 rounded mb-2">Apartamento</span>
+                    <h1 class="text-slate-900 dark:text-slate-100 text-2xl font-bold leading-tight tracking-tight">Apartamento de Lujo Moderno</h1>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm mt-1 flex items-center gap-1">
+                        <span class="material-symbols-outlined text-sm">location_on</span>
+                        Upper East Side, Nueva York, NY
                     </p>
-</div>
-<div class="text-right">
-<p class="text-primary text-2xl font-bold">$2,450,000</p>
-<p class="text-slate-500 dark:text-slate-400 text-xs mt-1">$1,850 / sqft</p>
-</div>
-</div>
-</div>
-<!-- Key Features Grid -->
-<div class="px-4 py-6 grid grid-cols-4 gap-2 border-y border-slate-100 dark:border-slate-800 my-6">
-<div class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 dark:bg-slate-900/50">
-<span class="material-symbols-outlined text-primary mb-1">bed</span>
-<span class="text-slate-900 dark:text-slate-100 text-sm font-bold">3</span>
-<span class="text-slate-500 dark:text-slate-400 text-[10px] uppercase font-semibold">Beds</span>
-</div>
-<div class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 dark:bg-slate-900/50">
-<span class="material-symbols-outlined text-primary mb-1">bathtub</span>
-<span class="text-slate-900 dark:text-slate-100 text-sm font-bold">2.5</span>
-<span class="text-slate-500 dark:text-slate-400 text-[10px] uppercase font-semibold">Baths</span>
-</div>
-<div class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 dark:bg-slate-900/50">
-<span class="material-symbols-outlined text-primary mb-1">square_foot</span>
-<span class="text-slate-900 dark:text-slate-100 text-sm font-bold">1,324</span>
-<span class="text-slate-500 dark:text-slate-400 text-[10px] uppercase font-semibold">Sqft</span>
-</div>
-<div class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 dark:bg-slate-900/50">
-<span class="material-symbols-outlined text-primary mb-1">local_parking</span>
-<span class="text-slate-900 dark:text-slate-100 text-sm font-bold">1</span>
-<span class="text-slate-500 dark:text-slate-400 text-[10px] uppercase font-semibold">Parking</span>
-</div>
-</div>
-<!-- Description Section -->
-<section class="px-4 mb-8">
-<h3 class="text-slate-900 dark:text-slate-100 text-lg font-bold mb-3">Property Description</h3>
-<p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                Experience unparalleled luxury in this meticulously designed 3-bedroom, 2.5-bathroom apartment. Located in the heart of the Upper East Side, this residence offers breathtaking city views and premium finishes throughout. 
+                </div>
+                <div class="text-right">
+                    <p class="text-primary text-2xl font-bold">$2,450,000</p>
+                    <p class="text-slate-500 dark:text-slate-400 text-xs mt-1">$1,850 / pie²</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="px-4 py-6 grid grid-cols-4 gap-2 border-y border-slate-100 dark:border-slate-800 my-6">
+            <div class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 dark:bg-slate-900/50">
+                <span class="material-symbols-outlined text-primary mb-1">bed</span>
+                <span class="text-slate-900 dark:text-slate-100 text-sm font-bold">3</span>
+                <span class="text-slate-500 dark:text-slate-400 text-[10px] uppercase font-semibold">Hab.</span>
+            </div>
+            <div class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 dark:bg-slate-900/50">
+                <span class="material-symbols-outlined text-primary mb-1">bathtub</span>
+                <span class="text-slate-900 dark:text-slate-100 text-sm font-bold">2.5</span>
+                <span class="text-slate-500 dark:text-slate-400 text-[10px] uppercase font-semibold">Baños</span>
+            </div>
+            <div class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 dark:bg-slate-900/50">
+                <span class="material-symbols-outlined text-primary mb-1">square_foot</span>
+                <span class="text-slate-900 dark:text-slate-100 text-sm font-bold">1,324</span>
+                <span class="text-slate-500 dark:text-slate-400 text-[10px] uppercase font-semibold">Pies²</span>
+            </div>
+            <div class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 dark:bg-slate-900/50">
+                <span class="material-symbols-outlined text-primary mb-1">local_parking</span>
+                <span class="text-slate-900 dark:text-slate-100 text-sm font-bold">1</span>
+                <span class="text-slate-500 dark:text-slate-400 text-[10px] uppercase font-semibold">Parking</span>
+            </div>
+        </div>
+
+        <section class="px-4 mb-8">
+            <h3 class="text-slate-900 dark:text-slate-100 text-lg font-bold mb-3">Descripción de la Propiedad</h3>
+            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                Experimente un lujo inigualable en este apartamento meticulosamente diseñado de 3 habitaciones y 2.5 baños. Ubicado en el corazón del Upper East Side, esta residencia ofrece impresionantes vistas de la ciudad y acabados de primera calidad en todas sus áreas.
             </p>
-<p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mt-3">
-                The open-concept living area features wide-plank oak flooring and oversized windows that flood the space with natural light. The chef-inspired kitchen is equipped with Sub-Zero appliances and custom cabinetry.
+            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mt-3">
+                El área de estar de concepto abierto cuenta con pisos de roble de tablones anchos y ventanales de gran tamaño que inundan el espacio con luz natural. La cocina de inspiración gourmet está equipada con electrodomésticos Sub-Zero y gabinetes a medida.
             </p>
-<button class="text-primary font-semibold text-sm mt-3 flex items-center gap-1">
-                Read more <span class="material-symbols-outlined text-sm">keyboard_arrow_down</span>
-</button>
-</section>
-<!-- Amenities Section -->
-<section class="px-4 mb-8">
-<h3 class="text-slate-900 dark:text-slate-100 text-lg font-bold mb-4">Amenities</h3>
-<div class="grid grid-cols-2 gap-4">
-<div class="flex items-center gap-3">
-<div class="size-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
-<span class="material-symbols-outlined text-lg text-slate-700 dark:text-slate-300">fitness_center</span>
-</div>
-<span class="text-slate-700 dark:text-slate-300 text-sm">Fitness Center</span>
-</div>
-<div class="flex items-center gap-3">
-<div class="size-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
-<span class="material-symbols-outlined text-lg text-slate-700 dark:text-slate-300">deck</span>
-</div>
-<span class="text-slate-700 dark:text-slate-300 text-sm">Roof Deck</span>
-</div>
-<div class="flex items-center gap-3">
-<div class="size-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
-<span class="material-symbols-outlined text-lg text-slate-700 dark:text-slate-300">concierge</span>
-</div>
-<span class="text-slate-700 dark:text-slate-300 text-sm">24/7 Doorman</span>
-</div>
-<div class="flex items-center gap-3">
-<div class="size-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
-<span class="material-symbols-outlined text-lg text-slate-700 dark:text-slate-300">pets</span>
-</div>
-<span class="text-slate-700 dark:text-slate-300 text-sm">Pet Friendly</span>
-</div>
-</div>
-</section>
-<!-- Location Section -->
-<section class="px-4 mb-8">
-<div class="flex justify-between items-center mb-4">
-<h3 class="text-slate-900 dark:text-slate-100 text-lg font-bold">Location</h3>
-<span class="text-primary text-xs font-semibold uppercase tracking-tight">View Full Map</span>
-</div>
-<div class="w-full h-48 rounded-xl overflow-hidden relative bg-slate-200 dark:bg-slate-800" data-location="Upper East Side, New York" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAieZMXTz9pBm6_AI39mVtPC98Z_FbHkUzsX145jIx6FzzJj1EcCzA07ZvBkH0L-7EA6zqxymK7-7Wq3ipSNjHIF1YttN5RkqLPsOXADWYfwyoNou6jSx-gVTPnTclYFn4chULYiV2SqKudhONsP7XkNLEz3YEJsZWCECGL2fmCCJ30USnDAZAQuBUBWCtxs8uTLZ812f-n8R4SBH2HTGU2xFMGURbBtZd2nqBF38Gzgx078Qod17BKX6Eha_TeOe1qzIF85FhMJVY'); background-size: cover; background-position: center;">
-<div class="absolute inset-0 flex items-center justify-center">
-<div class="size-10 bg-primary/20 rounded-full flex items-center justify-center animate-pulse">
-<div class="size-4 bg-primary rounded-full border-2 border-white shadow-lg"></div>
-</div>
-</div>
-</div>
-<div class="mt-4 flex items-start gap-3 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl">
-<span class="material-symbols-outlined text-slate-400">directions_walk</span>
-<div>
-<p class="text-slate-900 dark:text-slate-100 text-sm font-semibold">Highly Walkable</p>
-<p class="text-slate-500 dark:text-slate-400 text-xs">Walking distance to Central Park and museum mile.</p>
-</div>
-</div>
-</section>
-</main>
-<!-- Bottom Action Bar -->
-<div class="fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 px-4 pt-3 pb-8">
-<div class="flex items-center gap-4">
-<div class="flex flex-col">
-<p class="text-slate-500 dark:text-slate-400 text-[10px] uppercase font-bold tracking-wider">Contact Agent</p>
-<div class="flex items-center gap-2 mt-1">
-<div class="size-8 rounded-full overflow-hidden bg-slate-100 dark:bg-slate-800" data-alt="Real estate agent headshot" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDHU-eBNPUTUHwF9n0W76KMsBHpRxloQwXNmqYF_SW38y0VfJ_jzhiHYoSmcFA4c2eLgpHh7ooLWiz0q0frH_x5J8843J3AbCDneJSkr6A5YTfcMbnTJm5QIGnYKTkngtMqhz5oMiMWbbNz4DBssJaYF3NXx-32dPqcHimqyfOo8Gp-_NoBU-FZcFtv4RQZkNzdjRbGJ_FqpkOngqfKeNGLPeLRkNef48UpsP8xTNhr-x9ZXPwNqLN642YolYj4r4qMGf6wJPAlIV8'); background-size: cover;">
-</div>
-<span class="text-slate-900 dark:text-slate-100 text-sm font-semibold">David Wilson</span>
-</div>
-</div>
-<div class="flex-1 flex gap-2">
-<button class="flex-1 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 font-bold py-3 rounded-xl text-sm transition-colors flex items-center justify-center gap-2">
-<span class="material-symbols-outlined text-lg">mail</span>
-                    Inquire
+            <button class="text-primary font-semibold text-sm mt-3 flex items-center gap-1">
+                Leer más <span class="material-symbols-outlined text-sm">keyboard_arrow_down</span>
+            </button>
+        </section>
+
+        <section class="px-4 mb-8">
+            <h3 class="text-slate-900 dark:text-slate-100 text-lg font-bold mb-4">Amenidades</h3>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="size-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-lg text-slate-700 dark:text-slate-300">fitness_center</span>
+                    </div>
+                    <span class="text-slate-700 dark:text-slate-300 text-sm">Gimnasio</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="size-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-lg text-slate-700 dark:text-slate-300">deck</span>
+                    </div>
+                    <span class="text-slate-700 dark:text-slate-300 text-sm">Terraza</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="size-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-lg text-slate-700 dark:text-slate-300">concierge</span>
+                    </div>
+                    <span class="text-slate-700 dark:text-slate-300 text-sm">Portero 24/7</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="size-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-lg text-slate-700 dark:text-slate-300">pets</span>
+                    </div>
+                    <span class="text-slate-700 dark:text-slate-300 text-sm">Mascotas Permitidas</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="px-4 mb-8">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-slate-900 dark:text-slate-100 text-lg font-bold">Ubicación</h3>
+                <span class="text-primary text-xs font-semibold uppercase tracking-tight">Ver Mapa Completo</span>
+            </div>
+            <div class="w-full h-48 rounded-xl overflow-hidden relative bg-slate-200 dark:bg-slate-800" data-location="Upper East Side, New York" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAieZMXTz9pBm6_AI39mVtPC98Z_FbHkUzsX145jIx6FzzJj1EcCzA07ZvBkH0L-7EA6zqxymK7-7Wq3ipSNjHIF1YttN5RkqLPsOXADWYfwyoNou6jSx-gVTPnTclYFn4chULYiV2SqKudhONsP7XkNLEz3YEJsZWCECGL2fmCCJ30USnDAZAQuBUBWCtxs8uTLZ812f-n8R4SBH2HTGU2xFMGURbBtZd2nqBF38Gzgx078Qod17BKX6Eha_TeOe1qzIF85FhMJVY'); background-size: cover; background-position: center;">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="size-10 bg-primary/20 rounded-full flex items-center justify-center animate-pulse">
+                        <div class="size-4 bg-primary rounded-full border-2 border-white shadow-lg"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4 flex items-start gap-3 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl">
+                <span class="material-symbols-outlined text-slate-400">directions_walk</span>
+                <div>
+                    <p class="text-slate-900 dark:text-slate-100 text-sm font-semibold">Excelente para caminar</p>
+                    <p class="text-slate-500 dark:text-slate-400 text-xs">A poca distancia de Central Park y la milla de los museos.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 px-4 pt-3 pb-8">
+        <div class="flex items-center gap-4">
+            <div class="flex flex-col">
+                <p class="text-slate-500 dark:text-slate-400 text-[10px] uppercase font-bold tracking-wider">Contactar Agente</p>
+                <div class="flex items-center gap-2 mt-1">
+                    <div class="size-8 rounded-full overflow-hidden bg-slate-100 dark:bg-slate-800" data-alt="Foto del agente" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDHU-eBNPUTUHwF9n0W76KMsBHpRxloQwXNmqYF_SW38y0VfJ_jzhiHYoSmcFA4c2eLgpHh7ooLWiz0q0frH_x5J8843J3AbCDneJSkr6A5YTfcMbnTJm5QIGnYKTkngtMqhz5oMiMWbbNz4DBssJaYF3NXx-32dPqcHimqyfOo8Gp-_NoBU-FZcFtv4RQZkNzdjRbGJ_FqpkOngqfKeNGLPeLRkNef48UpsP8xTNhr-x9ZXPwNqLN642YolYj4r4qMGf6wJPAlIV8'); background-size: cover;">
+                    </div>
+                    <span class="text-slate-900 dark:text-slate-100 text-sm font-semibold">David Wilson</span>
+                </div>
+            </div>
+            <div class="flex-1 flex gap-2">
+                <button class="flex-1 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 font-bold py-3 rounded-xl text-sm transition-colors flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-lg">mail</span>
+                    Consultar
                 </button>
-<button class="flex-[1.5] bg-primary text-white font-bold py-3 rounded-xl text-sm shadow-lg shadow-primary/20 transition-transform active:scale-95 flex items-center justify-center gap-2">
-<span class="material-symbols-outlined text-lg">event_available</span>
-                    Book Visit
+                <button class="flex-[1.5] bg-primary text-white font-bold py-3 rounded-xl text-sm shadow-lg shadow-primary/20 transition-transform active:scale-95 flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-lg">event_available</span>
+                    Agendar Visita
                 </button>
-</div>
-</div>
-</div>
-<!-- Mobile Navigation Tab Bar (Component Integration) -->
-<div class="fixed bottom-0 hidden">
-<!-- Kept here for structure but visually hidden since this is a detail view -->
-<div class="relative flex h-auto min-h-screen w-full flex-col bg-white group/design-root overflow-x-hidden">
-<div class="flex gap-2 border-t border-[#f0f2f4] bg-white px-4 pb-3 pt-2">
-<a class="just flex flex-1 flex-col items-center justify-end gap-1 rounded-full text-[#111418]" href="#">
-<span class="material-symbols-outlined">explore</span>
-<p class="text-[#111418] text-xs font-medium">Explore</p>
-</a>
-<a class="just flex flex-1 flex-col items-center justify-end gap-1 text-[#617589]" href="#">
-<span class="material-symbols-outlined">favorite</span>
-<p class="text-[#617589] text-xs font-medium">Saved</p>
-</a>
-<a class="just flex flex-1 flex-col items-center justify-end gap-1 text-[#617589]" href="#">
-<span class="material-symbols-outlined">search</span>
-<p class="text-[#617589] text-xs font-medium">Search</p>
-</a>
-<a class="just flex flex-1 flex-col items-center justify-end gap-1 text-[#617589]" href="#">
-<span class="material-symbols-outlined">mail</span>
-<p class="text-[#617589] text-xs font-medium">Inbox</p>
-</a>
-<a class="just flex flex-1 flex-col items-center justify-end gap-1 text-[#617589]" href="#">
-<span class="material-symbols-outlined">person</span>
-<p class="text-[#617589] text-xs font-medium">Profile</p>
-</a>
-</div>
-</div>
-</div>
-</body></html>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed bottom-0 hidden">
+        <div class="relative flex h-auto min-h-screen w-full flex-col bg-white group/design-root overflow-x-hidden">
+            <div class="flex gap-2 border-t border-[#f0f2f4] bg-white px-4 pb-3 pt-2">
+                <a class="just flex flex-1 flex-col items-center justify-end gap-1 rounded-full text-[#111418]" href="#">
+                    <span class="material-symbols-outlined">explore</span>
+                    <p class="text-[#111418] text-xs font-medium">Explorar</p>
+                </a>
+                <a class="just flex flex-1 flex-col items-center justify-end gap-1 text-[#617589]" href="#">
+                    <span class="material-symbols-outlined">favorite</span>
+                    <p class="text-[#617589] text-xs font-medium">Guardados</p>
+                </a>
+                <a class="just flex flex-1 flex-col items-center justify-end gap-1 text-[#617589]" href="#">
+                    <span class="material-symbols-outlined">search</span>
+                    <p class="text-[#617589] text-xs font-medium">Buscar</p>
+                </a>
+                <a class="just flex flex-1 flex-col items-center justify-end gap-1 text-[#617589]" href="#">
+                    <span class="material-symbols-outlined">mail</span>
+                    <p class="text-[#617589] text-xs font-medium">Inbox</p>
+                </a>
+                <a class="just flex flex-1 flex-col items-center justify-end gap-1 text-[#617589]" href="#">
+                    <span class="material-symbols-outlined">person</span>
+                    <p class="text-[#617589] text-xs font-medium">Perfil</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -14,12 +14,18 @@ export function actualizarPropiedadDto(raw) {
 
   // Ubicación
   if (raw.direccion     !== undefined) dto.direccion     = String(raw.direccion).trim();
-  if (raw.distrito      !== undefined) dto.distrito      = String(raw.distrito).trim();
+
+  // Amenidades
+  if (raw.amenidades !== undefined) {
+    if (Array.isArray(raw.amenidades)) dto.amenidades = raw.amenidades;
+    else if (typeof raw.amenidades === 'string') { try { const p = JSON.parse(raw.amenidades); if (Array.isArray(p)) dto.amenidades = p; } catch {} }
+  }
 
   // Características
   if (raw.dormitorios      !== undefined) dto.dormitorios      = Number(raw.dormitorios);
   if (raw.banos            !== undefined) dto.banos            = Number(raw.banos);
   if (raw.estacionamientos !== undefined) dto.estacionamientos = Number(raw.estacionamientos);
+  if (raw.area             !== undefined) dto.area             = Number(raw.area);
 
   // Imágenes
   if (Array.isArray(raw.imagenes)) dto.imagenes = raw.imagenes;

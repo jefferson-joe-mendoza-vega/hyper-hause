@@ -15,12 +15,19 @@ export function crearPropiedadDto(raw) {
 
     // Ubicación
     direccion:          String(raw.direccion          ?? '').trim(),
-    distrito:           String(raw.distrito           ?? '').trim(),
+
+    // Amenidades
+    amenidades:         (() => {
+      if (Array.isArray(raw.amenidades)) return raw.amenidades;
+      if (typeof raw.amenidades === 'string') { try { const p = JSON.parse(raw.amenidades); return Array.isArray(p) ? p : []; } catch { return []; } }
+      return [];
+    })(),
 
     // Características
     dormitorios:        Number(raw.dormitorios        ?? 0),
     banos:              Number(raw.banos              ?? 0),
     estacionamientos:   Number(raw.estacionamientos   ?? 0),
+    area:               Number(raw.area               ?? 0),
 
     // Imágenes — se asignan después de subir a ImgBB
     imagenes:           Array.isArray(raw.imagenes) ? raw.imagenes : []
