@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#fff200",
+                        "background-light": "#f8f8f5",
+                        "background-dark": "#23220f",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Public Sans', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+<header class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/10">
+<div class="flex items-center p-4 justify-between max-w-2xl mx-auto w-full">
+<button class="text-slate-900 dark:text-slate-100 flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="text-lg font-bold leading-tight tracking-tight flex-1 text-center pr-10 uppercase">Plan de Gobierno</h1>
+</div>
+</header>
+<main class="flex-1 w-full max-w-2xl mx-auto pb-24">
+<div class="p-6 flex flex-col items-center text-center">
+<div class="relative mb-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-28 border-4 border-primary ring-4 ring-primary/20" data-alt="Retrato oficial del candidato presidencial Royer Ferrer" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCo1s0use79km8HsjGH5VSSVBU_yBS__3psukPjl0gIofGAsvbqJSefy7YTxGVUKslfQA3-TQyKwttGo0KrHxoYInVWfoyx2nQpUWz79ZWmrx9QGY1dUgH-7H16c8Ge2jLxssU9FnSm-TQXskLckLmeo1wa-TYBuvhSNMLcXV_hCMLIiaAs9w1mymyR98oETCdh_Mhaa4prIwisrIk_SJiRD_DYA7tE_BqSV4ocnWYil0b9QWZ7LBFU2xvkE1rGFS-lk_nFrDs2IN4");'>
+</div>
+<div class="absolute -bottom-2 right-0 bg-primary text-background-dark text-[10px] font-bold px-2 py-1 rounded-full uppercase">Candidato</div>
+</div>
+<h2 class="text-2xl font-bold tracking-tight">Royer Ferrer</h2>
+<p class="text-primary font-medium text-sm mt-1 uppercase tracking-wider">Propuestas para el Cambio Real</p>
+</div>
+<div class="px-4 mb-6">
+<div class="bg-primary/10 border-l-4 border-primary p-4 rounded-r-lg">
+<p class="text-sm font-medium italic opacity-90">"Nuestra visión es transformar el país con orden, justicia social y desarrollo sostenible para cada familia."</p>
+</div>
+</div>
+<section class="px-4 space-y-4">
+<div class="bg-white dark:bg-primary/5 rounded-xl border border-primary/10 overflow-hidden shadow-sm">
+<div class="p-4 flex items-center gap-4 border-b border-primary/5">
+<div class="size-12 rounded-lg bg-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-background-dark text-2xl">shield</span>
+</div>
+<div>
+<h3 class="font-bold text-lg">Seguridad Ciudadana</h3>
+<p class="text-xs text-primary/80 font-medium uppercase tracking-tighter">Justicia y Orden</p>
+</div>
+</div>
+<div class="p-4 bg-background-light/50 dark:bg-transparent">
+<ul class="space-y-3">
+<li class="flex gap-3 text-sm">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Fortalecimiento de la seguridad ciudadana con tecnología de vigilancia integrada.</span>
+</li>
+<li class="flex gap-3 text-sm">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Reforma integral del sistema judicial para procesos más ágiles y transparentes.</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="bg-white dark:bg-primary/5 rounded-xl border border-primary/10 overflow-hidden shadow-sm">
+<div class="p-4 flex items-center gap-4 border-b border-primary/5">
+<div class="size-12 rounded-lg bg-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-background-dark text-2xl">trending_up</span>
+</div>
+<div>
+<h3 class="font-bold text-lg">Economía y Desarrollo</h3>
+<p class="text-xs text-primary/80 font-medium uppercase tracking-tighter">Turismo y Mypes</p>
+</div>
+</div>
+<div class="p-4 bg-background-light/50 dark:bg-transparent">
+<ul class="space-y-3">
+<li class="flex gap-3 text-sm">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Incentivos fiscales para la formalización de Mypes y nuevos emprendimientos.</span>
+</li>
+<li class="flex gap-3 text-sm">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Impulso masivo al turismo interno como motor de reactivación económica local.</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="bg-white dark:bg-primary/5 rounded-xl border border-primary/10 overflow-hidden shadow-sm">
+<div class="p-4 flex items-center gap-4 border-b border-primary/5">
+<div class="size-12 rounded-lg bg-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-background-dark text-2xl">medical_services</span>
+</div>
+<div>
+<h3 class="font-bold text-lg">Educación y Salud</h3>
+<p class="text-xs text-primary/80 font-medium uppercase tracking-tighter">Salud y Pensiones</p>
+</div>
+</div>
+<div class="p-4 bg-background-light/50 dark:bg-transparent">
+<ul class="space-y-3">
+<li class="flex gap-3 text-sm">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Reconocimiento oficial y escalafón salarial para la formación académica continua.</span>
+</li>
+<li class="flex gap-3 text-sm">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Garantía de pensión mínima digna para todos los jubilados del sistema nacional.</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="bg-white dark:bg-primary/5 rounded-xl border border-primary/10 overflow-hidden shadow-sm">
+<div class="p-4 flex items-center gap-4 border-b border-primary/5">
+<div class="size-12 rounded-lg bg-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-background-dark text-2xl">eco</span>
+</div>
+<div>
+<h3 class="font-bold text-lg">Medio Ambiente</h3>
+<p class="text-xs text-primary/80 font-medium uppercase tracking-tighter">Conservación Natural</p>
+</div>
+</div>
+<div class="p-4 bg-background-light/50 dark:bg-transparent">
+<ul class="space-y-3">
+<li class="flex gap-3 text-sm">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Protección estricta de bosques nativos y reforestación de cuencas hidrográficas.</span>
+</li>
+<li class="flex gap-3 text-sm">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Promoción de energías limpias y gestión responsable de residuos sólidos urbanos.</span>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<div class="mt-12 p-8 flex flex-col items-center border-t border-primary/10 bg-primary/5">
+<div class="bg-primary text-background-dark font-black px-4 py-2 text-2xl italic tracking-tighter mb-2">
+                FERRER 2024
+            </div>
+<p class="text-xs opacity-60 font-medium uppercase tracking-[0.2em]">Partido por el Cambio Nacional</p>
+</div>
+</main>
+<nav class="fixed bottom-0 left-0 right-0 z-50 bg-background-light dark:bg-background-dark border-t border-primary/20 safe-area-pb">
+<div class="max-w-2xl mx-auto flex justify-around items-center h-16 px-4">
+<a class="flex flex-col items-center gap-1 text-slate-500 dark:text-slate-400" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[10px] font-bold uppercase">Inicio</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined">lightbulb</span>
+<span class="text-[10px] font-bold uppercase">Propuestas</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500 dark:text-slate-400" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="text-[10px] font-bold uppercase">Eventos</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500 dark:text-slate-400" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-bold uppercase">Perfil</span>
+</a>
+</div>
+</nav>
+</body></html>
