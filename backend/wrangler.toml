@@ -11,4 +11,4 @@ ENVIRONMENT = "development"
 
 # CORS headers
 [env.production]
-vars = { ENVIRONMENT = "production" }
+vars = { ENVIRONMENT = "production", FIREBASE_PROJECT_ID = "hyper-hause" }

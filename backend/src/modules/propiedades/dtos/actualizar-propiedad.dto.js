@@ -27,6 +27,7 @@ export function actualizarPropiedadDto(raw) {
   if (raw.banos            !== undefined) dto.banos            = Number(raw.banos);
   if (raw.estacionamientos !== undefined) dto.estacionamientos = Number(raw.estacionamientos);
   if (raw.area             !== undefined) dto.area             = Number(raw.area);
+  if (raw.antiguedad       !== undefined) dto.antiguedad       = Number(raw.antiguedad);
 
   // Imágenes
   if (Array.isArray(raw.imagenes)) dto.imagenes = raw.imagenes;

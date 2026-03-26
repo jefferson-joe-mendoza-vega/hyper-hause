@@ -1,0 +1,15 @@
+DEPLOY RAPIDO (PRODUCTION)
+
+1) En backend/.dev.vars deben existir:
+	FIREBASE_API_KEY=...
+	IMGBB_API_KEY=...
+
+2) Ejecutar:
+	cd "c:\Users\jefferson\Desktop\WEBSBISSNES\hyper hause oficial\backend"
+	npm run deploy:production
+
+3) Probar backend:
+	Health:       https://hyper-hause-backend-production.aqualive.workers.dev/api
+	Propiedades:  https://hyper-hause-backend-production.aqualive.workers.dev/api/propiedades
+	Recomendadas: https://hyper-hause-backend-production.aqualive.workers.dev/api/propiedades/recomendadas?limit=10
+Set-Location "c:\Users\jefferson\Desktop\WEBSBISSNES\hyper hause oficial\backend"; npm run deploy:production; curl.exe -s -i "https://hyper-hause-backend-production.aqualive.workers.dev/api/propiedades/recomendadas?limit=10"

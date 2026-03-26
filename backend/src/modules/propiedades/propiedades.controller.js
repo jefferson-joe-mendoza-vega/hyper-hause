@@ -109,27 +109,67 @@ export class PropiedadesController {
 
   // PUT /api/propiedades/:id  (multipart/form-data o JSON)
   async update(request, { id }) {
-    const contentType = request.headers.get('content-type') ?? '';
-    let body;
+    try {
+      console.log(`📝 [UPDATE] Iniciando actualización de propiedad: ${id}`);
+      
+      const contentType = request.headers.get('content-type') ?? '';
+      let body;
 
-    if (contentType.includes('multipart/form-data')) {
-      const formData = await request.formData();
-      body = this._formDataToObject(formData);
+      if (contentType.includes('multipart/form-data')) {
+        console.log(`📝 [UPDATE] Parseando FormData...`);
+        const formData = await request.formData();
+        body = this._formDataToObject(formData);
+        console.log(`📝 [UPDATE] FormData parseado:`, Object.keys(body));
 
-      // Si envía imágenes nuevas, subirlas y reemplazar
-      const { files, error: imgError } = extractImages(formData);
-      if (imgError === null && files.length > 0) {
-        body.imagenes = await uploadImages(files, this.env.IMGBB_API_KEY);
+        // Extraer imágenes existentes si el usuario las mantiene
+        const imagenesExistentesStr = formData.get('imagenesExistentes');
+        let imagenesExistentes = [];
+        if (imagenesExistentesStr) {
+          try {
+            imagenesExistentes = JSON.parse(imagenesExistentesStr);
+            console.log(`📝 [UPDATE] Imágenes existentes encontradas: ${imagenesExistentes.length}`);
+          } catch (e) {
+            console.error('❌ [UPDATE] Error parsing imagenesExistentes:', e);
+          }
+        }
+
+        // Si envía imágenes nuevas, subirlas
+        // En UPDATE, imagen_1 NO es obligatoria (el usuario puede no agregar imágenes nuevas)
+        console.log(`📝 [UPDATE] Extrayendo imágenes nuevas...`);
+        const { files, error: imgError } = extractImages(formData);
+        let imagenesNuevas = [];
+        if (imgError) {
+          // En UPDATE es OK no tener imagen_1 (usuario no está agregando imágenes nuevas)
+          console.log(`⚠️  [UPDATE] Sin imágenes nuevas (${imgError})`);
+        } else if (files.length > 0) {
+          console.log(`📝 [UPDATE] Subiendo ${files.length} imágenes nuevas...`);
+          imagenesNuevas = await uploadImages(files, this.env.IMGBB_API_KEY);
+          console.log(`✅ [UPDATE] Imágenes subidas correctamente`);
+        }
+
+        // Combinar: imágenes existentes + nuevas
+        body.imagenes = [...imagenesExistentes, ...imagenesNuevas];
+        console.log(`📝 [UPDATE] Total imágenes finales: ${body.imagenes.length}`);
+      } else {
+        console.log(`📝 [UPDATE] Parseando JSON...`);
+        body = await request.json();
       }
-    } else {
-      body = await request.json();
+
+      // Aplicar DTO para limpiar/coercionar datos (incluyendo amenidades JSON parse)
+      console.log(`📝 [UPDATE] Aplicando DTO...`);
+      const dto = actualizarPropiedadDto(body);
+      console.log(`📝 [UPDATE] DTO aplicado:`, Object.keys(dto));
+
+      console.log(`📝 [UPDATE] Actualizando en BD...`);
+      const updated = await this.service.update(id, dto);
+      console.log(`✅ [UPDATE] Propiedad actualizada exitosamente`);
+      
+      return json({ success: true, data: updated });
+    } catch (err) {
+      console.error(`❌ [UPDATE] Error durante actualización:`, err.message);
+      console.error(`❌ [UPDATE] Stack:`, err.stack);
+      throw err; // Propagar para que app.js lo maneje
     }
-
-    // Aplicar DTO para limpiar/coercionar datos (incluyendo amenidades JSON parse)
-    const dto = actualizarPropiedadDto(body);
-
-    const updated = await this.service.update(id, dto);
-    return json({ success: true, data: updated });
   }
 
   // DEBUG: Endpoint para testear FormData

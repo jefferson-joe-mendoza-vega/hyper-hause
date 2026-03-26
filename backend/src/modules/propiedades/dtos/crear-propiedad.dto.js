@@ -43,6 +43,7 @@ export function crearPropiedadDto(raw) {
     banos:              Number(raw.banos              ?? 0),
     estacionamientos:   Number(raw.estacionamientos   ?? 0),
     area:               Number(raw.area               ?? 0),
+    antiguedad:         Number(raw.antiguedad         ?? 0),
 
     // Flags
     recomendado:        raw.recomendado === 'true' || raw.recomendado === true,

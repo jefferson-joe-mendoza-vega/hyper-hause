@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Royer Ferrer Tarazona - Libertad Popular</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#fff200",
+                        "primary-dark": "#e6da00",
+                        "background-light": "#f8f8f5",
+                        "background-dark": "#1a190b",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Public Sans', sans-serif;
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased selection:bg-primary selection:text-slate-950">
+
+    <header class="sticky top-0 z-50 bg-slate-950/95 backdrop-blur-sm border-b border-primary/20 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-primary text-3xl cursor-pointer hover:text-white transition-colors lg:hidden">menu</span>
+                <span class="material-symbols-outlined text-primary text-3xl hidden lg:block">flutter_dash</span>
+                <h2 class="text-primary text-xl md:text-2xl font-black tracking-tighter">LIBERTAD POPULAR</h2>
+            </div>
+            
+            <nav class="hidden lg:flex items-center gap-6 text-white font-bold text-sm uppercase tracking-wider">
+                <a href="#propuestas" class="hover:text-primary transition-colors">Propuestas</a>
+                <a href="#noticias" class="hover:text-primary transition-colors">Noticias</a>
+                <a href="#unete" class="hover:text-primary transition-colors">Únete</a>
+            </nav>
+
+            <div class="flex gap-4">
+                <button class="text-primary hover:text-white transition-colors flex items-center gap-2 bg-primary/10 px-4 py-2 rounded-lg">
+                    <span class="material-symbols-outlined">share</span>
+                    <span class="hidden md:block font-bold text-sm uppercase">Compartir</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="bg-primary text-slate-950 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 py-12 md:py-20 lg:py-24">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="flex flex-col gap-6 order-2 lg:order-1">
+                    <div class="inline-block bg-slate-950 text-primary px-4 py-1.5 rounded-full font-bold text-sm uppercase tracking-widest w-max mb-2">
+                        Elecciones 2024
+                    </div>
+                    <h1 class="text-5xl md:text-7xl lg:text-8xl font-black leading-[0.85] tracking-tighter uppercase italic">
+                        Royer <br>Ferrer <br>Tarazona
+                    </h1>
+                    <div class="h-2 w-32 bg-slate-950"></div>
+                    <h2 class="text-2xl md:text-3xl font-bold uppercase tracking-wide">Diputado por Huánuco</h2>
+                    <p class="text-xl md:text-2xl font-medium opacity-90 leading-tight border-l-4 border-slate-950 pl-4 py-1">
+                        "Vota por el cambio, por un candidato honesto"
+                    </p>
+                    <div class="flex flex-wrap gap-4 mt-4">
+                        <a href="#propuestas" class="bg-slate-950 text-primary py-4 px-8 rounded-lg font-black text-lg md:text-xl uppercase tracking-widest hover:bg-slate-800 transition-all hover:shadow-xl hover:-translate-y-1 text-center">
+                            Conoce mis propuestas
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="relative w-full aspect-square md:aspect-[4/5] lg:aspect-square bg-slate-800 rounded-3xl overflow-hidden shadow-2xl border-4 border-slate-950/10 order-1 lg:order-2 group">
+                    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="Professional portrait of Royer Ferrer Tarazona" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCqG0MxUdUY1xbU0ASIyc3fjE7YgdcqlO7tsTEwyKxc02FDDNnjVyr4KBvaQPmqfxWoyN4_enB8COhgvLNZXH0nv2aGMVtRxWMhqh2F3MQMThcCAAeFF89AV5oVVwxBeAAIi1YetaZ-x-mg3X2nWdhnDM1yoDSNhR1wD3XJqSzY64x5f99uWmchDU5opx2PfJmCoTfn0D7CY4mc2XD8skggBZprI-yF3wwbjdFed8pxsYIK1WAxitX7quCBr0W0lAasS_VqSkfkaw')"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/40 to-transparent"></div>
+                    <div class="absolute bottom-6 right-6 bg-primary text-slate-950 p-4 rounded-xl shadow-2xl backdrop-blur-sm">
+                        <span class="material-symbols-outlined text-5xl">flutter_dash</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-white dark:bg-slate-900 px-6 py-16 md:py-24">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-5xl font-black mb-8 text-slate-900 dark:text-white uppercase tracking-tight">Hijo de agricultores, <span class="text-primary-dark dark:text-primary">servidor del pueblo</span></h2>
+            <div class="space-y-6 text-lg md:text-xl text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+                <p>Contador Público de profesión y Catedrático de la UNAS, Royer Ferrer conoce la realidad de nuestra tierra desde sus raíces.</p>
+                <p>Su trayectoria académica y profesional está marcada por un firme compromiso con la transparencia y el desarrollo económico de Huánuco.</p>
+                <p class="text-slate-900 dark:text-white font-bold text-xl md:text-2xl mt-8">Como tu representante, luchará por una gestión pública eficiente que priorice a quienes más lo necesitan.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="propuestas" class="bg-slate-50 dark:bg-slate-950 px-6 py-16 md:py-24">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex items-center gap-4 mb-12">
+                <div class="h-12 w-2 bg-primary"></div>
+                <h3 class="text-3xl md:text-4xl font-black uppercase tracking-tight dark:text-white">Nuestras Propuestas</h3>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <article class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-slate-200 dark:border-slate-700/50 group">
+                    <div class="bg-primary/20 text-primary-dark dark:text-primary p-4 rounded-xl inline-block mb-6 group-hover:bg-primary group-hover:text-slate-950 transition-colors">
+                        <span class="material-symbols-outlined text-4xl font-bold block">policy</span>
+                    </div>
+                    <h4 class="font-black text-xl mb-3 dark:text-white uppercase tracking-wide">Seguridad y Justicia</h4>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Reforma del sistema penal y mayor presupuesto para seguridad ciudadana en todas las provincias.</p>
+                </article>
+
+                <article class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-slate-200 dark:border-slate-700/50 group">
+                    <div class="bg-primary/20 text-primary-dark dark:text-primary p-4 rounded-xl inline-block mb-6 group-hover:bg-primary group-hover:text-slate-950 transition-colors">
+                        <span class="material-symbols-outlined text-4xl font-bold block">eco</span>
+                    </div>
+                    <h4 class="font-black text-xl mb-3 dark:text-white uppercase tracking-wide">Medio Ambiente</h4>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Protección real de nuestros recursos naturales, fuentes de agua y fomento de una agricultura sostenible.</p>
+                </article>
+
+                <article class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-slate-200 dark:border-slate-700/50 group">
+                    <div class="bg-primary/20 text-primary-dark dark:text-primary p-4 rounded-xl inline-block mb-6 group-hover:bg-primary group-hover:text-slate-950 transition-colors">
+                        <span class="material-symbols-outlined text-4xl font-bold block">storefront</span>
+                    </div>
+                    <h4 class="font-black text-xl mb-3 dark:text-white uppercase tracking-wide">Economía y MYPES</h4>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Formalización ágil, cero burocracia y créditos accesibles para los emprendedores huanuqueños.</p>
+                </article>
+
+                <article class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-slate-200 dark:border-slate-700/50 group">
+                    <div class="bg-primary/20 text-primary-dark dark:text-primary p-4 rounded-xl inline-block mb-6 group-hover:bg-primary group-hover:text-slate-950 transition-colors">
+                        <span class="material-symbols-outlined text-4xl font-bold block">school</span>
+                    </div>
+                    <h4 class="font-black text-xl mb-3 dark:text-white uppercase tracking-wide">Educación y Salud</h4>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Infraestructura moderna, equipamiento tecnológico y atención médica digna garantizada.</p>
+                </article>
+
+                <article class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-slate-200 dark:border-slate-700/50 group">
+                    <div class="bg-primary/20 text-primary-dark dark:text-primary p-4 rounded-xl inline-block mb-6 group-hover:bg-primary group-hover:text-slate-950 transition-colors">
+                        <span class="material-symbols-outlined text-4xl font-bold block">groups</span>
+                    </div>
+                    <h4 class="font-black text-xl mb-3 dark:text-white uppercase tracking-wide">Justicia Social</h4>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Jubilación justa, pensión digna y programas de apoyo real y efectivo para el adulto mayor.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-primary px-6 py-20 border-y-8 border-slate-950">
+        <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-center gap-12 text-center md:text-left">
+            <div class="flex-1">
+                <h2 class="text-slate-950 text-2xl md:text-4xl font-black mb-4 uppercase tracking-widest">Cómo votar este domingo</h2>
+                <p class="text-slate-800 text-lg md:text-xl font-bold mb-8 md:mb-0">No te equivoques, asegura el futuro de Huánuco marcando correctamente la cartilla de votación.</p>
+            </div>
+            
+            <div class="flex flex-col items-center gap-6">
+                <div class="flex items-center gap-6 bg-white p-6 rounded-3xl shadow-2xl transform rotate-2 hover:rotate-0 transition-transform">
+                    <div class="relative w-24 h-24 md:w-32 md:h-32 border-4 border-slate-200 rounded-xl flex items-center justify-center">
+                        <span class="material-symbols-outlined text-slate-900 text-6xl md:text-8xl">flutter_dash</span>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-[120%] h-3 bg-red-600 rotate-45 absolute rounded-full shadow-sm"></div>
+                            <div class="w-[120%] h-3 bg-red-600 -rotate-45 absolute rounded-full shadow-sm"></div>
+                        </div>
+                    </div>
+                    <div class="text-slate-950 font-black text-7xl md:text-9xl italic pr-4">
+                        3
+                    </div>
+                </div>
+                <p class="text-slate-950 text-2xl md:text-3xl font-black leading-tight uppercase italic text-center">
+                    MARCA EL AVE,<br/>ESCRIBE EL 3
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-slate-900 px-6 py-16 md:py-24">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-12">
+            
+            <div id="noticias" class="lg:col-span-7">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="h-8 w-2 bg-primary"></div>
+                    <h3 class="text-2xl md:text-3xl font-black uppercase text-white">Noticias Recientes</h3>
+                </div>
+                
+                <div class="grid sm:grid-cols-2 gap-6">
+                    <article class="bg-slate-800 rounded-2xl overflow-hidden border border-slate-700/50 hover:border-primary/50 transition-colors group">
+                        <div class="aspect-video bg-slate-700 bg-cover bg-center overflow-hidden">
+                            <div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCAfH0aV6OFbv-V_Xu1wSWv0KcGXz7emNlD__6kFaO470k6PWw45TMUvsLhL5htIIUSWdl66G0eHWc2E5vNBasepro_EZuU9rQz7Lt0EqbxQtLkbJ73cS4Jpyn_XY8cxJp0GLRzJLZD08mZffO5-KuOYpamEI40JABcSbPsCSiIyijg9Q4LdmTX7XyBZ5Brkv04xo2TmBuJ0fRW0DfdYqwmbLg6ScvOoIlLobvnIfILN2yLWhdT76eamQ-PWqsmOxdluD2uU69nKQ')"></div>
+                        </div>
+                        <div class="p-6">
+                            <time class="text-primary text-xs font-bold uppercase tracking-wider mb-3 block">12 de Octubre, 2024</time>
+                            <h4 class="text-white font-black text-xl leading-tight mb-3 group-hover:text-primary transition-colors">Gran mitin en el centro de Huánuco</h4>
+                            <p class="text-slate-400 text-sm leading-relaxed">Cientos de ciudadanos se unieron para escuchar las propuestas de renovación y transparencia.</p>
+                        </div>
+                    </article>
+
+                    <article class="bg-slate-800 rounded-2xl overflow-hidden border border-slate-700/50 hover:border-primary/50 transition-colors group">
+                        <div class="aspect-video bg-slate-700 bg-cover bg-center overflow-hidden">
+                            <div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC6K9pg9fE6CQOQwdGeU2o-w6_SGmvX68JmW6MBunGzK_t56etujOZZZW8PRAey268D9aZ2fOpwzdtudgARrRA9VoO1DUijfUyN0ivC3FphNNomzesXMKUcUjdqMwGMWr-2se2yIG7hyqLjy5ISbdSW-6sCJHE6Fm9hktRDKG4gS0DXDNDO5aS0n_2Q7L7NN89KBTrcua5S__0t4pr2V-2nQbK2BE9KfwuKGQgWC__0JuV0kIopHxeanr9CJsm24hHl0OKIRBG8UA')"></div>
+                        </div>
+                        <div class="p-6">
+                            <time class="text-primary text-xs font-bold uppercase tracking-wider mb-3 block">10 de Octubre, 2024</time>
+                            <h4 class="text-white font-black text-xl leading-tight mb-3 group-hover:text-primary transition-colors">Visita a los agricultores de la región</h4>
+                            <p class="text-slate-400 text-sm leading-relaxed">Royer Ferrer reafirma su compromiso con el campo huanuqueño y la sostenibilidad.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="h-8 w-2 bg-primary"></div>
+                    <h3 class="text-2xl md:text-3xl font-black uppercase text-white">Próximos Eventos</h3>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="bg-slate-800/50 p-4 rounded-2xl border border-slate-700/50 hover:bg-slate-800 transition-colors flex items-center gap-5 group cursor-pointer">
+                        <div class="flex flex-col items-center justify-center bg-slate-950 min-w-[70px] py-3 rounded-xl border border-slate-800 group-hover:border-primary/30 transition-colors">
+                            <span class="text-primary font-black text-2xl leading-none">15</span>
+                            <span class="text-white text-[10px] font-bold uppercase mt-1 tracking-widest">OCT</span>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-white font-bold text-lg mb-1 group-hover:text-primary transition-colors">Cierre de campaña local</h4>
+                            <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-slate-400 text-sm">
+                                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">location_on</span> Plaza de Armas</span>
+                                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">schedule</span> 18:00 hrs</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/50 p-4 rounded-2xl border border-slate-700/50 hover:bg-slate-800 transition-colors flex items-center gap-5 group cursor-pointer">
+                        <div class="flex flex-col items-center justify-center bg-slate-950 min-w-[70px] py-3 rounded-xl border border-slate-800 group-hover:border-primary/30 transition-colors">
+                            <span class="text-primary font-black text-2xl leading-none">18</span>
+                            <span class="text-white text-[10px] font-bold uppercase mt-1 tracking-widest">OCT</span>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-white font-bold text-lg mb-1 group-hover:text-primary transition-colors">Conversatorio Universitario</h4>
+                            <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-slate-400 text-sm">
+                                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">location_on</span> Auditorio UNAS</span>
+                                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">schedule</span> 10:30 hrs</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <section id="unete" class="px-6 py-20 bg-slate-950 text-white relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+        
+        <div class="max-w-xl mx-auto relative z-10 bg-slate-900/80 backdrop-blur-md p-8 md:p-12 rounded-3xl border border-slate-800 shadow-2xl">
+            <div class="text-center mb-8">
+                <span class="material-symbols-outlined text-primary text-5xl mb-4">volunteer_activism</span>
+                <h3 class="text-3xl md:text-4xl font-black mb-2 text-white uppercase tracking-tight">Únete al <span class="text-primary">cambio</span></h3>
+                <p class="text-slate-400 text-lg">Sé parte de nuestro equipo de voluntarios en Huánuco.</p>
+            </div>
+            
+            <form class="space-y-5">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Nombre Completo</label>
+                    <input class="w-full bg-slate-950 border-slate-800 rounded-xl p-4 text-white placeholder-slate-600 focus:ring-2 focus:ring-primary focus:border-primary transition-all" placeholder="Escribe tu nombre y apellido" type="text" required/>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Celular / WhatsApp</label>
+                    <input class="w-full bg-slate-950 border-slate-800 rounded-xl p-4 text-white placeholder-slate-600 focus:ring-2 focus:ring-primary focus:border-primary transition-all" placeholder="Ej: 987 654 321" type="tel" required/>
+                </div>
+                <button class="w-full bg-primary hover:bg-primary-dark text-slate-950 font-black py-4 rounded-xl uppercase tracking-widest mt-6 transition-all hover:-translate-y-1 hover:shadow-lg flex items-center justify-center gap-2" type="submit">
+                    Quiero participar
+                    <span class="material-symbols-outlined text-lg">arrow_forward</span>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="px-6 py-12 bg-black text-center">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex justify-center gap-8 mb-8">
+                <a href="#" class="text-slate-500 hover:text-primary transition-colors transform hover:scale-110">
+                    <span class="material-symbols-outlined text-3xl">language</span>
+                </a>
+                <a href="#" class="text-slate-500 hover:text-primary transition-colors transform hover:scale-110">
+                    <span class="material-symbols-outlined text-3xl">photo_camera</span>
+                </a>
+                <a href="#" class="text-slate-500 hover:text-primary transition-colors transform hover:scale-110">
+                    <span class="material-symbols-outlined text-3xl">movie</span>
+                </a>
+            </div>
+            <h2 class="text-xl md:text-2xl font-black uppercase tracking-widest text-white mb-4">
+                Libertad <span class="text-primary">Popular</span>
+            </h2>
+            <p class="text-sm text-slate-500 mb-8 max-w-md mx-auto">
+                Trabajando juntos por un Huánuco con más oportunidades, transparencia y desarrollo sostenible.
+            </p>
+            <div class="w-full h-px bg-slate-800 mb-8"></div>
+            <p class="text-xs opacity-50 text-white uppercase tracking-wider">
+                © 2024 Royer Ferrer Tarazona - Todos los derechos reservados.
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>

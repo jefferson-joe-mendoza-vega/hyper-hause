@@ -62,6 +62,7 @@ export function createPropiedadModel(data) {
     banos:              Number(data.banos            ?? 0),
     estacionamientos:   Number(data.estacionamientos ?? 0),
     area:               Number(data.area             ?? 0),
+    antiguedad:         Number(data.antiguedad       ?? 0),
 
     // Imágenes (array de objetos { url, thumbUrl, deleteUrl })
     imagenes:           Array.isArray(data.imagenes) ? data.imagenes : [],
