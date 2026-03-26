@@ -11,6 +11,7 @@
 
 import { Router } from './router.js';
 import { registerPropiedadesRoutes } from './modules/propiedades/index.js';
+import { registerAuthRoutes } from './modules/auth/index.js';
 
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin':  '*',
@@ -44,8 +45,7 @@ export function createApp(env) {
 
   // ── Registro de módulos ──────────────────────────────────────────────────────
   registerPropiedadesRoutes(router, env);
-  // registerAuthRoutes(router, env);       // próximos módulos
-  // registerUsuariosRoutes(router, env);
+  registerAuthRoutes(router, env);
 
   // ── Handler principal ────────────────────────────────────────────────────────
   return async function handle(request) {

@@ -5,10 +5,11 @@ compatibility_date = "2024-01-01"
 # Configuración de Workers
 workers_dev = true
 
-# Variables de entorno (opcional)
+# Variables de entorno
 [vars]
 ENVIRONMENT = "development"
+JWT_SECRET = "tu-secret-jwt-desarrollo"
 
 # CORS headers
 [env.production]
-vars = { ENVIRONMENT = "production", FIREBASE_PROJECT_ID = "hyper-hause" }
+vars = { ENVIRONMENT = "production", FIREBASE_PROJECT_ID = "hyper-hause", JWT_SECRET = "tu-secret-jwt-produccion" }
