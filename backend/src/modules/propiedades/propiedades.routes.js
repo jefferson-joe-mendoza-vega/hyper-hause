@@ -1,4 +1,5 @@
 import { PropiedadesController } from './propiedades.controller.js';
+import { requireAdmin } from '../../core/middleware/admin.middleware.js';
 
 /**
  * registerPropiedadesRoutes(router, env)
@@ -6,9 +7,18 @@ import { PropiedadesController } from './propiedades.controller.js';
  *
  * Convención del router:  router.get(path, handler)
  *                         handler = (request, params) => Response
+ * 
+ * NOTAS:
+ * - GET endpoints: públicos (sin autenticación necesaria)
+ * - POST/PUT/DELETE endpoints: requieren admin (protegidos por middleware)
  */
 export function registerPropiedadesRoutes(router, env) {
   const ctrl = new PropiedadesController(env);
+  const jwtSecret = env.JWT_SECRET || 'tu-secret-key-desarrollo';
+
+  // ============================================
+  // PUBLIC ENDPOINTS (sin autenticación)
+  // ============================================
 
   // Listar / buscar
   router.get('/api/propiedades',              (req, params) => ctrl.getAll(req, params));
@@ -19,18 +29,46 @@ export function registerPropiedadesRoutes(router, env) {
   // Obtener por slug (ruta específica ANTES que /:id para evitar conflicto)
   router.get('/api/propiedades/slug/:slug',   (req, params) => ctrl.getBySlug(req, params));
 
-  // Obtener por id (admin)
+  // Obtener por id
   router.get('/api/propiedades/:id',          (req, params) => ctrl.getById(req, params));
 
-  // DEBUG: Test FormData
-  router.post('/api/propiedades/debug/formdata', (req) => ctrl.debugFormData(req));
+  // ============================================
+  // ADMIN ONLY ENDPOINTS (protegidos)
+  // ============================================
 
-  // Crear
-  router.post('/api/propiedades',    (req, params) => ctrl.create(req, params));
+  // DEBUG: Test FormData (solo para desarrollo/admin)
+  router.post('/api/propiedades/debug/formdata', async (req) => {
+    const authResult = await requireAdmin(req, jwtSecret);
+    if (authResult instanceof Response) {
+      return authResult;
+    }
+    return ctrl.debugFormData(req);
+  });
 
-  // Actualizar
-  router.put('/api/propiedades/:id', (req, params) => ctrl.update(req, params));
+  // Crear propiedad (admin)
+  router.post('/api/propiedades', async (req, params) => {
+    const authResult = await requireAdmin(req, jwtSecret);
+    if (authResult instanceof Response) {
+      return authResult;
+    }
+    return ctrl.create(req, params);
+  });
 
-  // Eliminar
-  router.delete('/api/propiedades/:id', (req, params) => ctrl.delete(req, params));
+  // Actualizar propiedad (admin)
+  router.put('/api/propiedades/:id', async (req, params) => {
+    const authResult = await requireAdmin(req, jwtSecret);
+    if (authResult instanceof Response) {
+      return authResult;
+    }
+    return ctrl.update(req, params);
+  });
+
+  // Eliminar propiedad (admin)
+  router.delete('/api/propiedades/:id', async (req, params) => {
+    const authResult = await requireAdmin(req, jwtSecret);
+    if (authResult instanceof Response) {
+      return authResult;
+    }
+    return ctrl.delete(req, params);
+  });
 }

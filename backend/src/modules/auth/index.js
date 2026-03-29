@@ -1,11 +1,13 @@
 import { generateToken } from '../../core/jwt/jwt.js';
+import { requireAdmin } from '../../core/middleware/admin.middleware.js';
 import { initializeAuth, loginGoogle, obtenerTodosLosUsuarios, actualizarRolUsuario, actualizarEstadoUsuario, crearUsuarioManual, eliminarUsuario } from './auth.repository.js';
 
 export function registerAuthRoutes(router, env) {
 	// Inicializar Firestore client para auth
 	initializeAuth(env);
+	const jwtSecret = env.JWT_SECRET || 'tu-secret-key-desarrollo';
 
-	// Login con Google
+	// Login con Google (PUBLIC)
 	router.post('/api/auth/login-google', async (req) => {
 		const { idToken, googleId, nombre, email, foto } = await req.json();
 
@@ -13,7 +15,6 @@ export function registerAuthRoutes(router, env) {
 			const usuario = await loginGoogle(googleId, nombre, email, foto);
 
 			// Generar JWT token
-			const jwtSecret = env.JWT_SECRET || 'tu-secret-key-desarrollo';
 			const token = await generateToken(
 				{
 					id: usuario.id,
@@ -50,8 +51,14 @@ export function registerAuthRoutes(router, env) {
 		}
 	});
 
-	// Obtener todos los usuarios (admin)
+	// Obtener todos los usuarios (ADMIN ONLY)
 	router.get('/api/admin/usuarios', async (req) => {
+		// Verificar que sea admin
+		const authResult = await requireAdmin(req, jwtSecret);
+		if (authResult instanceof Response) {
+			return authResult;
+		}
+
 		try {
 			const usuarios = await obtenerTodosLosUsuarios();
 
@@ -71,8 +78,14 @@ export function registerAuthRoutes(router, env) {
 		}
 	});
 
-	// Actualizar rol de usuario
+	// Actualizar rol de usuario (ADMIN ONLY)
 	router.put('/api/admin/usuarios/:id/rol', async (req, params) => {
+		// Verificar que sea admin
+		const authResult = await requireAdmin(req, jwtSecret);
+		if (authResult instanceof Response) {
+			return authResult;
+		}
+
 		const id = params.id;
 		const { rol } = await req.json();
 
@@ -95,8 +108,14 @@ export function registerAuthRoutes(router, env) {
 		}
 	});
 
-	// Actualizar estado de usuario
+	// Actualizar estado de usuario (ADMIN ONLY)
 	router.put('/api/admin/usuarios/:id/estado', async (req, params) => {
+		// Verificar que sea admin
+		const authResult = await requireAdmin(req, jwtSecret);
+		if (authResult instanceof Response) {
+			return authResult;
+		}
+
 		const id = params.id;
 		const { estado } = await req.json();
 
@@ -119,8 +138,14 @@ export function registerAuthRoutes(router, env) {
 		}
 	});
 
-	// Crear usuario manualmente (admin)
+	// Crear usuario manualmente (ADMIN ONLY)
 	router.post('/api/admin/usuarios', async (req) => {
+		// Verificar que sea admin
+		const authResult = await requireAdmin(req, jwtSecret);
+		if (authResult instanceof Response) {
+			return authResult;
+		}
+
 		const { nombre, email, rol } = await req.json();
 
 		try {
@@ -142,8 +167,14 @@ export function registerAuthRoutes(router, env) {
 		}
 	});
 
-	// Eliminar usuario
+	// Eliminar usuario (ADMIN ONLY)
 	router.delete('/api/admin/usuarios/:id', async (req, params) => {
+		// Verificar que sea admin
+		const authResult = await requireAdmin(req, jwtSecret);
+		if (authResult instanceof Response) {
+			return authResult;
+		}
+
 		const id = params.id;
 
 		try {
@@ -165,4 +196,5 @@ export function registerAuthRoutes(router, env) {
 		}
 	});
 }
+
 
