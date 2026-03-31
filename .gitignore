@@ -1,0 +1,17 @@
+# Logs
+*.log
+gemini_bot.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporal
+temp/
+tmp/
