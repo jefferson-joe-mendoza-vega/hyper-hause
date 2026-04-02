@@ -1,0 +1,449 @@
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Detalle de Propiedad - Hyper House</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        
+        <style>
+            :root {
+                --bg-color: #F8FAFC;
+                --text-main: #1A233A; 
+                --text-gray: #64748B;
+                --text-light: #94A3B8;
+                --white: #FFFFFF;
+                --accent-green: #4ADE80; /* Verde principal */
+                --accent-green-dark: #22C55E;
+                --bg-green-light: #DCFCE7;
+                --bg-gray-light: #F1F5F9;
+                --border-color: #E2E8F0;
+            }
+
+            * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+
+            body {
+                background-color: #E2E8F0; 
+                display: flex;
+                justify-content: center;
+                min-height: 100vh;
+            }
+
+            .mobile-container {
+                width: 100%;
+                max-width: 414px;
+                background-color: var(--white);
+                min-height: 100vh;
+                overflow-x: hidden; 
+                box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+                position: relative; 
+                display: flex;
+                flex-direction: column;
+            }
+
+            /* --- Header / Top Bar --- */
+            .top-bar {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 16px 20px;
+                background-color: var(--white);
+                position: sticky;
+                top: 0;
+                z-index: 100;
+            }
+            .top-bar-left {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+                color: var(--text-main);
+                font-size: 14px;
+                font-weight: 600;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 70%;
+            }
+            .top-bar-left i {
+                font-size: 16px;
+                cursor: pointer;
+            }
+            .top-bar-right {
+                display: flex;
+                gap: 16px;
+                color: var(--text-main);
+                font-size: 18px;
+            }
+            .top-bar-right i { cursor: pointer; }
+
+            /* --- Hero Image & Gallery --- */
+            .hero-gallery {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                background-color: var(--white);
+                padding-bottom: 16px;
+            }
+            .hero-image {
+                width: 100%;
+                height: 280px;
+                background-size: cover;
+                background-position: center;
+                position: relative;
+            }
+            .badge-alquilar {
+                position: absolute;
+                top: 16px;
+                left: 16px;
+                background-color: var(--accent-green);
+                color: var(--white);
+                padding: 6px 12px;
+                border-radius: 6px;
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 0.5px;
+            }
+            .photo-count {
+                position: absolute;
+                bottom: 16px;
+                right: 16px;
+                background-color: rgba(0, 0, 0, 0.6);
+                color: var(--white);
+                padding: 6px 10px;
+                border-radius: 8px;
+                font-size: 12px;
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                backdrop-filter: blur(4px);
+            }
+
+            .thumbnails {
+                display: flex;
+                gap: 12px;
+                padding: 0 20px;
+                overflow-x: auto;
+                scrollbar-width: none;
+            }
+            .thumbnails::-webkit-scrollbar { display: none; }
+            .thumb-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 6px;
+                cursor: pointer;
+            }
+            .thumb-img {
+                width: 80px;
+                height: 50px;
+                border-radius: 8px;
+                background-size: cover;
+                background-position: center;
+                border: 2px solid transparent;
+                opacity: 0.7;
+                transition: 0.2s;
+            }
+            .thumb-item.active .thumb-img {
+                border-color: var(--accent-green-dark);
+                opacity: 1;
+            }
+            .thumb-item span {
+                font-size: 10px;
+                color: var(--text-main);
+                font-weight: 500;
+            }
+
+            /* --- Property Content --- */
+            .property-content {
+                padding: 0 20px 30px;
+            }
+
+            .price-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 12px;
+            }
+            .type-badge {
+                background-color: var(--bg-green-light);
+                color: var(--accent-green-dark);
+                padding: 4px 10px;
+                border-radius: 6px;
+                font-size: 11px;
+                font-weight: 600;
+            }
+            .price {
+                color: var(--accent-green-dark);
+                font-size: 22px;
+                font-weight: 700;
+            }
+
+            .property-title {
+                font-size: 18px;
+                color: var(--text-main);
+                font-weight: 700;
+                line-height: 1.3;
+                margin-bottom: 12px;
+            }
+
+            .location-text {
+                display: flex;
+                align-items: flex-start;
+                gap: 8px;
+                color: var(--text-gray);
+                font-size: 12px;
+                line-height: 1.4;
+                margin-bottom: 24px;
+            }
+            .location-text i {
+                color: var(--text-light);
+                margin-top: 2px;
+            }
+
+            /* --- Features Grid --- */
+            .features-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+                margin-bottom: 30px;
+            }
+            .feature-card {
+                background-color: #F8FAFC;
+                border-radius: 12px;
+                padding: 16px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+            }
+            .feature-card i {
+                color: var(--accent-green-dark);
+                font-size: 18px;
+                margin-bottom: 4px;
+            }
+            .feature-card strong {
+                color: var(--text-main);
+                font-size: 15px;
+                font-weight: 700;
+            }
+            .feature-card span {
+                color: var(--text-light);
+                font-size: 9px;
+                font-weight: 600;
+                letter-spacing: 0.5px;
+            }
+
+            /* --- Description Section --- */
+            .section-title {
+                font-size: 16px;
+                color: var(--text-main);
+                font-weight: 700;
+                margin-bottom: 12px;
+            }
+            .description-text {
+                color: var(--text-gray);
+                font-size: 13px;
+                line-height: 1.6;
+                margin-bottom: 8px;
+            }
+            .read-more {
+                color: var(--accent-green-dark);
+                font-size: 13px;
+                font-weight: 600;
+                text-decoration: none;
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                margin-bottom: 30px;
+            }
+
+            /* --- Map Section --- */
+            .map-container {
+                width: 100%;
+                height: 200px;
+                border-radius: 12px;
+                background-image: url('https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=600&q=80');
+                background-size: cover;
+                background-position: center;
+                position: relative;
+                margin-bottom: 12px;
+                overflow: hidden;
+                box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+            }
+            .map-overlay-tint {
+                position: absolute;
+                inset: 0;
+                background-color: rgba(74, 222, 128, 0.1); /* Ligero tinte verdoso como en tu imagen */
+            }
+            .pin-center {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                color: #EF4444;
+                font-size: 32px;
+                filter: drop-shadow(0 4px 4px rgba(0,0,0,0.3));
+            }
+            .open-maps-btn {
+                position: absolute;
+                top: 12px;
+                left: 12px;
+                background-color: var(--white);
+                color: #2563EB;
+                padding: 6px 12px;
+                border-radius: 6px;
+                font-size: 11px;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                text-decoration: none;
+                z-index: 2;
+            }
+            .expand-btn {
+                position: absolute;
+                bottom: 12px;
+                right: 12px;
+                width: 32px;
+                height: 32px;
+                background-color: var(--white);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--text-gray);
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                z-index: 2;
+            }
+            .address-box {
+                background-color: #F8FAFC;
+                padding: 12px 16px;
+                border-radius: 12px;
+                display: flex;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .address-box i {
+                color: var(--text-light);
+                margin-top: 2px;
+            }
+            .address-box p {
+                color: var(--text-main);
+                font-size: 12px;
+                font-weight: 600;
+                line-height: 1.4;
+            }
+
+            /* --- Ajustes Responsivos --- */
+            @media (max-width: 480px) {
+                body { background-color: var(--white); }
+                .mobile-container { max-width: 100%; box-shadow: none; border-radius: 0; }
+            }
+        </style>
+    </head>
+    <body>
+
+    <div class="mobile-container">
+        
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <i class="fas fa-arrow-left"></i>
+                <span>xd 2 Prada Residencial: Depar...</span>
+            </div>
+            <div class="top-bar-right">
+                <i class="fas fa-share-nodes"></i>
+                <i class="far fa-heart"></i>
+            </div>
+        </header>
+
+        <div class="hero-gallery">
+            <div class="hero-image" style="background-image: url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80');">
+                <div class="badge-alquilar">ALQUILAR</div>
+                <div class="photo-count">
+                    <i class="fas fa-images"></i> 1/3
+                </div>
+            </div>
+            
+            <div class="thumbnails">
+                <div class="thumb-item active">
+                    <div class="thumb-img" style="background-image: url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=150&q=80');"></div>
+                    <span>fachada</span>
+                </div>
+                <div class="thumb-item">
+                    <div class="thumb-img" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=150&q=80');"></div>
+                    <span>gym</span>
+                </div>
+                <div class="thumb-item">
+                    <div class="thumb-img" style="background-image: url('https://images.unsplash.com/photo-1556910103-1c02745a872f?auto=format&fit=crop&w=150&q=80');"></div>
+                    <span>cocina</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="property-content">
+            
+            <div class="price-row">
+                <div class="type-badge">Departamento</div>
+                <div class="price">USD 479,000</div>
+            </div>
+            
+            <h1 class="property-title">xd 2 Prada Residencial: Departamentos modernos en Jesús María, Lima – Desde S/478,700</h1>
+            
+            <div class="location-text">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Av. Tizón y Bueno 639, Jesus Maria, Lima, Jesús María, Lima</span>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-bed"></i>
+                    <strong>3</strong>
+                    <span>DORM.</span>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-bath"></i>
+                    <strong>3</strong>
+                    <span>BAÑOS</span>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-car"></i>
+                    <strong>5</strong>
+                    <span>PARKING</span>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-clock"></i>
+                    <strong>0</strong>
+                    <span>AÑOS</span>
+                </div>
+            </div>
+
+            <h2 class="section-title">Descripción de la Propiedad</h2>
+            <p class="description-text">
+                Prada, proyecto ubicado en la Av. Tizón y Bueno 639 - Jesús María, una de las zonas más residenciales y céntricas de Lima. Donde vivirás cómodamente y conectarás con rapidez con distintos distritos y a un paso de diversos...
+            </p>
+            <a href="#" class="read-more">Leer más <i class="fas fa-chevron-down" style="font-size: 10px;"></i></a>
+
+            <h2 class="section-title">Ubicación</h2>
+            <div class="map-container">
+                <div class="map-overlay-tint"></div>
+                <a href="#" class="open-maps-btn">Open in Maps <i class="fas fa-external-link-alt" style="font-size: 10px;"></i></a>
+                <i class="fas fa-map-marker-alt pin-center"></i>
+                <div class="expand-btn"><i class="fas fa-expand"></i></div>
+            </div>
+            <div class="address-box">
+                <i class="fas fa-map-marker-alt"></i>
+                <p>Av. Tizón y Bueno 639, Jesus Maria, Lima, Jesús Maria, Lima</p>
+            </div>
+
+        </div>
+    </div>
+
+    </body>
+    </html>

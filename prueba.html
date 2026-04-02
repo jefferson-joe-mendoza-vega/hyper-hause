@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyper House Inmobiliaria</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #F8FAFC;
+            --text-main: #1A233A; 
+            --text-blue: #1A4B8E; 
+            --text-gray: #718096;
+            --bg-gray-light: #F1F5F9;
+            --white: #FFFFFF;
+            --logo-green: #00D084;
+            --notification-red: #EF4444;
+            --badge-green: #2DCE89;
+            --badge-orange: #F59E0B;
+            --badge-purple-bg: #F4E8FF;
+            --badge-purple-text: #A855F7;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+        body {
+            background-color: #E2E8F0; 
+            display: flex; justify-content: center; align-items: flex-start;
+            padding: 20px 0;
+        }
+
+        .mobile-container {
+            width: 100%; max-width: 400px; min-height: 100vh;
+            background-color: var(--bg-color);
+            border-radius: 36px; /* Efecto móvil elegante */
+            overflow: hidden; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08); /* Sombra más suave y moderna */
+            display: flex; flex-direction: column;
+            position: relative;
+        }
+
+        /* --- Globales y Utilidades --- */
+        .px-24 { padding-left: 24px; padding-right: 24px; }
+        .mb-16 { margin-bottom: 16px; }
+        .mb-24 { margin-bottom: 24px; }
+        .mb-32 { margin-bottom: 32px; }
+        
+        .section-title {
+            font-size: 18px; color: var(--text-main); font-weight: 600;
+            letter-spacing: -0.3px; margin-bottom: 16px;
+        }
+
+        /* --- Header --- */
+        header { display: flex; justify-content: space-between; align-items: center; padding: 24px; background: var(--white); }
+        .logo-wrapper { display: flex; align-items: center; gap: 12px; }
+        .logo-icon {
+            width: 38px; height: 38px; border: 2px solid var(--logo-green);
+            border-radius: 8px; position: relative;
+        }
+        .logo-icon::before { content: ''; position: absolute; top: 0; left: 12px; width: 2px; height: 100%; background: var(--logo-green); }
+        .logo-icon::after { content: ''; position: absolute; top: 16px; left: 0; width: 100%; height: 2px; background: var(--logo-green); }
+        
+        .logo-text { display: flex; flex-direction: column; }
+        .logo-text span:first-child { color: var(--text-blue); font-weight: 700; font-size: 15px; letter-spacing: -0.3px; line-height: 1.1; }
+        .logo-text span:last-child { color: var(--text-gray); font-size: 11px; }
+
+        .notification { position: relative; color: var(--text-main); font-size: 20px; }
+        .notification .dot {
+            position: absolute; top: 0; right: 0; width: 6px; height: 6px;
+            background: var(--notification-red); border-radius: 50%; border: 1px solid var(--white);
+        }
+
+        /* --- Hero --- */
+        .hero { padding: 24px 24px 20px; }
+        .hero h1 { color: var(--text-main); font-size: 28px; font-weight: 700; line-height: 1.25; letter-spacing: -0.5px; }
+        .hero h1 span { color: var(--text-blue); }
+
+        /* --- Search Card --- */
+        .search-card { background: var(--white); border-radius: 20px; padding: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.04); }
+        .tabs { display: flex; background: var(--bg-gray-light); border-radius: 12px; padding: 4px; margin-bottom: 16px; }
+        .tab { flex: 1; text-align: center; padding: 10px 0; font-size: 13px; font-weight: 500; color: var(--text-gray); border-radius: 8px; cursor: pointer; transition: 0.2s; }
+        .tab.active { background: var(--white); color: var(--text-blue); font-weight: 600; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        
+        .search-inputs { display: flex; gap: 12px; }
+        .input-group {
+            flex: 1; background: var(--bg-color); border-radius: 12px;
+            display: flex; align-items: center; padding: 0 14px; height: 44px; position: relative;
+        }
+        .input-group select, .input-group input {
+            border: none; background: transparent; width: 100%; font-size: 13px;
+            color: var(--text-main); outline: none; appearance: none;
+        }
+        .input-group input::placeholder { color: #A0AEC0; }
+        .input-group i.fa-chevron-down { position: absolute; right: 14px; color: #A0AEC0; font-size: 10px; pointer-events: none; }
+        .search-icon { color: #A0AEC0; margin-right: 8px; font-size: 14px; }
+
+        /* --- Categories --- */
+        .categories-grid { display: flex; justify-content: space-between; }
+        .category-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .cat-icon-box {
+            width: 65px; height: 65px; background: var(--white); border-radius: 16px;
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.03); color: var(--text-blue); font-size: 20px; transition: 0.2s;
+        }
+        .category-item span { font-size: 12px; color: var(--text-main); font-weight: 500; }
+
+        /* --- Recommendations --- */
+        .rec-header { display: flex; justify-content: space-between; align-items: flex-end; }
+        .rec-header a { color: var(--logo-green); text-decoration: none; font-size: 13px; font-weight: 600; }
+        .rec-scroll-container { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 12px; scrollbar-width: none; }
+        .rec-scroll-container::-webkit-scrollbar { display: none; }
+
+        .prop-card {
+            min-width: 260px; background: var(--white); border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.04); overflow: hidden; flex-shrink: 0;
+        }
+        .prop-image { height: 180px; position: relative; background-size: cover; background-position: center; }
+        .badge-top { position: absolute; top: 12px; left: 12px; padding: 6px 12px; border-radius: 8px; color: var(--white); font-size: 11px; font-weight: 600; display: flex; align-items: center; gap: 4px; }
+        .badge-green { background: var(--badge-green); }
+        .badge-orange { background: var(--badge-orange); }
+        
+        .location-overlay {
+            position: absolute; bottom: 12px; left: 12px; right: 12px;
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); color: var(--white);
+            padding: 8px 12px; border-radius: 8px; font-size: 11px; font-weight: 500;
+            display: flex; align-items: center; gap: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        
+        .prop-content { padding: 16px; }
+        .prop-title-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .prop-title { font-size: 15px; color: var(--text-main); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px; }
+        .type-badge { background: var(--badge-purple-bg); color: var(--badge-purple-text); padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 600; }
+        .prop-price { color: var(--logo-green); font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+        .prop-divider { border: none; border-top: 1px solid var(--bg-gray-light); margin-bottom: 12px; }
+        .prop-features { display: flex; justify-content: space-between; }
+        .feature { display: flex; align-items: center; gap: 6px; color: var(--text-gray); font-size: 12px; font-weight: 500; }
+
+        /* --- Projects --- */
+        .project-card {
+            position: relative; height: 230px; border-radius: 16px; overflow: hidden; margin-bottom: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+        }
+        .project-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
+        .project-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,23,42,0.95), rgba(15,23,42,0.1) 60%); }
+        .project-details { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; display: flex; justify-content: space-between; align-items: flex-end; }
+        .project-badge { background: var(--logo-green); color: var(--white); font-size: 9px; font-weight: 700; padding: 5px 8px; border-radius: 6px; margin-bottom: 8px; display: inline-block; }
+        .project-info h3 { font-size: 24px; color: var(--white); font-weight: 700; margin-bottom: 4px; }
+        .project-info p { font-size: 12px; color: rgba(255,255,255,0.85); }
+        .project-btn { width: 38px; height: 38px; background: var(--white); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: var(--text-main); font-size: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+
+        /* --- Resources --- */
+        .resources-section { flex-grow: 1; }
+        .resource-box {
+            background: var(--white); border-radius: 16px; padding: 16px; display: flex; align-items: center; gap: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.03);
+        }
+        .res-icon { width: 48px; height: 48px; background: #E6FBF2; color: var(--logo-green); border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 18px; flex-shrink: 0; }
+        .res-text h3 { font-size: 15px; color: var(--text-main); font-weight: 600; margin-bottom: 2px; }
+        .res-text p { font-size: 11px; color: var(--text-gray); line-height: 1.4; }
+        .res-arrow { color: #A0AEC0; font-size: 14px; margin-left: auto; }
+
+        /* --- Bottom Nav --- */
+        .bottom-nav {
+            position: sticky; bottom: 0; width: 100%; background: var(--white);
+            display: flex; justify-content: space-around; align-items: center;
+            padding: 12px 10px 24px; border-top: 1px solid var(--bg-gray-light); z-index: 10;
+        }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: #94A3B8; font-size: 10px; font-weight: 500; cursor: pointer; width: 60px; transition: 0.2s; }
+        .nav-item.active { color: var(--text-blue); }
+        .nav-item i { font-size: 20px; }
+        .nav-fab-wrap { position: relative; top: -24px; }
+        .nav-fab {
+            width: 56px; height: 56px; background: var(--logo-green); border-radius: 50%;
+            display: flex; justify-content: center; align-items: center; color: var(--white);
+            font-size: 20px; box-shadow: 0 8px 20px rgba(0,208,132,0.35); cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="mobile-container">
+    
+    <header>
+        <div class="logo-wrapper">
+            <div class="logo-icon"></div>
+            <div class="logo-text">
+                <span>HYPER HOUSE</span>
+                <span>Inmobiliaria</span>
+            </div>
+        </div>
+        <div class="notification"><i class="far fa-bell"></i><span class="dot"></span></div>
+    </header>
+
+    <section class="hero">
+        <h1>Encuentra tu<br><span>propiedad ideal</span></h1>
+    </section>
+
+    <div class="px-24 mb-32">
+        <div class="search-card">
+            <div class="tabs">
+                <div class="tab active">Alquilar</div>
+                <div class="tab">Comprar</div>
+                <div class="tab">Proyectos</div>
+            </div>
+            <div class="search-inputs">
+                <div class="input-group">
+                    <select><option>Tipo de Propiedad</option></select>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" placeholder="Ciudad, zon">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="px-24 mb-32">
+        <h2 class="section-title">Categorías</h2>
+        <div class="categories-grid">
+            <div class="category-item"><div class="cat-icon-box"><i class="fas fa-building"></i></div><span>Deptos</span></div>
+            <div class="category-item"><div class="cat-icon-box"><i class="fas fa-home"></i></div><span>Casas</span></div>
+            <div class="category-item"><div class="cat-icon-box"><i class="fas fa-industry"></i></div><span>Industrial</span></div>
+            <div class="category-item"><div class="cat-icon-box"><i class="fas fa-mountain"></i></div><span>Terrenos</span></div>
+        </div>
+    </section>
+
+    <section class="pl-24 mb-32" style="padding-left: 24px;">
+        <div class="rec-header pr-24 mb-16" style="padding-right: 24px;">
+            <h2 class="section-title" style="margin:0;">Nuestras<br>recomendaciones</h2>
+            <a href="#">Ver todo</a>
+        </div>
+        
+        <div class="rec-scroll-container pr-24" style="padding-right: 24px;">
+            <div class="prop-card">
+                <div class="prop-image" style="background-image: url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80');">
+                    <div class="badge-top badge-green"><i class="fas fa-fire"></i> Nuevo</div>
+                    <div class="location-overlay"><i class="fas fa-map-marker-alt"></i> Av. Tizón y Bueno 639, Jesus M...</div>
+                </div>
+                <div class="prop-content">
+                    <div class="prop-title-row">
+                        <div class="prop-title">xd 2 Prada Residenci...</div>
+                        <div class="type-badge">Alquilar</div>
+                    </div>
+                    <div class="prop-price">S/ 479,000</div>
+                    <hr class="prop-divider">
+                    <div class="prop-features">
+                        <div class="feature"><i class="fas fa-bed"></i> 3</div>
+                        <div class="feature"><i class="fas fa-bath"></i> 3</div>
+                        <div class="feature"><i class="fas fa-ruler-combined"></i> 200m²</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prop-card">
+                <div class="prop-image" style="background-image: url('https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=500&q=80');">
+                    <div class="badge-top badge-orange"><i class="fas fa-fire"></i> Última u...</div>
+                    <div class="location-overlay"><i class="fas fa-map-marker-alt"></i> Calle Italia 120, Miraflores</div>
+                </div>
+                <div class="prop-content">
+                    <div class="prop-title-row"><div class="prop-title">casa verde premium</div></div>
+                    <div class="prop-price">S/ 187,300</div>
+                    <hr class="prop-divider">
+                    <div class="prop-features">
+                        <div class="feature"><i class="fas fa-bed"></i> 1</div>
+                        <div class="feature"><i class="fas fa-bath"></i> 1</div>
+                        <div class="feature"><i class="fas fa-ruler-combined"></i> 65m²</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="px-24 mb-24">
+        <h2 class="section-title">Proyectos Destacados</h2>
+        
+        <div class="project-card">
+            <div class="project-bg" style="background-image: url('https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=600&q=80');"></div>
+            <div class="project-overlay"></div>
+            <div class="project-details">
+                <div class="project-info">
+                    <span class="project-badge">COMPRAR UNIDAD</span>
+                    <h3>Los Cerezos</h3>
+                    <p>Desde $120,000 • Entrega 2025</p>
+                </div>
+                <div class="project-btn"><i class="fas fa-arrow-right"></i></div>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-bg" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80');"></div>
+            <div class="project-overlay"></div>
+            <div class="project-details">
+                <div class="project-info">
+                    <span class="project-badge">SEPARAR UNIDAD</span>
+                    <h3>Central Park</h3>
+                    <p>Oficinas Premium • San Isidro</p>
+                </div>
+                <div class="project-btn"><i class="fas fa-arrow-right"></i></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="px-24 resources-section mb-24">
+        <div class="resource-box">
+            <div class="res-icon"><i class="fas fa-bars"></i></div>
+            <div class="res-text">
+                <h3>Centro de Recursos</h3>
+                <p>Guías, consejos e información sobre inversión inmobiliaria.</p>
+            </div>
+            <i class="fas fa-arrow-right res-arrow"></i>
+        </div>
+    </section>
+
+    <nav class="bottom-nav">
+        <div class="nav-item active"><i class="fas fa-home"></i><span>Inicio</span></div>
+        <div class="nav-item"><i class="fas fa-search"></i><span>Buscar</span></div>
+        <div class="nav-fab-wrap"><div class="nav-fab"><i class="fas fa-plus"></i></div></div>
+        <div class="nav-item"><i class="fas fa-briefcase"></i><span>Servicios</span></div>
+        <div class="nav-item"><i class="far fa-user"></i><span>Perfil</span></div>
+    </nav>
+
+</div>
+
+</body>
+</html> 
