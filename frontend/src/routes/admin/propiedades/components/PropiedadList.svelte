@@ -1,0 +1,204 @@
+<script>
+	let { propiedades = [], onDelete = () => {} } = $props();
+
+	const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8787';
+
+	async function deletePropiedadById(id) {
+		if (!confirm('¿Estás seguro de que deseas eliminar esta propiedad?')) return;
+
+		try {
+			const token = localStorage.getItem('authToken');
+			const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
+			const response = await fetch(`${BACKEND_URL}/api/admin/propiedades/${id}`, {
+				method: 'DELETE',
+				headers
+			});
+
+			if (!response.ok) {
+				throw new Error('Error eliminando propiedad');
+			}
+
+			onDelete();
+		} catch (err) {
+			alert('Error: ' + err.message);
+		}
+	}
+</script>
+
+<div class="propiedades-list-container">
+	{#if propiedades.length === 0}
+		<div class="empty-state">
+			<p>No hay propiedades registradas</p>
+		</div>
+	{:else}
+		<div class="table-wrapper">
+			<table class="propiedades-table">
+				<thead>
+					<tr>
+						<th>Imagen</th>
+						<th>Nombre</th>
+						<th>Tipo</th>
+						<th>Ubicación</th>
+						<th>Precio</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					{#each propiedades as propiedad (propiedad.id)}
+						<tr>
+							<td>
+								<div class="prop-thumb">
+									{#if propiedad.imagenes?.[0]?.url}
+										<img src={propiedad.imagenes[0].url} alt={propiedad.nombre} />
+									{:else}
+										<div class="no-image">
+											<i class="fas fa-image" />
+										</div>
+									{/if}
+								</div>
+							</td>
+							<td class="font-bold">{propiedad.nombre}</td>
+							<td>{propiedad.tipoInmueble}</td>
+							<td class="truncate">{propiedad.ubicacion}</td>
+							<td class="font-bold">{propiedad.precio}</td>
+							<td>
+								<div class="acciones">
+									<button class="btn-edit" title="Editar">
+										<i class="fas fa-edit" />
+									</button>
+									<button
+										class="btn-delete"
+										on:click={() => deletePropiedadById(propiedad.id)}
+										title="Eliminar"
+									>
+										<i class="fas fa-trash" />
+									</button>
+								</div>
+							</td>
+						</tr>
+					{/each}
+				</tbody>
+			</table>
+		</div>
+	{/if}
+</div>
+
+<style>
+	.propiedades-list-container {
+		background-color: var(--white);
+		border-radius: 12px;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+		overflow: hidden;
+	}
+
+	.empty-state {
+		text-align: center;
+		padding: 60px 20px;
+		color: var(--text-gray);
+	}
+
+	.table-wrapper {
+		overflow-x: auto;
+	}
+
+	.propiedades-table {
+		width: 100%;
+		border-collapse: collapse;
+	}
+
+	thead {
+		background-color: var(--bg-gray-light);
+		border-bottom: 2px solid var(--border-color);
+	}
+
+	th {
+		padding: 16px;
+		text-align: left;
+		font-size: 12px;
+		font-weight: 700;
+		color: var(--text-gray);
+		letter-spacing: 0.5px;
+	}
+
+	td {
+		padding: 16px;
+		border-bottom: 1px solid var(--border-color);
+		font-size: 14px;
+		color: var(--text-main);
+	}
+
+	tr:hover {
+		background-color: var(--bg-gray-light);
+	}
+
+	.prop-thumb {
+		width: 50px;
+		height: 50px;
+		border-radius: 8px;
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: var(--bg-gray-light);
+	}
+
+	.prop-thumb img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.no-image {
+		color: var(--text-light);
+		font-size: 20px;
+	}
+
+	.font-bold {
+		font-weight: 600;
+	}
+
+	.truncate {
+		max-width: 150px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.acciones {
+		display: flex;
+		gap: 8px;
+	}
+
+	.btn-edit,
+	.btn-delete {
+		width: 36px;
+		height: 36px;
+		border: none;
+		border-radius: 6px;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: 0.2s;
+		font-size: 16px;
+	}
+
+	.btn-edit {
+		background-color: #dbeafe;
+		color: #2563eb;
+	}
+
+	.btn-edit:hover {
+		background-color: #bfdbfe;
+	}
+
+	.btn-delete {
+		background-color: #fee2e2;
+		color: #dc2626;
+	}
+
+	.btn-delete:hover {
+		background-color: #fecaca;
+	}
+</style>
