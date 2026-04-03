@@ -1,5 +1,5 @@
 /**
- * app.js — Núcleo de la aplicación
+ * app.js prueba — Núcleo de la aplicación
  *
  * Responsabilidades:
  *  - Instanciar el Router
