@@ -2,9 +2,9 @@
 	import { onMount } from 'svelte';
 	import PropertyCard from '$lib/components/PropertyCard.svelte';
 
-	let propiedades = [];
-	let loading = true;
-	let error = null;
+	let propiedades = $state([]);
+	let loading = $state(true);
+	let error = $state(null);
 
 	const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8787';
 
@@ -39,8 +39,8 @@
 		}
 	});
 
-	$: recomendadas = propiedades.slice(0, 2);
-	$: todasLasPropiedades = propiedades;
+	let recomendadas = $derived(propiedades.slice(0, 2));
+	let todasLasPropiedades = $derived(propiedades);
 </script>
 
 <div class="propiedades-container">
@@ -184,8 +184,6 @@
 			grid-template-columns: 1fr;
 		}
 	}
-</style>
-	}
 
 	.location {
 		font-size: 12px;
@@ -220,7 +218,6 @@
 		border-radius: 6px;
 	}
 
-	/* Responsive */
 	@media (min-width: 768px) {
 		.propiedades-grid {
 			display: grid !important;

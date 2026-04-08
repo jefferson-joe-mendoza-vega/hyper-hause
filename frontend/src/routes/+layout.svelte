@@ -2,6 +2,7 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import Header from '$lib/components/Header.svelte';
 	import BottomNav from '$lib/components/BottomNav.svelte';
+	import Footer from '$lib/components/Footer.svelte';
 	import '../app.css';
 
 	let { children } = $props();
@@ -26,6 +27,7 @@
 	<main>
 		{@render children()}
 	</main>
+	<Footer />
 	<BottomNav />
 </div>
 
