@@ -1,7 +1,7 @@
 <script>
 	let { onSubmit = () => {} } = $props();
 
-	let formData = {
+	let formData = $state({
 		nombre: '',
 		tipoInmueble: 'Departamento',
 		tipoOperacion: 'Alquilar',
@@ -10,10 +10,10 @@
 		bedrooms: 0,
 		bathrooms: 0,
 		parking: 0
-	};
+	});
 
-	let loading = false;
-	let error = null;
+	let loading = $state(false);
+	let error = $state(null);
 
 	const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8787';
 
@@ -25,13 +25,20 @@
 			const token = localStorage.getItem('authToken');
 			const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
+			const bodyData = new FormData();
+			bodyData.append('nombre', formData.nombre);
+			bodyData.append('tipoInmueble', formData.tipoInmueble);
+			bodyData.append('tipoOperacion', formData.tipoOperacion);
+			bodyData.append('ubicacion', formData.ubicacion);
+			bodyData.append('precio', formData.precio);
+			bodyData.append('bedrooms', formData.bedrooms);
+			bodyData.append('bathrooms', formData.bathrooms);
+			bodyData.append('parking', formData.parking);
+
 			const response = await fetch(`${BACKEND_URL}/api/propiedades`, {
 				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					...headers
-				},
-				body: JSON.stringify(formData)
+				headers, // No agregamos Content-Type, fetch lo genera automáticamente con el boundary para FormData
+				body: bodyData
 			});
 
 			if (!response.ok) {

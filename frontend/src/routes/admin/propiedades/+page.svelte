@@ -4,10 +4,10 @@
 
 	const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8787';
 
-	let propiedades = [];
-	let loading = true;
-	let error = null;
-	let showForm = false;
+	let propiedades = $state([]);
+	let loading = $state(true);
+	let error = $state(null);
+	let showForm = $state(false);
 
 	async function cargarPropiedades() {
 		try {

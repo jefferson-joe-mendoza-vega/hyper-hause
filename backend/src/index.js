@@ -1,4 +1,4 @@
-/**
+/** sude
  * index.js — Entrypoint del Cloudflare Worker
  *
  * Responsabilidad única: recibir el fetch de Cloudflare
