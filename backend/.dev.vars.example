@@ -1,0 +1,19 @@
+# .dev.vars (Variables secretas para tu entorno local de Cloudflare Workers)
+# IMPORTANTE: Copia este archivo como .dev.vars (sin el .example) y llena tus datos.
+# El archivo .dev.vars NO debe subirse a tu repositorio (debe estar en .gitignore).
+
+# ==========================================
+# SEGURIDAD
+# ==========================================
+# Secreto usado para firmar los tokens de sesión del administrador
+JWT_SECRET="reemplaza-con-una-clave-muy-robusta-y-larga"
+
+# ==========================================
+# SERVICIOS EXTERNOS
+# ==========================================
+# API Key de ImgBB para procesar la subida de imágenes de los inmuebles
+IMGBB_API_KEY="tu-api-key-de-imgbb-aqui"
+
+# Notas sobre Cloudflare D1 (Base de Datos):
+# Las credenciales de la BD no van aquí, están enlazadas a través del bindings
+# en wrangler.toml (por ejemplo usando --local para desarrollo).
