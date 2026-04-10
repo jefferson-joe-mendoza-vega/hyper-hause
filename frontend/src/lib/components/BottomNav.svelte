@@ -2,14 +2,14 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 
-	let activeNav = $derived($page.url.pathname.split('/')[1] || 'home');
+	let activeNav = $derived($page.url.pathname === '/' ? 'home' : $page.url.pathname.split('/')[1]);
 
 	const navItems = [
-		{ id: 'home', label: 'Inicio', icon: 'fas fa-home', path: '/' },
-		{ id: 'search', label: 'Buscar', icon: 'fas fa-search', path: '/propiedades' },
-		{ id: 'add', label: 'Servicios', icon: 'fas fa-plus', isCenter: true, path: '#' },
+		{ id: 'home',     label: 'Inicio',    icon: 'fas fa-home',     path: '/' },
+		{ id: 'buscar',   label: 'Buscar',    icon: 'fas fa-search',   path: '/buscar' },
+		{ id: 'add',      label: 'Servicios', icon: 'fas fa-plus',     isCenter: true, path: '#' },
 		{ id: 'services', label: 'Servicios', icon: 'fas fa-briefcase', path: '#' },
-		{ id: 'profile', label: 'Perfil', icon: 'fas fa-user', path: '#' }
+		{ id: 'profile',  label: 'Perfil',    icon: 'fas fa-user',     path: '#' }
 	];
 
 	function handleNav(item) {
