@@ -9,7 +9,7 @@
 		{ id: 'buscar',    label: 'Buscar',    icon: 'fas fa-search',    path: '/buscar' },
 		{ id: 'servicios', label: 'Servicios', icon: 'fas fa-plus',      isCenter: true, path: '/servicios' },
 		{ id: 'servicios', label: 'Servicios', icon: 'fas fa-briefcase', path: '/servicios' },
-		{ id: 'profile',   label: 'Perfil',    icon: 'fas fa-user',      path: '#' }
+		{ id: 'perfil',    label: 'Perfil',    icon: 'fas fa-user',      path: '/perfil' }
 	];
 
 	function handleNav(item) {
