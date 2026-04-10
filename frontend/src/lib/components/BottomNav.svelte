@@ -5,11 +5,11 @@
 	let activeNav = $derived($page.url.pathname === '/' ? 'home' : $page.url.pathname.split('/')[1]);
 
 	const navItems = [
-		{ id: 'home',     label: 'Inicio',    icon: 'fas fa-home',     path: '/' },
-		{ id: 'buscar',   label: 'Buscar',    icon: 'fas fa-search',   path: '/buscar' },
-		{ id: 'add',      label: 'Servicios', icon: 'fas fa-plus',     isCenter: true, path: '#' },
-		{ id: 'services', label: 'Servicios', icon: 'fas fa-briefcase', path: '#' },
-		{ id: 'profile',  label: 'Perfil',    icon: 'fas fa-user',     path: '#' }
+		{ id: 'home',      label: 'Inicio',    icon: 'fas fa-home',      path: '/' },
+		{ id: 'buscar',    label: 'Buscar',    icon: 'fas fa-search',    path: '/buscar' },
+		{ id: 'servicios', label: 'Servicios', icon: 'fas fa-plus',      isCenter: true, path: '/servicios' },
+		{ id: 'servicios', label: 'Servicios', icon: 'fas fa-briefcase', path: '/servicios' },
+		{ id: 'profile',   label: 'Perfil',    icon: 'fas fa-user',      path: '#' }
 	];
 
 	function handleNav(item) {
