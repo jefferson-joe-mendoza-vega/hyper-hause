@@ -1,10 +1,10 @@
 <script>
-	let form = {
+	let form = $state({
 		nombre: '',
 		celular: '',
 		correo: '',
 		mensaje: ''
-	};
+	});
 
 	function handleSubmit(e) {
 		e.preventDefault();

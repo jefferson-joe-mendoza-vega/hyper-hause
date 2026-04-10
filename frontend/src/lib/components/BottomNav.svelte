@@ -5,10 +5,10 @@
 	let activeNav = $derived($page.url.pathname.split('/')[1] || 'home');
 
 	const navItems = [
+		{ id: 'home', label: 'Inicio', icon: 'fas fa-home', path: '/' },
 		{ id: 'search', label: 'Buscar', icon: 'fas fa-search', path: '/propiedades' },
-		{ id: 'favorites', label: 'Favoritos', icon: 'fas fa-heart', path: '#' },
-		{ id: 'home', label: 'Inicio', icon: 'fas fa-home', isCenter: true, path: '/' },
-		{ id: 'messages', label: 'Mensajes', icon: 'fas fa-envelope', path: '#' },
+		{ id: 'add', label: 'Servicios', icon: 'fas fa-plus', isCenter: true, path: '#' },
+		{ id: 'services', label: 'Servicios', icon: 'fas fa-briefcase', path: '#' },
 		{ id: 'profile', label: 'Perfil', icon: 'fas fa-user', path: '#' }
 	];
 

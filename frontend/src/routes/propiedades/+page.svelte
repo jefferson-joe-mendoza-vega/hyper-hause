@@ -1,6 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import PropertyCard from '$lib/components/PropertyCard.svelte';
+	import LoadingPropertySkeleton from '$lib/components/LoadingPropertySkeleton.svelte';
 
 	let propiedades = $state([]);
 	let loading = $state(true);
@@ -11,7 +12,13 @@
 	onMount(async () => {
 		try {
 			loading = true;
-			const response = await fetch(`${BACKEND_URL}/api/propiedades`);
+			
+			// Esperar AMBAS cosas: el fetch Y 2 segundos mínimos
+			// Así siempre se ve la animación de carga
+			const [response] = await Promise.all([
+				fetch(`${BACKEND_URL}/api/propiedades`),
+				new Promise(resolve => setTimeout(resolve, 2000))
+			]);
 
 			if (!response.ok) {
 				throw new Error(`Error: ${response.statusText}`);
@@ -45,9 +52,7 @@
 
 <div class="propiedades-container">
 	{#if loading}
-		<div class="loading">
-			<p>Cargando propiedades...</p>
-		</div>
+		<LoadingPropertySkeleton />
 	{:else if error}
 		<div class="error">
 			<p>Error: {error}</p>

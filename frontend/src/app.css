@@ -1,3 +1,7 @@
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+@import "tailwindcss";
+
+/* === VARIABLES === */
 :root {
 	--bg-color: #f8fafc;
 	--text-main: #1a233a;
@@ -214,6 +218,7 @@ main {
 	.rec-header {
 		padding-right: 60px;
 	}
+}
 
 /* Large Desktop (1440px) */
 @media (min-width: 1440px) {

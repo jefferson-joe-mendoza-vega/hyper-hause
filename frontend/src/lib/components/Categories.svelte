@@ -2,6 +2,7 @@
 	const categories = [
 		{ icon: 'fas fa-building', label: 'Deptos' },
 		{ icon: 'fas fa-home', label: 'Casas' },
+		{ icon: 'fas fa-store', label: 'Comercial' },
 		{ icon: 'fas fa-industry', label: 'Industrial' },
 		{ icon: 'fas fa-mountain', label: 'Terrenos' }
 	];
