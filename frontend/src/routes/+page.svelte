@@ -1,41 +1,23 @@
 <script>
+	import { onMount } from 'svelte';
 	import SearchCard from '$lib/components/SearchCard.svelte';
 	import Categories from '$lib/components/Categories.svelte';
 	import PropertyCard from '$lib/components/PropertyCard.svelte';
 	import ProjectCard from '$lib/components/ProjectCard.svelte';
 	import ResourceBox from '$lib/components/ResourceBox.svelte';
+	import LoadingPropertySkeleton from '$lib/components/LoadingPropertySkeleton.svelte';
+	import { fetchRecomendadas } from '$lib/services/recomendaciones.js';
 
-	const properties = [
-		{
-			slug: 'prada-residencias',
-			title: 'xd 2 Prada Residenci...',
-			price: 'S/ 479,000',
-			bedrooms: 3,
-			bathrooms: 3,
-			area: '200m²',
-			image:
-				'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=500&q=80',
-			badge: 'Nuevo',
-			badgeType: 'green',
-			location: 'Av. Tizón y Bueno 639, Jesus M...',
-			type: 'Alquilar'
-		},
-		{
-			slug: 'casa-verde-premium',
-			title: 'casa verde premium',
-			price: 'S/ 187,300',
-			bedrooms: 1,
-			bathrooms: 1,
-			area: '65m²',
-			image:
-				'https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=500&q=80',
-			badge: 'Última u...',
-			badgeType: 'orange',
-			location: 'Calle Italia 120, Miraflores',
-			type: 'Alquilar'
-		}
-	];
+	// ── Estado de recomendaciones ──────────────────────────────────────────────
+	let properties = $state([]);
+	let loadingRec = $state(true);
 
+	onMount(async () => {
+		properties = await fetchRecomendadas(10);
+		loadingRec = false;
+	});
+
+	// ── Proyectos (estáticos por ahora) ───────────────────────────────────────
 	const projects = [
 		{
 			badge: 'COMPRAR UNIDAD',
@@ -72,26 +54,31 @@
 		<h2 class="section-title" style="margin: 0;">
 			Nuestras<br />recomendaciones
 		</h2>
-		<a href="#">Ver todo</a>
+		<a href="/propiedades">Ver todo</a>
 	</div>
 
-	<div class="rec-scroll-container">
-		{#each properties as property}
-			<PropertyCard
-				slug={property.slug}
-				title={property.title}
-				price={property.price}
-				bedrooms={property.bedrooms}
-				bathrooms={property.bathrooms}
-				area={property.area}
-				image={property.image}
-				badge={property.badge}
-				badgeType={property.badgeType}
-				location={property.location}
-				type={property.type}
-			/>
-		{/each}
-	</div>
+	{#if loadingRec}
+		<!-- Skeleton shimmer mientras carga (igual que carga.html) -->
+		<LoadingPropertySkeleton count={3} />
+	{:else}
+		<div class="rec-scroll-container cards-fadein">
+			{#each properties as property}
+				<PropertyCard
+					slug={property.slug}
+					title={property.title}
+					price={property.price}
+					bedrooms={property.bedrooms}
+					bathrooms={property.bathrooms}
+					area={property.area}
+					image={property.image}
+					badge={property.badge}
+					badgeType={property.badgeType}
+					location={property.location}
+					type={property.type}
+				/>
+			{/each}
+		</div>
+	{/if}
 </section>
 
 <section class="projects-section">
@@ -108,11 +95,33 @@
 </section>
 
 <section class="resources-section">
-	<ResourceBox
-		icon="fas fa-bars"
-		title="Centro de Recursos"
-		description="Guías, consejos e información sobre inversión inmobiliaria."
-	/>
+	<h2 class="section-title">Centro de Recursos</h2>
+	<div class="resources-grid">
+		<ResourceBox
+			icon="fas fa-chart-line"
+			title="Blog Inmobiliario"
+			description="Novedades, tendencias y análisis del mercado inmobiliario."
+			iconBg="#eef2ff"
+			iconColor="#4f46e5"
+			href="/blog"
+		/>
+		<ResourceBox
+			icon="fas fa-headset"
+			title="Asesoría Especializada"
+			description="Consulta gratis con nuestros expertos en inversión inmobiliaria."
+			iconBg="#fff7ed"
+			iconColor="#f59e0b"
+			href="/asesoria"
+		/>
+		<ResourceBox
+			icon="fas fa-newspaper"
+			title="Centro de Recursos"
+			description="Guías, consejos e información sobre inversión inmobiliaria."
+			iconBg="#e6fbf2"
+			iconColor="var(--logo-green)"
+			href="/recursos"
+		/>
+	</div>
 </section>
 
 <style>
@@ -173,5 +182,35 @@
 	.resources-section {
 		padding: 0 24px;
 		margin-bottom: 24px;
+	}
+
+	.resources-grid {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	@media (min-width: 768px) {
+		.resources-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 16px;
+		}
+	}
+
+	/* ── Fade-in cuando las tarjetas reales aparecen (igual que carga.html) ── */
+	.cards-fadein {
+		animation: fadeInCards 0.5s ease-in;
+	}
+
+	@keyframes fadeInCards {
+		from {
+			opacity: 0;
+			transform: translateY(10px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
 	}
 </style>

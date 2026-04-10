@@ -1,38 +1,46 @@
 <script>
-	let skeletons = Array(4).fill(null);
+	let { count = 3 } = $props();
+	let skeletons = Array(count).fill(null);
 </script>
 
-<div class="skeleton-container">
-	<div class="rec-scroll-container">
-		{#each skeletons as _}
-			<div class="skeleton-card">
-				<div class="skeleton skeleton-img" />
-				<div class="skeleton-content">
+<div class="rec-scroll-container">
+	{#each skeletons as _}
+		<div class="skeleton-card">
+			<!-- Imagen -->
+			<div class="skeleton skeleton-img" />
+
+			<!-- Contenido -->
+			<div class="skeleton-content">
+				<!-- Título y badge -->
+				<div class="skeleton-title-row">
 					<div class="skeleton skeleton-title" />
-					<div class="skeleton skeleton-price" />
-					<div class="skeleton-divider" />
-					<div class="skeleton-features">
-						<div class="skeleton skeleton-feature" />
-						<div class="skeleton skeleton-feature" />
-						<div class="skeleton skeleton-feature" />
-					</div>
+					<div class="skeleton skeleton-badge" />
+				</div>
+
+				<!-- Precio -->
+				<div class="skeleton skeleton-price" />
+
+				<!-- Divider -->
+				<div class="skeleton-divider" />
+
+				<!-- Features -->
+				<div class="skeleton-features">
+					<div class="skeleton skeleton-feature" />
+					<div class="skeleton skeleton-feature" />
+					<div class="skeleton skeleton-feature" />
 				</div>
 			</div>
-		{/each}
-	</div>
+		</div>
+	{/each}
 </div>
 
 <style>
-	.skeleton-container {
-		padding: 0 24px;
-		margin-bottom: 24px;
-	}
-
 	.rec-scroll-container {
 		display: flex;
 		gap: 16px;
 		overflow-x: auto;
 		padding-bottom: 12px;
+		padding-right: 24px;
 		scrollbar-width: none;
 		-ms-overflow-style: none;
 	}
@@ -48,73 +56,87 @@
 		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
 		overflow: hidden;
 		flex-shrink: 0;
-		padding: 0;
 	}
 
+	/* ── Animación Shimmer (igual que carga.html) ── */
 	.skeleton {
-		background: linear-gradient(
-			90deg,
-			#ececec 0%,
-			#f5f5f5 50%,
-			#ececec 100%
-		);
+		background: linear-gradient(90deg, #ececec 25%, #f5f5f5 50%, #ececec 75%);
 		background-size: 200% 100%;
-		animation: shimmer 2s infinite;
+		animation: shimmer 1.5s infinite;
 		border-radius: 8px;
 	}
 
 	@keyframes shimmer {
-		0% {
-			background-position: 200% 0;
-		}
-		50% {
-			background-position: -200% 0;
-		}
-		100% {
-			background-position: -200% 0;
-		}
+		0%   { background-position: 200% 0; }
+		100% { background-position: -200% 0; }
 	}
 
+	/* ── Piezas del skeleton ── */
 	.skeleton-img {
 		height: 180px;
 		width: 100%;
 		border-radius: 0;
-		margin-bottom: 0;
 	}
 
 	.skeleton-content {
 		padding: 16px;
 	}
 
+	.skeleton-title-row {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 10px;
+	}
+
 	.skeleton-title {
-		height: 16px;
-		width: 70%;
-		margin-bottom: 12px;
+		height: 14px;
+		width: 55%;
 		border-radius: 4px;
+	}
+
+	.skeleton-badge {
+		height: 22px;
+		width: 28%;
+		border-radius: 8px;
 	}
 
 	.skeleton-price {
 		height: 20px;
 		width: 40%;
-		margin-bottom: 16px;
+		margin-bottom: 14px;
 		border-radius: 4px;
 	}
 
 	.skeleton-divider {
 		height: 1px;
 		background: #e5e7eb;
-		margin: 12px 0 12px 0;
+		margin-bottom: 12px;
 	}
 
 	.skeleton-features {
 		display: flex;
-		gap: 12px;
+		gap: 8px;
 	}
 
 	.skeleton-feature {
-		height: 16px;
-		width: 30%;
+		height: 14px;
 		flex: 1;
 		border-radius: 4px;
+	}
+
+	/* Responsive: desktop grid */
+	@media (min-width: 1024px) {
+		.rec-scroll-container {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+			gap: 16px;
+			overflow: visible;
+			padding-right: 0;
+		}
+
+		.skeleton-card {
+			min-width: unset;
+		}
 	}
 </style>
