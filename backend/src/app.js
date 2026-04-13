@@ -13,6 +13,7 @@ import { Router } from './router.js';
 import { registerPropiedadesRoutes } from './modules/propiedades/index.js';
 import { registerAuthRoutes } from './modules/auth/index.js';
 import { registerAdminRoutes } from './modules/admin/index.js';
+import { registerUploadRoutes } from './modules/upload/index.js';
 
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin':  '*',
@@ -48,6 +49,7 @@ export function createApp(env) {
   registerPropiedadesRoutes(router, env);
   registerAuthRoutes(router, env);
   registerAdminRoutes(router, env);
+  registerUploadRoutes(router, env);
 
   // ── Handler principal ────────────────────────────────────────────────────────
   return async function handle(request) {

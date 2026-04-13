@@ -47,6 +47,7 @@ export function createPropiedadModel(data) {
     titulo:             data.titulo             ?? '',
     descripcion:        data.descripcion        ?? '',
     precio:             Number(data.precio       ?? 0),
+    precioDolares:      data.precioDolares ? Number(data.precioDolares) : null,
     tipoOperacion:      data.tipoOperacion      ?? null,
     tipoInmueble:       data.tipoInmueble       ?? null,
 

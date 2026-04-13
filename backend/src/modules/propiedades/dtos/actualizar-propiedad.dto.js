@@ -9,6 +9,7 @@ export function actualizarPropiedadDto(raw) {
   if (raw.titulo        !== undefined) dto.titulo        = String(raw.titulo).trim();
   if (raw.descripcion   !== undefined) dto.descripcion   = String(raw.descripcion).trim();
   if (raw.precio        !== undefined) dto.precio        = Number(raw.precio);
+  if (raw.precioDolares !== undefined) dto.precioDolares = raw.precioDolares ? Number(raw.precioDolares) : null;
   if (raw.tipoOperacion !== undefined) dto.tipoOperacion = String(raw.tipoOperacion).trim();
   if (raw.tipoInmueble  !== undefined) dto.tipoInmueble  = String(raw.tipoInmueble).trim();
 

@@ -90,17 +90,32 @@ export class PropiedadesController {
   async create(request) {
     const formData = await request.formData();
 
-    // Extraer y subir imágenes
-    const { files, error: imgError } = extractImages(formData);
-    if (imgError) return error(imgError, 422);
-
-    const imagenes    = await uploadImages(files, this.env.IMGBB_API_KEY);
-    const etiquetas   = this._extractEtiquetas(formData);
-    const imagenesConEtiqueta = imagenes.map((img, i) => ({ ...img, etiqueta: etiquetas[i] ?? '' }));
-
-    // Extraer campos de texto del formData y aplicar DTO
+    // Extraer campos de texto del formData
     const body = this._formDataToObject(formData);
-    body.imagenes = imagenesConEtiqueta;
+
+    // Si el cliente proporciona un JSON de imágenes, usar directamente
+    let imagenes = [];
+    const imagenesStr = formData.get('imagenes');
+    if (imagenesStr && typeof imagenesStr === 'string' && imagenesStr.trim()) {
+      try {
+        imagenes = JSON.parse(imagenesStr);
+        if (!Array.isArray(imagenes)) imagenes = [];
+      } catch (e) {
+        console.warn('⚠️ Error parseando imagenes JSON:', e.message);
+      }
+    }
+
+    // Si no hay imágenes en JSON, intentar extraer archivos
+    if (imagenes.length === 0) {
+      const { files, error: imgError } = extractImages(formData);
+      if (imgError) return error(imgError, 422);
+
+      const imagenesSubidas = await uploadImages(files, this.env.IMGBB_API_KEY);
+      const etiquetas = this._extractEtiquetas(formData);
+      imagenes = imagenesSubidas.map((img, i) => ({ ...img, etiqueta: etiquetas[i] ?? '' }));
+    }
+
+    body.imagenes = imagenes;
 
     const dto = crearPropiedadDto(body);
     const created = await this.service.create(dto);

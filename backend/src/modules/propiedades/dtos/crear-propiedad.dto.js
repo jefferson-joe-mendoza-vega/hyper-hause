@@ -16,6 +16,7 @@ export function crearPropiedadDto(raw) {
     titulo:             String(raw.titulo             ?? '').trim(),
     descripcion:        String(raw.descripcion        ?? '').trim(),
     precio:             Number(raw.precio             ?? 0),
+    precioDolares:      raw.precioDolares ? Number(raw.precioDolares) : null,
     tipoOperacion:      String(raw.tipoOperacion      ?? '').trim(),
     tipoInmueble:       String(raw.tipoInmueble       ?? '').trim(),
 

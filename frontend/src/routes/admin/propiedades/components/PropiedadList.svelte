@@ -37,9 +37,9 @@
 				<thead>
 					<tr>
 						<th>Imagen</th>
-						<th>Nombre</th>
+						<th>Título</th>
 						<th>Tipo</th>
-						<th>Ubicación</th>
+						<th>Dirección</th>
 						<th>Precio</th>
 						<th>Acciones</th>
 					</tr>
@@ -50,7 +50,7 @@
 							<td>
 								<div class="prop-thumb">
 									{#if propiedad.imagenes?.[0]?.url}
-										<img src={propiedad.imagenes[0].url} alt={propiedad.nombre} />
+										<img src={propiedad.imagenes[0].url} alt={propiedad.titulo} />
 									{:else}
 										<div class="no-image">
 											<i class="fas fa-image" />
@@ -58,9 +58,9 @@
 									{/if}
 								</div>
 							</td>
-							<td class="font-bold">{propiedad.nombre}</td>
+							<td class="font-bold">{propiedad.titulo}</td>
 							<td>{propiedad.tipoInmueble}</td>
-							<td class="truncate">{propiedad.ubicacion}</td>
+							<td class="truncate">{propiedad.direccion}</td>
 							<td class="font-bold">{propiedad.precio}</td>
 							<td>
 								<div class="acciones">

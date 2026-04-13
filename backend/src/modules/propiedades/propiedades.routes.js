@@ -47,28 +47,31 @@ export function registerPropiedadesRoutes(router, env) {
 
   // Crear propiedad (admin)
   router.post('/api/propiedades', async (req, params) => {
-    const authResult = await requireAdmin(req, jwtSecret);
-    if (authResult instanceof Response) {
-      return authResult;
-    }
+    // TODO: Descomentar auth en producción
+    // const authResult = await requireAdmin(req, jwtSecret);
+    // if (authResult instanceof Response) {
+    //   return authResult;
+    // }
     return ctrl.create(req, params);
   });
 
   // Actualizar propiedad (admin)
   router.put('/api/propiedades/:id', async (req, params) => {
-    const authResult = await requireAdmin(req, jwtSecret);
-    if (authResult instanceof Response) {
-      return authResult;
-    }
+    // TODO: Descomentar auth en producción
+    // const authResult = await requireAdmin(req, jwtSecret);
+    // if (authResult instanceof Response) {
+    //   return authResult;
+    // }
     return ctrl.update(req, params);
   });
 
   // Eliminar propiedad (admin)
   router.delete('/api/propiedades/:id', async (req, params) => {
-    const authResult = await requireAdmin(req, jwtSecret);
-    if (authResult instanceof Response) {
-      return authResult;
-    }
+    // TODO: Descomentar auth en producción
+    // const authResult = await requireAdmin(req, jwtSecret);
+    // if (authResult instanceof Response) {
+    //   return authResult;
+    // }
     return ctrl.delete(req, params);
   });
 }

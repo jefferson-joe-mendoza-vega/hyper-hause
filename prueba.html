@@ -1,171 +1,606 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Skeleton Loader de Productos</title>
-<style>
-  /* --- Estilos Generales --- */
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f8f9fa;
-    padding: 2rem;
-    margin: 0;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyper House - Escritorio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* =========================================
+           VARIABLES Y RESET
+        ========================================= */
+        :root {
+            --primary: #2ecc71;
+            --primary-hover: #27ae60;
+            --dark-bg: #111827;
+            --dark-card: #1f2937;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --border: #e5e7eb;
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
 
-  .product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
 
-  .card {
-    background: #fff;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    padding: 16px;
-    transition: transform 0.3s ease;
-  }
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.5;
+        }
 
-  /* --- Animación Skeleton (Shimmer) --- */
-  .skeleton {
-    background: linear-gradient(90deg, #ececec 25%, #f5f5f5 50%, #ececec 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
-    border-radius: 8px;
-  }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
 
-  @keyframes shimmer {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
-  }
+        /* =========================================
+           HEADER (Adaptado de la nav inferior)
+        ========================================= */
+        header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px); /* Efecto Glassmorphism */
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+        }
 
-  /* --- Estructura del Skeleton --- */
-  .skeleton-img { height: 180px; width: 100%; margin-bottom: 16px; }
-  .skeleton-title { height: 24px; width: 80%; margin-bottom: 12px; }
-  .skeleton-price { height: 20px; width: 40%; margin-bottom: 16px; }
-  .skeleton-btn { height: 40px; width: 100%; border-radius: 8px; }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-  /* --- Estilos del Producto Real (Ocultos inicialmente) --- */
-  .product-content {
-    display: none; /* Se oculta hasta que "cargue" */
-    animation: fadeIn 0.5s ease-in;
-  }
+        .logo {
+            font-weight: bold;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+        .logo i { color: var(--primary); }
 
-  .product-image {
-    width: 100%;
-    height: 180px;
-    background-color: #e0e7ff;
-    border-radius: 8px;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #4f46e5;
-    font-weight: bold;
-  }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
 
-  .product-title {
-    margin: 0 0 10px 0;
-    font-size: 1.2rem;
-    color: #333;
-  }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
 
-  .product-price {
-    margin: 0 0 16px 0;
-    font-size: 1.1rem;
-    color: #4f46e5;
-    font-weight: bold;
-  }
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
 
-  .btn-buy {
-    width: 100%;
-    padding: 12px;
-    background-color: #4f46e5;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background 0.3s ease;
-  }
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
 
-  .btn-buy:hover { background-color: #4338ca; }
-</style>
+        /* El botón flotante de la imagen 2 se convierte en el CTA principal */
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover { background-color: var(--primary-hover); }
+
+        /* =========================================
+           HERO SECTION
+        ========================================= */
+        .hero {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: #1e3a8a; /* Tono azul oscuro de la imagen */
+            margin-bottom: 2rem;
+        }
+
+        .search-box {
+            background: var(--white);
+            padding: 1rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .search-tabs {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1rem;
+        }
+
+        .search-tabs button {
+            background: none;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-muted);
+            border-radius: var(--radius-sm);
+        }
+
+        .search-tabs button.active {
+            background: var(--bg-light);
+            color: var(--text-main);
+        }
+
+        .search-inputs {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .search-inputs select, .search-inputs input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            outline: none;
+        }
+
+        /* =========================================
+           SECCIONES GENERALES & GRIDS
+        ========================================= */
+        section { padding: 4rem 0; }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        /* =========================================
+           CARDS (Recomendaciones y Proyectos)
+        ========================================= */
+        .property-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s;
+        }
+
+        .property-card:hover { transform: translateY(-5px); }
+
+        .property-img {
+            height: 200px;
+            background-color: #ddd;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .property-info { padding: 1.5rem; }
+        
+        .property-price {
+            color: var(--primary);
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+
+        .property-features {
+            display: flex;
+            gap: 1rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            border-top: 1px solid var(--border);
+            padding-top: 1rem;
+        }
+
+        /* Proyecto Destacado Card */
+        .project-card {
+            height: 300px;
+            border-radius: var(--radius-lg);
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            padding: 2rem;
+            color: var(--white);
+            box-shadow: inset 0 -100px 100px rgba(0,0,0,0.7);
+        }
+
+        /* =========================================
+           SECCIÓN OSCURA (Stats & Testimonios)
+        ========================================= */
+        .dark-section {
+            background-color: var(--dark-bg);
+            color: var(--white);
+        }
+
+        .stat-item { text-align: center; }
+        .stat-number {
+            font-size: 2.5rem;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .testimonial-card {
+            background-color: var(--dark-card);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* =========================================
+           FOOTER
+        ========================================= */
+        footer {
+            background-color: var(--dark-bg);
+            color: var(--text-muted);
+            padding: 4rem 0 2rem 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-grid h4 {
+            color: var(--white);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        .newsletter input {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: var(--radius-sm);
+            border: none;
+            margin-bottom: 1rem;
+            background: var(--dark-card);
+            color: white;
+        }
+
+        .newsletter button { width: 100%; }
+    </style>
 </head>
 <body>
 
-<div class="product-grid">
-  <div class="card" id="card-1">
-    <div class="skeleton-wrapper">
-      <div class="skeleton skeleton-img"></div>
-      <div class="skeleton skeleton-title"></div>
-      <div class="skeleton skeleton-price"></div>
-      <div class="skeleton skeleton-btn"></div>
-    </div>
-    <div class="product-content">
-      <div class="product-image">Foto del Producto</div>
-      <h3 class="product-title">Auriculares Inalámbricos</h3>
-      <p class="product-price">$ 99.00</p>
-      <button class="btn-buy">Añadir al carrito</button>
-    </div>
-  </div>
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <i class="fa-solid fa-building-user"></i> HYPER HOUSE
+            </div>
+            
+            <nav class="nav-links">
+                <a href="#" class="active"><i class="fa-solid fa-house"></i> Inicio</a>
+                <a href="#"><i class="fa-solid fa-magnifying-glass"></i> Buscar</a>
+                <a href="#"><i class="fa-solid fa-briefcase"></i> Servicios</a>
+                <a href="#"><i class="fa-solid fa-book"></i> Recursos</a>
+            </nav>
 
-  <div class="card" id="card-2">
-    <div class="skeleton-wrapper">
-      <div class="skeleton skeleton-img"></div>
-      <div class="skeleton skeleton-title"></div>
-      <div class="skeleton skeleton-price"></div>
-      <div class="skeleton skeleton-btn"></div>
-    </div>
-    <div class="product-content">
-      <div class="product-image">Foto del Producto</div>
-      <h3 class="product-title">Reloj Inteligente</h3>
-      <p class="product-price">$ 149.50</p>
-      <button class="btn-buy">Añadir al carrito</button>
-    </div>
-  </div>
+            <div class="nav-actions">
+                <a href="#" style="color: var(--text-muted);"><i class="fa-regular fa-bell"></i></a>
+                <a href="#" style="color: var(--text-muted);"><i class="fa-regular fa-user"></i> Perfil</a>
+                <button class="btn-primary">
+                    <i class="fa-solid fa-plus"></i> Publicar Propiedad
+                </button>
+            </div>
+        </div>
+    </header>
 
-  <div class="card" id="card-3">
-    <div class="skeleton-wrapper">
-      <div class="skeleton skeleton-img"></div>
-      <div class="skeleton skeleton-title"></div>
-      <div class="skeleton skeleton-price"></div>
-      <div class="skeleton skeleton-btn"></div>
-    </div>
-    <div class="product-content">
-      <div class="product-image">Foto del Producto</div>
-      <h3 class="product-title">Teclado Mecánico</h3>
-      <p class="product-price">$ 85.00</p>
-      <button class="btn-buy">Añadir al carrito</button>
-    </div>
-  </div>
-</div>
+    <main>
+        <section class="hero container">
+            <h1>Encuentra tu<br>propiedad ideal</h1>
+            
+            <div class="search-box">
+                <div class="search-tabs">
+                    <button class="active">Alquilar</button>
+                    <button>Comprar</button>
+                    <button>Proyectos</button>
+                </div>
+                <div class="search-inputs">
+                    <select>
+                        <option>Tipo de Propiedad</option>
+                        <option>Departamento</option>
+                        <option>Casa</option>
+                    </select>
+                    <input type="text" placeholder="📍 Ciudad, zona...">
+                    <button class="btn-primary" style="padding: 0 2rem;"><i class="fa-solid fa-search"></i></button>
+                </div>
+            </div>
+        </section>
 
-<script>
-  // Este script simula el tiempo que tarda tu servidor en enviar los datos
-  // En tu proyecto real, reemplazarías esto cuando tu API o base de datos termine de cargar.
-  
-  setTimeout(() => {
-    // Seleccionamos todas las tarjetas
-    const cards = document.querySelectorAll('.card');
-    
-    cards.forEach(card => {
-      // Ocultamos la animación de esqueleto
-      card.querySelector('.skeleton-wrapper').style.display = 'none';
-      // Mostramos el contenido real del producto con un efecto suave
-      card.querySelector('.product-content').style.display = 'block';
-    });
-  }, 2500); // 2500 milisegundos = 2.5 segundos de "carga"
-</script>
+        <section class="container">
+            <div class="section-header">
+                <h2>Nuestras recomendaciones</h2>
+                <a href="#" style="color: var(--primary); text-decoration: none;">Ver todo</a>
+            </div>
+            
+            <div class="grid-3">
+                <div class="property-card">
+                    <div class="property-img" style="background-image: url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=400');">
+                        <span class="badge">🔥 Nuevo</span>
+                    </div>
+                    <div class="property-info">
+                        <h3>Prada Residencial</h3>
+                        <p class="property-price">S/ 470,000</p>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">📍 Av. Javier Prado 123, San Isidro</p>
+                        <div class="property-features">
+                            <span><i class="fa-solid fa-bed"></i> 3</span>
+                            <span><i class="fa-solid fa-bath"></i> 2</span>
+                            <span><i class="fa-solid fa-ruler-combined"></i> 200m²</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="property-card">
+                    <div class="property-img" style="background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=400');">
+                        <span class="badge" style="background: #f39c12;">⚡ Última unidad</span>
+                    </div>
+                    <div class="property-info">
+                        <h3>Casa Verde Premium</h3>
+                        <p class="property-price">S/ 187,300</p>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">📍 Calle Los Pinos 456, Surco</p>
+                        <div class="property-features">
+                            <span><i class="fa-solid fa-bed"></i> 4</span>
+                            <span><i class="fa-solid fa-bath"></i> 3</span>
+                            <span><i class="fa-solid fa-ruler-combined"></i> 350m²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="property-card">
+                    <div class="property-img" style="background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=400');">
+                    </div>
+                    <div class="property-info">
+                        <h3>Torre Central</h3>
+                        <p class="property-price">S/ 320,000</p>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">📍 Av. Brasil 789, Magdalena</p>
+                        <div class="property-features">
+                            <span><i class="fa-solid fa-bed"></i> 2</span>
+                            <span><i class="fa-solid fa-bath"></i> 1</span>
+                            <span><i class="fa-solid fa-ruler-combined"></i> 95m²</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <h2>Proyectos Destacados</h2>
+            <br>
+            <div class="grid-2">
+                <div class="project-card" style="background-image: url('https://images.unsplash.com/photo-1448630360428-65456885c650?auto=format&fit=crop&q=80&w=600');">
+                    <span class="badge">Entrega 2025</span>
+                    <div style="width: 100%; display: flex; justify-content: space-between; align-items: flex-end;">
+                        <div>
+                            <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Los Cerezos</h3>
+                            <p>Desde $80,000 • Entrega 2025</p>
+                        </div>
+                        <button class="btn-primary" style="border-radius: 50%; width: 40px; height: 40px; justify-content: center;"><i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <div class="project-card" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=600');">
+                    <span class="badge">Ciudad Nueva</span>
+                    <div style="width: 100%; display: flex; justify-content: space-between; align-items: flex-end;">
+                        <div>
+                            <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Central Park</h3>
+                            <p>Oficinas Premium • San Isidro</p>
+                        </div>
+                        <button class="btn-primary" style="border-radius: 50%; width: 40px; height: 40px; justify-content: center;"><i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="dark-section">
+            <div class="container">
+                <div class="grid-4" style="margin-bottom: 4rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 3rem;">
+                    <div class="stat-item">
+                        <div class="stat-number">2022</div>
+                        <div class="text-muted">Año de creación</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">389</div>
+                        <div class="text-muted">Clientes felices</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">17</div>
+                        <div class="text-muted">Socios inmobiliarios</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">178</div>
+                        <div class="text-muted">Operaciones</div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-bottom: 3rem;">
+                    <h2 style="font-size: 2rem; margin-bottom: 1rem;">Qué dicen nuestros clientes</h2>
+                    <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">En cada operación, nuestro compromiso es brindar un servicio profesional, cercano y efectivo...</p>
+                </div>
+
+                <div class="grid-3">
+                    <div class="testimonial-card">
+                        <div class="user-info">
+                            <div class="avatar">MC</div>
+                            <div>
+                                <h4 style="margin: 0;">María Castro</h4>
+                                <small style="color: var(--text-muted);">Cliente • Venta</small>
+                            </div>
+                        </div>
+                        <p>"Excelente servicio, me ayudaron a vender mi casa en tiempo récord. Muy profesionales y atentos en todo momento."</p>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="user-info">
+                            <div class="avatar" style="background: #3498db;">JR</div>
+                            <div>
+                                <h4 style="margin: 0;">Jorge Rodríguez</h4>
+                                <small style="color: var(--text-muted);">Cliente • Alquiler</small>
+                            </div>
+                        </div>
+                        <p>"Encontré el departamento ideal gracias a su equipo. Todo el proceso fue rápido y sin complicaciones."</p>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="user-info">
+                            <div class="avatar" style="background: #e67e22;">AS</div>
+                            <div>
+                                <h4 style="margin: 0;">Ana Sánchez</h4>
+                                <small style="color: var(--text-muted);">Cliente • Compra</small>
+                            </div>
+                        </div>
+                        <p>"Confianza total. Me asesoraron en cada paso de la compra de mi primera casa, altamente recomendados."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h4 style="color: var(--white); font-size: 1.2rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fa-solid fa-building-user"></i> HYPER HOUSE
+                    </h4>
+                    <p style="margin-bottom: 1rem; font-size: 0.9rem;">En Hyper House Inmobiliaria ofrecemos soluciones para inversores. Con un enfoque moderno, confiable y personalizado.</p>
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="#" style="color: var(--white);"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#" style="color: var(--white);"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4>Servicios</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">✓ Asesoría Legal</a></li>
+                        <li><a href="#">✓ Evaluación de Riesgos</a></li>
+                        <li><a href="#">✓ Compra/Venta y alquiler</a></li>
+                        <li><a href="#">✓ Saneamiento Físico Legal</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4>Contacto</h4>
+                    <ul class="footer-links">
+                        <li>📍 Av. Paseo de la República, Lima</li>
+                        <li>📞 +51 999 999 999</li>
+                        <li>✉️ ventas@hyperhouse.com</li>
+                    </ul>
+                </div>
+
+                <div class="newsletter">
+                    <h4>Consulta</h4>
+                    <input type="text" placeholder="Nombre completo">
+                    <input type="text" placeholder="Celular/WhatsApp">
+                    <button class="btn-primary" style="justify-content: center;">Suscríbete</button>
+                </div>
+            </div>
+            
+            <div style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; font-size: 0.8rem;">
+                © 2026 Hyper House Inmobiliaria. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
 
 </body>
 </html>
