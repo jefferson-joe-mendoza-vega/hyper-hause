@@ -56,4 +56,41 @@
 		color: var(--text-gray);
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 	}
+
+	/* Responsive */
+	@media (max-width: 1024px) {
+		.usuarios-admin {
+			max-width: 100%;
+		}
+
+		.page-title {
+			font-size: 24px;
+			margin-bottom: 24px;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.page-title {
+			font-size: 20px;
+			margin-bottom: 20px;
+		}
+
+		.loading,
+		.empty-state {
+			padding: 40px 16px;
+			border-radius: 8px;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.page-title {
+			font-size: 18px;
+			margin-bottom: 16px;
+		}
+
+		.loading,
+		.empty-state {
+			padding: 30px 12px;
+		}
+	}
 </style>

@@ -35,6 +35,7 @@
 <style>
 	.dashboard {
 		max-width: 1200px;
+		margin: 0 auto;
 	}
 
 	.page-title {
@@ -117,5 +118,122 @@
 		text-align: center;
 		padding: 40px 20px;
 		color: var(--text-gray);
+	}
+
+	/* Tablet */
+	@media (max-width: 1024px) {
+		.page-title {
+			font-size: 24px;
+			margin-bottom: 24px;
+		}
+
+		.stats-grid {
+			grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+			gap: 16px;
+			margin-bottom: 32px;
+		}
+
+		.stat-card {
+			padding: 16px;
+			gap: 12px;
+		}
+
+		.stat-icon {
+			width: 50px;
+			height: 50px;
+		}
+
+		.stat-icon i {
+			font-size: 20px;
+		}
+
+		.stat-value {
+			font-size: 20px;
+		}
+	}
+
+	/* Mobile */
+	@media (max-width: 768px) {
+		.dashboard {
+			padding: 0;
+		}
+
+		.page-title {
+			font-size: 20px;
+			margin-bottom: 20px;
+		}
+
+		.stats-grid {
+			grid-template-columns: repeat(2, 1fr);
+			gap: 12px;
+			margin-bottom: 24px;
+		}
+
+		.stat-card {
+			padding: 12px;
+			gap: 10px;
+			flex-direction: column;
+			text-align: center;
+		}
+
+		.stat-icon {
+			width: 48px;
+			height: 48px;
+		}
+
+		.stat-icon i {
+			font-size: 20px;
+		}
+
+		.stat-label {
+			font-size: 11px;
+		}
+
+		.stat-value {
+			font-size: 18px;
+		}
+
+		.recent-activity {
+			padding: 16px;
+		}
+
+		.section-title {
+			font-size: 16px;
+		}
+
+		.activity-empty {
+			padding: 30px 16px;
+			font-size: 14px;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.page-title {
+			font-size: 18px;
+			margin-bottom: 16px;
+		}
+
+		.stats-grid {
+			grid-template-columns: 1fr;
+			gap: 10px;
+		}
+
+		.stat-card {
+			flex-direction: row;
+		}
+
+		.stat-icon {
+			width: 44px;
+			height: 44px;
+			flex-shrink: 0;
+		}
+
+		.stat-label {
+			font-size: 10px;
+		}
+
+		.stat-value {
+			font-size: 16px;
+		}
 	}
 </style>

@@ -674,4 +674,226 @@
 		opacity: 0.6;
 		cursor: not-allowed;
 	}
+
+	/* Responsive Styles */
+	@media (max-width: 1024px) {
+		.form-container {
+			padding: 24px;
+		}
+
+		.form-grid {
+			grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+		}
+
+		.amenidades-grid {
+			grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+		}
+
+		.imagenes-gallery {
+			grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+		}
+	}
+
+	@media (max-width: 768px) {
+		.form-container {
+			padding: 16px;
+			margin-bottom: 20px;
+		}
+
+		.form-title {
+			font-size: 20px;
+			margin-bottom: 20px;
+		}
+
+		.section-title {
+			font-size: 14px;
+			margin-bottom: 14px;
+		}
+
+		.form-section {
+			margin-bottom: 20px;
+			padding-bottom: 20px;
+		}
+
+		.form-grid {
+			grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+			gap: 12px;
+		}
+
+		.form-group label {
+			font-size: 13px;
+		}
+
+		.form-group input,
+		.form-group select,
+		.form-group textarea {
+			padding: 8px 10px;
+			font-size: 14px;
+		}
+
+		.amenidades-grid {
+			grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+			gap: 8px;
+		}
+
+		.amenidad-checkbox {
+			padding: 8px 10px;
+			font-size: 12px;
+		}
+
+		.amenidad-checkbox span {
+			font-size: 12px;
+		}
+
+		.upload-area {
+			padding: 24px 16px;
+		}
+
+		.upload-hint p {
+			font-size: 13px;
+		}
+
+		.imagenes-gallery {
+			grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+			gap: 10px;
+		}
+
+		.imagen-card img {
+			height: 90px;
+		}
+
+		.form-actions {
+			margin-top: 20px;
+			gap: 8px;
+		}
+
+		.btn-submit {
+			padding: 10px 20px;
+			font-size: 13px;
+			width: 100%;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.form-container {
+			padding: 12px;
+			margin-bottom: 16px;
+			border-radius: 8px;
+		}
+
+		.form-title {
+			font-size: 18px;
+			margin-bottom: 16px;
+		}
+
+		.section-title {
+			font-size: 13px;
+			margin-bottom: 12px;
+		}
+
+		.alert-error {
+			font-size: 12px;
+			padding: 10px 12px;
+		}
+
+		.form-section {
+			margin-bottom: 16px;
+			padding-bottom: 16px;
+		}
+
+		.form-grid {
+			grid-template-columns: 1fr;
+			gap: 10px;
+		}
+
+		.form-group {
+			gap: 6px;
+		}
+
+		.form-group label {
+			font-size: 12px;
+		}
+
+		.form-group input,
+		.form-group select,
+		.form-group textarea {
+			padding: 8px;
+			font-size: 14px;
+			border-radius: 6px;
+		}
+
+		.form-group textarea {
+			min-height: 60px;
+		}
+
+		.amenidades-grid {
+			grid-template-columns: repeat(2, 1fr);
+			gap: 6px;
+		}
+
+		.amenidad-checkbox {
+			padding: 6px 8px;
+			font-size: 11px;
+		}
+
+		.amenidad-checkbox span {
+			font-size: 11px;
+		}
+
+		.upload-area {
+			padding: 16px 12px;
+		}
+
+		.upload-hint p {
+			font-size: 12px;
+		}
+
+		.imagenes-gallery {
+			grid-template-columns: repeat(3, 1fr);
+			gap: 8px;
+		}
+
+		.imagen-card {
+			border-radius: 6px;
+		}
+
+		.imagen-card img {
+			height: 80px;
+		}
+
+		.imagen-info {
+			padding: 6px;
+			gap: 3px;
+		}
+
+		.etiqueta-input {
+			padding: 3px 4px;
+			font-size: 11px;
+		}
+
+		.btn-remove {
+			padding: 3px 6px;
+			font-size: 11px;
+		}
+
+		.form-actions {
+			flex-direction: column;
+			margin-top: 16px;
+			gap: 10px;
+		}
+
+		.btn-submit {
+			padding: 12px 16px;
+			font-size: 14px;
+			width: 100%;
+		}
+
+		.form-group.checkbox {
+			flex-wrap: wrap;
+		}
+
+		.form-group.checkbox label {
+			font-size: 13px;
+		}
+	}
 </style>
