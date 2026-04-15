@@ -1,12 +1,9 @@
 <script>
-	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 
 	const GOOGLE_CLIENT_ID = '469356156937-pbc5ehis02bvshqjbvhvil8odq9trj7k.apps.googleusercontent.com';
 	const API_URL = 'http://localhost:8787';
 
-	// ── Estado de sesión (simulado — conectar con store real cuando exista) ─────
-	// Estructura compatible con el backend: { id, nombre, email, foto, rol, estado }
 	let usuario = $state(
 		typeof localStorage !== 'undefined'
 			? JSON.parse(localStorage.getItem('auth_user') ?? 'null')
@@ -16,19 +13,37 @@
 	let sesionActiva = $derived(usuario !== null);
 	let loadingGoogle = $state(false);
 	let errorGoogle = $state('');
+	let googleInitialized = $state(false);
 
 	onMount(async () => {
-		// Cargar Google script
+		// Cargar Google script una sola vez
 		if (typeof window !== 'undefined' && !window.google) {
 			const script = document.createElement('script');
 			script.src = 'https://accounts.google.com/gsi/client';
 			script.async = true;
 			script.defer = true;
+			script.onload = initializeGoogleAuth;
 			document.head.appendChild(script);
+		} else if (window.google?.accounts?.id) {
+			initializeGoogleAuth();
 		}
 	});
 
-	// ── Menú de opciones del perfil ───────────────────────────────────────────
+	function initializeGoogleAuth() {
+		try {
+			if (window.google?.accounts?.id && !googleInitialized) {
+				window.google.accounts.id.initialize({
+					client_id: GOOGLE_CLIENT_ID,
+					callback: handleGoogleResponse,
+					auto_select: false
+				});
+				googleInitialized = true;
+			}
+		} catch (err) {
+			console.error('Google init error:', err);
+		}
+	}
+
 	const menuItems = [
 		{
 			group: 'Mi actividad',
@@ -62,24 +77,11 @@
 			loadingGoogle = true;
 			errorGoogle = '';
 
-			// Inicializar Google si no está ya
-			if (!window.google?.accounts?.id) {
-				// Esperar a que cargue Google
-				await new Promise(resolve => setTimeout(resolve, 500));
+			if (!googleInitialized || !window.google?.accounts?.id) {
+				throw new Error('Google Sign-In no está listo. Por favor recarga la página.');
 			}
 
-			if (!window.google?.accounts?.id) {
-				throw new Error('Google Sign-In no cargó correctamente');
-			}
-
-			// Inicializar y mostrar el one-tap
-			window.google.accounts.id.initialize({
-				client_id: GOOGLE_CLIENT_ID,
-				callback: handleGoogleResponse,
-				auto_select: false
-			});
-
-			// Mostrar el click flow (popup)
+			// Renderizar button que dispara el callback
 			window.google.accounts.id.renderButton(
 				document.getElementById('google-button-container'),
 				{
@@ -90,13 +92,15 @@
 				}
 			);
 
-			// Hacer click automático
-			const googleButton = document.querySelector('[data-google-login]');
-			if (googleButton) {
-				googleButton.click();
+			// Disparar click automáticamente
+			const button = document.querySelector('[role="button"][data-button-type="standard"]');
+			if (button) {
+				button.click();
 			}
+
+			loadingGoogle = false;
 		} catch (err) {
-			errorGoogle = 'Error al iniciar Google: ' + err.message;
+			errorGoogle = 'Error: ' + err.message;
 			loadingGoogle = false;
 			console.error('Google login error:', err);
 		}
@@ -154,7 +158,6 @@
 		return JSON.parse(jsonPayload);
 	}
 
-	// Avatar placeholder si no hay foto
 	function iniciales(nombre = '') {
 		return nombre
 			.split(' ')
