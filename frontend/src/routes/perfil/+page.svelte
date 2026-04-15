@@ -208,6 +208,16 @@
 		</div>
 	</div>
 
+	<!-- Botón Panel Admin -->
+	{#if usuario.rol === 'admin'}
+		<div class="admin-button-wrap">
+			<a href="/admin" class="btn-admin-panel">
+				<i class="fas fa-chart-line" />
+				Ir a Panel Admin
+			</a>
+		</div>
+	{/if}
+
 	<!-- Menú de opciones -->
 	<div class="perfil-menu">
 		{#each menuItems as grupo}
@@ -480,6 +490,43 @@
 
 	.btn-logout:hover {
 		background: #ffe4e6;
+	}
+
+	/* Botón Panel Admin */
+	.admin-button-wrap {
+		padding: 0 20px 16px;
+		display: flex;
+		justify-content: center;
+	}
+
+	.btn-admin-panel {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+		width: 100%;
+		max-width: 300px;
+		padding: 14px 24px;
+		background: linear-gradient(135deg, #1a4b8e 0%, #1a233a 100%);
+		color: white;
+		border: none;
+		border-radius: 12px;
+		font-size: 14px;
+		font-weight: 600;
+		text-decoration: none;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		box-shadow: 0 4px 12px rgba(26, 75, 142, 0.2);
+	}
+
+	.btn-admin-panel:hover {
+		background: linear-gradient(135deg, #1a3a7a 0%, #151f2e 100%);
+		box-shadow: 0 6px 16px rgba(26, 75, 142, 0.3);
+		transform: translateY(-1px);
+	}
+
+	.btn-admin-panel i {
+		font-size: 15px;
 	}
 
 	/* ══════════════════════════════════════════════════════ */
