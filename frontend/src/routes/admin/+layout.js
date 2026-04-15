@@ -1,22 +1,22 @@
 import { redirect } from '@sveltejs/kit';
-import { isAuthenticated, getUser, verifyTokenWithServer } from '$lib/auth.js';
 
-export async function load({ url }) {
-	// Verificar si está autenticado localmente
-	if (!isAuthenticated()) {
-		throw redirect(303, '/login');
+export const ssr = false; // Desabilitar SSR para acceso a localStorage
+
+export function load({ url }) {
+	// Verificar si está autenticado (verificar localStorage)
+	if (typeof localStorage === 'undefined') {
+		throw redirect(303, '/perfil');
 	}
 
-	// Verificar token con el servidor
-	const isValid = await verifyTokenWithServer();
-	if (!isValid) {
-		throw redirect(303, '/login');
-	}
+	const token = localStorage.getItem('auth_token');
+	const user = localStorage.getItem('auth_user');
 
-	const user = getUser();
+	if (!token || !user) {
+		throw redirect(303, '/perfil');
+	}
 
 	// Pasar datos del usuario al layout
 	return {
-		user
+		user: JSON.parse(user)
 	};
 }
