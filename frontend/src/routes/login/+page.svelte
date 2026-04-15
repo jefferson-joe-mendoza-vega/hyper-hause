@@ -1,7 +1,10 @@
 <script>
 	import { goto } from '$app/navigation';
-	import { initializeGoogleAuth, renderGoogleButton, isAuthenticated, getUser } from '$lib/auth.js';
+	import { loadGoogleScript, getToken, setToken, setUser } from '$lib/auth.js';
 	import { onMount } from 'svelte';
+
+	const GOOGLE_CLIENT_ID = '469356156937-pbc5ehis02bvshqjbvhvil8odq9trj7k.apps.googleusercontent.com';
+	const API_URL = 'http://localhost:8787';
 
 	let loading = $state(false);
 	let error = $state('');
@@ -9,26 +12,91 @@
 
 	onMount(async () => {
 		// Si ya está autenticado, ir al admin
-		if (isAuthenticated()) {
+		if (getToken()) {
 			goto('/admin');
 			return;
 		}
 
 		// Inicializar Google OAuth
 		try {
-			await initializeGoogleAuth(handleLoginSuccess);
-			renderGoogleButton('google-signin-button');
-			initialized = true;
+			await loadGoogleScript();
+
+			if (window.google?.accounts?.id) {
+				// Configurar callback
+				window.google.accounts.id.initialize({
+					client_id: GOOGLE_CLIENT_ID,
+					callback: handleCredentialResponse,
+					auto_select: false
+				});
+
+				// Renderizar botón
+				window.google.accounts.id.renderButton(document.getElementById('google-signin-button'), {
+					theme: 'outline',
+					size: 'large',
+					text: 'signin_with',
+					width: '300'
+				});
+
+				initialized = true;
+			}
 		} catch (err) {
-			error = 'Error al cargar Google Sign-In';
-			console.error(err);
+			error = 'Error al cargar Google Sign-In: ' + err.message;
+			console.error('Google init error:', err);
 		}
 	});
 
-	function handleLoginSuccess(usuario) {
-		loading = false;
-		// Redirigir al dashboard
-		goto('/admin');
+	async function handleCredentialResponse(response) {
+		try {
+			loading = true;
+			error = '';
+
+			// Decodificar JWT
+			const userData = decodeJwt(response.credential);
+
+			// Enviar al backend
+			const res = await fetch(`${API_URL}/api/auth/login-google`, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					idToken: response.credential,
+					googleId: userData.sub,
+					nombre: userData.name,
+					email: userData.email,
+					foto: userData.picture
+				})
+			});
+
+			if (!res.ok) {
+				const data = await res.json();
+				throw new Error(data.error || 'Error en autenticación');
+			}
+
+			const data = await res.json();
+
+			// Guardar token y usuario
+			setToken(data.token);
+			setUser(data.usuario);
+
+			// Redirigir al admin
+			loading = false;
+			goto('/admin');
+		} catch (err) {
+			error = 'Error: ' + err.message;
+			loading = false;
+			console.error('Login error:', err);
+		}
+	}
+
+	function decodeJwt(token) {
+		const base64Url = token.split('.')[1];
+		const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+		const jsonPayload = decodeURIComponent(
+			atob(base64)
+				.split('')
+				.map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+				.join('')
+		);
+		return JSON.parse(jsonPayload);
 	}
 </script>
 
@@ -53,11 +121,9 @@
 				<div class="error-message">{error}</div>
 			{/if}
 
-			{#if initialized}
-				<div id="google-signin-button" class="google-button-wrapper"></div>
-			{:else}
-				<div class="loading">Cargando Google Sign-In...</div>
-			{/if}
+	{#if loading}
+		<div class="loading">Autenticando...</div>
+	{:else if initialized}
 
 			<div class="divider">
 				<span>Solo para administradores</span>
