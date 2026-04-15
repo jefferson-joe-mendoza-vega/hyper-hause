@@ -6,8 +6,15 @@
 	let usuarios = $state([]);
 	let loading = $state(true);
 	let error = $state(null);
+	let editandoId = $state(null);
+	let nuevoRol = $state('normal');
 
 	onMount(async () => {
+		console.log('📋 Iniciando carga de usuarios...');
+		await cargarUsuarios();
+	});
+
+	async function cargarUsuarios() {
 		console.log('📋 Iniciando carga de usuarios...');
 		
 		try {
@@ -50,7 +57,49 @@
 			loading = false;
 			console.log('✅ Loading puesto a false');
 		}
-	});
+	}
+
+	async function actualizarRol(usuarioId, rolActual) {
+		const nuevoRolSeleccionado = rolActual === 'admin' ? 'normal' : 'admin';
+		
+		try {
+			const token = localStorage.getItem('auth_token');
+			
+			const res = await fetch(`${BACKEND_URL}/api/admin/usuarios/${usuarioId}/rol`, {
+				method: 'PUT',
+				headers: {
+					'Authorization': `Bearer ${token}`,
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ rol: nuevoRolSeleccionado })
+			});
+
+			if (!res.ok) {
+				const data = await res.json();
+				throw new Error(data.error || 'Error al actualizar rol');
+			}
+
+			console.log('✅ Rol actualizado correctamente');
+			editandoId = null;
+			await cargarUsuarios();
+		} catch (err) {
+			console.error('❌ Error:', err);
+			alert('Error al actualizar rol: ' + err.message);
+		}
+	}
+
+	function formatearFecha(fecha) {
+		if (!fecha) return '-';
+		try {
+			return new Date(fecha).toLocaleDateString('es-ES', {
+				year: 'numeric',
+				month: '2-digit',
+				day: '2-digit'
+			});
+		} catch {
+			return 'Inválida';
+		}
+	}
 </script>
 
 <div class="usuarios-admin">
@@ -79,6 +128,7 @@
 						<th>Estado</th>
 						<th>Último Acceso</th>
 						<th>Fecha Creación</th>
+						<th>Acciones</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -96,8 +146,17 @@
 									{usuario.estado}
 								</span>
 							</td>
-							<td class="fecha">{usuario.ultimoAcceso ? new Date(usuario.ultimoAcceso).toLocaleDateString() : '-'}</td>
-							<td class="fecha">{usuario.fechaCreacion ? new Date(usuario.fechaCreacion).toLocaleDateString() : '-'}</td>
+							<td class="fecha">{formatearFecha(usuario.ultimoAcceso)}</td>
+							<td class="fecha">{formatearFecha(usuario.fechaCreacion)}</td>
+							<td class="acciones">
+								<button 
+									class="btn-cambiar-rol"
+									onclick={() => actualizarRol(usuario.id, usuario.rol)}
+									title={usuario.rol === 'admin' ? 'Bajar a usuario normal' : 'Hacer admin'}
+								>
+									{usuario.rol === 'admin' ? '👤 Bajar rol' : '👑 Hacer admin'}
+								</button>
+							</td>
 						</tr>
 					{/each}
 				</tbody>
@@ -219,6 +278,33 @@
 	.estado-badge:not(.activo) {
 		background: #fee2e2;
 		color: #ef4444;
+	}
+
+	.acciones {
+		text-align: center;
+	}
+
+	.btn-cambiar-rol {
+		padding: 6px 12px;
+		border-radius: 8px;
+		border: 1px solid #e2e8f0;
+		background: white;
+		color: var(--text-blue);
+		font-size: 12px;
+		font-weight: 600;
+		cursor: pointer;
+		transition: all 0.2s;
+		white-space: nowrap;
+	}
+
+	.btn-cambiar-rol:hover {
+		background: #eef4ff;
+		border-color: var(--text-blue);
+		box-shadow: 0 2px 4px rgba(26, 75, 142, 0.1);
+	}
+
+	.btn-cambiar-rol:active {
+		transform: scale(0.98);
 	}
 
 	/* Responsive */

@@ -59,11 +59,8 @@ export async function loginGoogle(googleId, nombre, email, foto) {
 export async function obtenerTodosLosUsuarios() {
 	try {
 		const usuarios = await db.getAll('usuarios');
-		return usuarios.map(u => ({
-			...u,
-			fechaCreacion: u.fechaCreacion ? new Date(u.fechaCreacion).toLocaleDateString() : null,
-			ultimoAcceso: u.ultimoAcceso ? new Date(u.ultimoAcceso).toLocaleDateString() : null
-		}));
+		// ⭐ NO convertir fechas - dejarlas como ISO strings tal como están en BD
+		return usuarios;
 	} catch (error) {
 		console.error('Error obteniendo usuarios:', error.message);
 		throw error;
