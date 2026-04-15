@@ -3,6 +3,7 @@
 	import Header from '$lib/components/Header.svelte';
 	import BottomNav from '$lib/components/BottomNav.svelte';
 	import Footer from '$lib/components/Footer.svelte';
+	import GoogleOneTap from '$lib/components/GoogleOneTap.svelte';
 	import '../app.css';
 
 	let { children } = $props();
@@ -19,6 +20,7 @@
 </svelte:head>
 
 <div class="mobile-container">
+	<GoogleOneTap />
 	<Header />
 	<main>
 		{@render children()}

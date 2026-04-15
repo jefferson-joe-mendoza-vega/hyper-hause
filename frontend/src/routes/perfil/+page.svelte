@@ -11,100 +11,114 @@
 	);
 
 	let sesionActiva = $derived(usuario !== null);
-	let errorGoogle = $state('');
-	let googleInitialized = $state(false);
 
-	// MAX-IMPORTANT: Registrar callback globalmente para que Google pueda encontrarlo
-	const handleGoogleResponseGlobal = async (response) => {
-		try {
-			errorGoogle = '';
+	// ⭐ DEFINIR CALLBACK GLOBALMENTE ANTES DE CUALQUIER COSA
+	if (typeof window !== 'undefined' && !window.handleCredentialResponse) {
+		window.handleCredentialResponse = async function (response) {
+			try {
+				console.log('🔐 Iniciando sesión con Google...');
 
-			// Decodificar JWT
-			const userData = decodeJwt(response.credential);
+				// Decodificar JWT
+				const userData = decodeJwt(response.credential);
 
-			// Enviar al backend
-			const res = await fetch(`${API_URL}/api/auth/login-google`, {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({
-					idToken: response.credential,
-					googleId: userData.sub,
-					nombre: userData.name,
-					email: userData.email,
-					foto: userData.picture
-				})
-			});
+				// Enviar al backend
+				const res = await fetch(`${API_URL}/api/auth/login-google`, {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({
+						idToken: response.credential,
+						googleId: userData.sub,
+						nombre: userData.name,
+						email: userData.email,
+						foto: userData.picture
+					})
+				});
 
-			if (!res.ok) {
-				const errorData = await res.json();
-				throw new Error(errorData.error || 'Error en autenticación');
+				if (!res.ok) {
+					const errorData = await res.json();
+					throw new Error(errorData.error || 'Error en autenticación');
+				}
+
+				const data = await res.json();
+
+				// Guardar datos
+				if (typeof localStorage !== 'undefined') {
+					localStorage.setItem('auth_token', data.token);
+					localStorage.setItem('auth_user', JSON.stringify(data.usuario));
+				}
+
+				console.log('✅ Sesión iniciada:', data.usuario.email);
+				// Recargar página
+				setTimeout(() => window.location.reload(), 500);
+			} catch (err) {
+				console.error('❌ Error de login:', err);
+				alert('Error al autenticar: ' + err.message);
 			}
+		};
+	}
 
-			const data = await res.json();
-
-			// Guardar datos
-			if (typeof localStorage !== 'undefined') {
-				localStorage.setItem('auth_token', data.token);
-				localStorage.setItem('auth_user', JSON.stringify(data.usuario));
-			}
-
-			usuario = data.usuario;
-		} catch (err) {
-			errorGoogle = 'Error al autenticar: ' + err.message;
-			console.error('Login error:', err);
-		}
-	};
+	function decodeJwt(token) {
+		const base64Url = token.split('.')[1];
+		const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+		const jsonPayload = decodeURIComponent(
+			atob(base64)
+				.split('')
+				.map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+				.join('')
+		);
+		return JSON.parse(jsonPayload);
+	}
 
 	onMount(() => {
-		// Asegurar que la callback está disponible globalmente
-		if (typeof window !== 'undefined') {
-			window.handleGoogleResponse = handleGoogleResponseGlobal;
-		}
+		// Escuchar cambios en localStorage (para sincronizar sesión)
+		const handleStorageChange = () => {
+			const storedUser = localStorage.getItem('auth_user');
+			usuario = storedUser ? JSON.parse(storedUser) : null;
+		};
 
-		// Esperar a que Google este disponible
-		const initGoogle = () => {
-			if (typeof window !== 'undefined' && window.google?.accounts?.id && !googleInitialized) {
+		window.addEventListener('storage', handleStorageChange);
+
+		// Renderizar botón de Google si está disponible
+		// (GoogleOneTap.svelte ya inicializó Google)
+		const renderGoogleButton = () => {
+			if (window.google?.accounts?.id && !sesionActiva) {
 				try {
-					window.google.accounts.id.initialize({
-						client_id: GOOGLE_CLIENT_ID,
-						callback: handleGoogleResponseGlobal,
-						auto_select: false,
-						cancel_on_tap_outside: true
-					});
-					
-					// Renderizar el botón oficial de Google
-					const container = document.getElementById('google-button-render');
-					if (container) {
+					const container = document.getElementById('google-button-perfil');
+					if (container && container.innerHTML === '') {
+						// Solo renderizar, NO inicializar (GoogleOneTap ya lo hizo)
 						window.google.accounts.id.renderButton(container, {
 							theme: 'outline',
 							size: 'large',
 							text: 'signin_with',
-							width: '100%',
+							width: '280',
 							locale: 'es'
 						});
+						console.log('✅ Botón de Google renderizado en perfil');
 					}
-					
-					googleInitialized = true;
-					console.log('✅ Google Sign-In initialized');
 				} catch (err) {
-					console.error('❌ Error initializing Google:', err);
+					console.error('❌ Error renderizando botón:', err);
 				}
 			}
 		};
 
-		// Intentar inicializar inmediatamente
-		initGoogle();
+		// Intentar renderizar inmediatamente
+		renderGoogleButton();
 
-		// Si aún no está listo, reintentar cada 100ms
+		// Si no está listo, reintentar cada 200ms (máximo 3 segundos)
+		let attempts = 0;
 		const interval = setInterval(() => {
-			if (googleInitialized) {
+			attempts++;
+			if (attempts > 15) {
 				clearInterval(interval);
 			} else {
-				initGoogle();
+				renderGoogleButton();
 			}
-		}, 100);
+		}, 200);
 
-		return () => clearInterval(interval);
+		return () => {
+			clearInterval(interval);
+			window.removeEventListener('storage', handleStorageChange);
+		};
 	});
 
 	const menuItems = [
@@ -132,19 +146,6 @@
 			localStorage.removeItem('auth_token');
 		}
 		usuario = null;
-		errorGoogle = '';
-	}
-
-	function decodeJwt(token) {
-		const base64Url = token.split('.')[1];
-		const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-		const jsonPayload = decodeURIComponent(
-			atob(base64)
-				.split('')
-				.map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-				.join('')
-		);
-		return JSON.parse(jsonPayload);
 	}
 
 	function iniciales(nombre = '') {
@@ -266,15 +267,13 @@
 			{/each}
 		</div>
 
-		{#if errorGoogle}
-			<div class="error-message">
-				<i class="fas fa-exclamation-circle" />
-				{errorGoogle}
-			</div>
-		{/if}
-
-		<!-- Botón Google Oficial -->
-		<div id="google-button-render" style="display: flex; justify-content: center; margin: 24px 0;"></div>
+		<div class="login-prompt">
+			<p class="prompt-title">🔐 Inicia sesión con Google</p>
+			<div id="google-button-perfil" style="display: flex; justify-content: center; margin: 12px 0;"></div>
+			<p class="prompt-text">
+				O selecciona "Iniciar sesión con Google" si aparece el prompt flotante
+			</p>
+		</div>
 
 		<p class="terminos">
 			Al iniciar sesión aceptas nuestros <a href="/terminos">Términos de uso</a> y
@@ -615,6 +614,29 @@
 		color: var(--text-blue);
 		text-decoration: none;
 		font-weight: 600;
+	}
+
+	.login-prompt {
+		background: linear-gradient(135deg, #eef4ff 0%, #dce8ff 100%);
+		border: 1.5px solid #c7dff8;
+		border-radius: 14px;
+		padding: 24px 20px;
+		text-align: center;
+		margin: 24px 0;
+	}
+
+	.prompt-title {
+		font-size: 15px;
+		font-weight: 700;
+		color: var(--text-blue);
+		margin: 0 0 16px 0;
+	}
+
+	.prompt-text {
+		font-size: 12px;
+		color: var(--text-gray);
+		margin: 12px 0 0 0;
+		line-height: 1.5;
 	}
 
 	/* Responsive */

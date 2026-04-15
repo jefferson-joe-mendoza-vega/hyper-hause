@@ -508,3 +508,26 @@ main {
 	}
 }
 
+/* === GOOGLE ONE TAP STYLES === */
+
+/* Contenedor del One Tap */
+div[id*="g_id_ufr"] {
+	z-index: 9999 !important;
+}
+
+/* Estilos del prompt del One Tap */
+.g_id_prompt {
+	z-index: 9999 !important;
+}
+
+/* Iframe del One Tap */
+iframe[src*="accounts.google.com/gsi"] {
+	z-index: 9999 !important;
+}
+
+/* Dark mode para el One Tap en modo oscuro */
+body.dark div[id*="g_id_ufr"],
+body.dark .g_id_prompt {
+	filter: invert(1) hue-rotate(180deg);
+}
+
