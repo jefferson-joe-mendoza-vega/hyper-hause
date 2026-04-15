@@ -91,6 +91,15 @@
 				});
 
 				console.log('✅ Google inicializado correctamente');
+
+				// Mostrar One Tap prompt
+				window.google.accounts.id.prompt((notification) => {
+					if (notification.isNotDisplayed() || notification.isSkipped()) {
+						console.log('ℹ️ One Tap no se mostró (normal en localhost)');
+					} else if (notification.isDisplayed()) {
+						console.log('✅ One Tap mostrado correctamente');
+					}
+				});
 			}
 		} catch (err) {
 			console.error('❌ Error initializing Google:', err);
