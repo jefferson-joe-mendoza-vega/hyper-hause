@@ -1,12 +1,23 @@
 <script>
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
+	import { logout as authLogout, getUser } from '$lib/auth.js';
 
 	const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8787';
 
 	let isAuthenticated = false;
 	let adminName = 'Admin';
+	let userEmail = '';
 	let mobileMenuOpen = false;
+
+	let { data } = $props();
+
+	$effect(() => {
+		if (data?.user) {
+			adminName = data.user.nombre || 'Admin';
+			userEmail = data.user.email || '';
+		}
+	});
 
 	const adminMenuItems = [
 		{ label: 'Dashboard', icon: 'fas fa-chart-line', path: '/admin/dashboard' },
@@ -16,8 +27,8 @@
 	];
 
 	function logout() {
-		localStorage.removeItem('authToken');
-		goto('/');
+		authLogout();
+		goto('/login');
 	}
 
 	function isActive(path) {
@@ -77,7 +88,10 @@
 			</button>
 			<div class="header-right">
 				<div class="user-info">
-					<span class="user-name">{adminName}</span>
+					<div class="user-details">
+						<span class="user-name">{adminName}</span>
+						<span class="user-email">{userEmail}</span>
+					</div>
 					<i class="fas fa-user-circle" />
 				</div>
 			</div>
@@ -233,8 +247,20 @@
 		font-weight: 600;
 	}
 
+	.user-details {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+
 	.user-name {
 		font-size: 14px;
+	}
+
+	.user-email {
+		font-size: 12px;
+		color: var(--text-gray);
+		font-weight: 400;
 	}
 
 	.user-info i {

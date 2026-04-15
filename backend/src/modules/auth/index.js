@@ -1,11 +1,48 @@
 import { generateToken } from '../../core/jwt/jwt.js';
 import { requireAdmin } from '../../core/middleware/admin.middleware.js';
+import { extractAndVerifyToken } from '../../core/middleware/auth.middleware.js';
 import { initializeAuth, loginGoogle, obtenerTodosLosUsuarios, actualizarRolUsuario, actualizarEstadoUsuario, crearUsuarioManual, eliminarUsuario } from './auth.repository.js';
 
 export function registerAuthRoutes(router, env) {
 	// Inicializar Firestore client para auth
 	initializeAuth(env);
 	const jwtSecret = env.JWT_SECRET || 'tu-secret-key-desarrollo';
+
+	// Verificar token (PUBLIC - para validar antes de acceder a rutas protegidas)
+	router.post('/api/auth/verify', async (req) => {
+		try {
+			const payload = await extractAndVerifyToken(req, jwtSecret);
+
+			if (!payload) {
+				return new Response(
+					JSON.stringify({
+						ok: false,
+						mensaje: 'Token inválido o expirado'
+					}),
+					{ status: 401, headers: { 'Content-Type': 'application/json' } }
+				);
+			}
+
+			return new Response(
+				JSON.stringify({
+					ok: true,
+					mensaje: 'Token válido',
+					usuario: {
+						id: payload.id,
+						email: payload.email,
+						nombre: payload.nombre,
+						rol: payload.rol
+					}
+				}),
+				{ status: 200, headers: { 'Content-Type': 'application/json' } }
+			);
+		} catch (error) {
+			return new Response(
+				JSON.stringify({ ok: false, error: error.message }),
+				{ status: 500, headers: { 'Content-Type': 'application/json' } }
+			);
+		}
+	});
 
 	// Login con Google (PUBLIC)
 	router.post('/api/auth/login-google', async (req) => {
