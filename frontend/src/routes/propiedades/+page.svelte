@@ -27,15 +27,16 @@
 			const data = await response.json();
 			propiedades = (data.data || []).map((prop) => ({
 				slug: prop.slug || prop.nombre?.toLowerCase().replace(/\s+/g, '-'),
-				title: prop.nombre || 'Sin título',
-				price: prop.precio || 'Precio no disponible',
+				title: prop.titulo || prop.nombre || 'Sin título',
+				price: prop.precio != null ? `S/ ${Number(prop.precio).toLocaleString('es-PE')}` : 'Precio no disponible',
 				bedrooms: prop.dormitorios || 0,
 				bathrooms: prop.banos || 0,
-				area: prop.area || 'N/A',
+				area: prop.area ? `${prop.area}m²` : 'N/A',
 				image: prop.imagenes?.[0]?.url || 'https://via.placeholder.com/300x200',
-				badge: 'Nuevo',
+				badge: prop.recomendadoEtiqueta || 'Nuevo',
 				badgeType: 'green',
-				location: prop.ubicacion || 'Ubicación no especificada',
+				badgeColor: prop.recomendadoColor || '',
+				location: prop.direccion || prop.ubicacion || 'Ubicación no especificada',
 				type: prop.tipoOperacion || 'Alquilar'
 			}));
 		} catch (err) {
@@ -81,6 +82,7 @@
 						image={property.image}
 						badge={property.badge}
 						badgeType={property.badgeType}
+						badgeColor={property.badgeColor}
 						location={property.location}
 						type={property.type}
 					/>
@@ -103,6 +105,7 @@
 						image={property.image}
 						badge={property.badge}
 						badgeType={property.badgeType}
+						badgeColor={property.badgeColor}
 						location={property.location}
 						type={property.type}
 					/>

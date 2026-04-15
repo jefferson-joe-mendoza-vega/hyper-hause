@@ -10,10 +10,17 @@
 		image = '',
 		badge = '',
 		badgeType = 'green',
+		badgeColor = '',
 		location = '',
 		type = 'Alquilar',
 		slug = ''
 	} = $props();
+
+	// Resuelve el color final del badge:
+	// - badgeColor (hex) tiene prioridad si viene de la BD
+	// - Si no, usa badgeType ('green' | 'orange') como clase CSS fallback
+	const FALLBACK_COLORS = { green: '#22c55e', orange: '#f97316' };
+	const resolvedBadgeColor = $derived(badgeColor || FALLBACK_COLORS[badgeType] || '#22c55e');
 
 	function handleCardClick() {
 		if (slug) {
@@ -24,7 +31,7 @@
 
 <div class="prop-card" onclick={handleCardClick}>
 	<div class="prop-image" style="background-image: url('{image}')">
-		<div class="badge-top badge-{badgeType}">
+		<div class="badge-top" style="background:{resolvedBadgeColor}">
 			<i class="fas fa-fire" /> {badge}
 		</div>
 		<div class="location-overlay">
@@ -90,13 +97,7 @@
 		gap: 4px;
 	}
 
-	.badge-green {
-		background: var(--badge-green);
-	}
-
-	.badge-orange {
-		background: var(--badge-orange);
-	}
+	/* Los colores del badge ahora se aplican inline desde resolvedBadgeColor */
 
 	.location-overlay {
 		position: absolute;

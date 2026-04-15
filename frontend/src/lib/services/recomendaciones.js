@@ -57,7 +57,8 @@ function mapApiProperty(p) {
 		area:       p.area        ? `${p.area}m²` : '',
 		image:      p.imagenes?.[0]?.url ?? '',
 		badge:      p.recomendadoEtiqueta ?? 'Destacado',
-		badgeType:  p.recomendadoColor   ?? 'green',
+		badgeColor: p.recomendadoColor   ?? '',
+		badgeType:  'green',
 		location:   p.direccion   ?? '',
 		type:       p.tipoOperacion ?? 'Alquilar'
 	};

@@ -73,6 +73,7 @@
 					image={property.image}
 					badge={property.badge}
 					badgeType={property.badgeType}
+					badgeColor={property.badgeColor}
 					location={property.location}
 					type={property.type}
 				/>
