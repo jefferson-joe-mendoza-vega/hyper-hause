@@ -54,6 +54,19 @@ export async function loginGoogle(googleId, nombre, email, foto) {
 }
 
 /**
+ * Obtener usuario por ID (verificar rol actual en BD)
+ */
+export async function obtenerUsuarioPorId(usuarioId) {
+	try {
+		const usuario = await db.getById('usuarios', usuarioId);
+		return usuario;
+	} catch (error) {
+		console.error('Error obteniendo usuario por ID:', error.message);
+		return null;
+	}
+}
+
+/**
  * Obtener todos los usuarios (para admin)
  */
 export async function obtenerTodosLosUsuarios() {

@@ -1,12 +1,14 @@
 import { generateToken } from '../../core/jwt/jwt.js';
 import { requireAdmin } from '../../core/middleware/admin.middleware.js';
 import { extractAndVerifyToken } from '../../core/middleware/auth.middleware.js';
+import { FirestoreClient } from '../../infrastructure/database/connection.js';
 import { initializeAuth, loginGoogle, obtenerTodosLosUsuarios, actualizarRolUsuario, actualizarEstadoUsuario, crearUsuarioManual, eliminarUsuario } from './auth.repository.js';
 
 export function registerAuthRoutes(router, env) {
 	// Inicializar Firestore client para auth
 	initializeAuth(env);
 	const jwtSecret = env.JWT_SECRET || 'tu-secret-key-desarrollo';
+	const db = new FirestoreClient(env); // ⭐ Cliente Firestore para verificaciones
 
 	// Verificar token (PUBLIC - para validar antes de acceder a rutas protegidas)
 	router.post('/api/auth/verify', async (req) => {
@@ -90,8 +92,8 @@ export function registerAuthRoutes(router, env) {
 
 	// Obtener todos los usuarios (ADMIN ONLY)
 	router.get('/api/admin/usuarios', async (req) => {
-		// Verificar que sea admin
-		const authResult = await requireAdmin(req, jwtSecret);
+		// Verificar que sea admin ⭐ Pasar db para verificar rol en BD
+		const authResult = await requireAdmin(req, jwtSecret, db);
 		if (authResult instanceof Response) {
 			return authResult;
 		}
@@ -118,7 +120,7 @@ export function registerAuthRoutes(router, env) {
 	// Actualizar rol de usuario (ADMIN ONLY)
 	router.put('/api/admin/usuarios/:id/rol', async (req, params) => {
 		// Verificar que sea admin
-		const authResult = await requireAdmin(req, jwtSecret);
+		const authResult = await requireAdmin(req, jwtSecret, db);
 		if (authResult instanceof Response) {
 			return authResult;
 		}
@@ -148,7 +150,7 @@ export function registerAuthRoutes(router, env) {
 	// Actualizar estado de usuario (ADMIN ONLY)
 	router.put('/api/admin/usuarios/:id/estado', async (req, params) => {
 		// Verificar que sea admin
-		const authResult = await requireAdmin(req, jwtSecret);
+		const authResult = await requireAdmin(req, jwtSecret, db);
 		if (authResult instanceof Response) {
 			return authResult;
 		}
@@ -178,7 +180,7 @@ export function registerAuthRoutes(router, env) {
 	// Crear usuario manualmente (ADMIN ONLY)
 	router.post('/api/admin/usuarios', async (req) => {
 		// Verificar que sea admin
-		const authResult = await requireAdmin(req, jwtSecret);
+		const authResult = await requireAdmin(req, jwtSecret, db);
 		if (authResult instanceof Response) {
 			return authResult;
 		}
@@ -207,7 +209,7 @@ export function registerAuthRoutes(router, env) {
 	// Eliminar usuario (ADMIN ONLY)
 	router.delete('/api/admin/usuarios/:id', async (req, params) => {
 		// Verificar que sea admin
-		const authResult = await requireAdmin(req, jwtSecret);
+		const authResult = await requireAdmin(req, jwtSecret, db);
 		if (authResult instanceof Response) {
 			return authResult;
 		}

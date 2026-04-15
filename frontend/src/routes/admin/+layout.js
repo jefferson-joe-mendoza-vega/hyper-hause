@@ -9,14 +9,24 @@ export function load({ url }) {
 	}
 
 	const token = localStorage.getItem('auth_token');
-	const user = localStorage.getItem('auth_user');
+	const userStr = localStorage.getItem('auth_user');
 
-	if (!token || !user) {
+	if (!token || !userStr) {
 		throw redirect(303, '/perfil');
 	}
 
+	const user = JSON.parse(userStr);
+
+	// ⭐ VERIFICAR QUE SEA ADMIN
+	if (user.rol !== 'admin') {
+		console.warn(`⚠️ Usuario ${user.email} intentó acceder a /admin sin permisos`);
+		throw redirect(303, '/perfil');
+	}
+
+	console.log(`✅ Admin ${user.email} accedió a ${url.pathname}`);
+
 	// Pasar datos del usuario al layout
 	return {
-		user: JSON.parse(user)
+		user
 	};
 }

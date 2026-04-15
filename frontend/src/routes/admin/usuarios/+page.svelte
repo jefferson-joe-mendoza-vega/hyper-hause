@@ -64,6 +64,7 @@
 		
 		try {
 			const token = localStorage.getItem('auth_token');
+			const usuarioLogueado = JSON.parse(localStorage.getItem('auth_user'));
 			
 			const res = await fetch(`${BACKEND_URL}/api/admin/usuarios/${usuarioId}/rol`, {
 				method: 'PUT',
@@ -80,6 +81,22 @@
 			}
 
 			console.log('✅ Rol actualizado correctamente');
+
+			// ⭐ Si el rol cambió del usuario logueado, actualiza su sesión
+			if (usuarioLogueado && usuarioLogueado.id === usuarioId) {
+				console.log('🔄 Actualizando sesión del usuario logueado...');
+				usuarioLogueado.rol = nuevoRolSeleccionado;
+				localStorage.setItem('auth_user', JSON.stringify(usuarioLogueado));
+				console.log(`✅ Rol de sesión actualizado a: ${nuevoRolSeleccionado}`);
+				
+				// Si lo demotieron de admin, redirigir a /perfil
+				if (nuevoRolSeleccionado === 'normal') {
+					alert('Tu rol ha sido actualizado a usuario normal. Serás redirigido...');
+					setTimeout(() => window.location.href = '/perfil', 500);
+					return;
+				}
+			}
+
 			editandoId = null;
 			await cargarUsuarios();
 		} catch (err) {
