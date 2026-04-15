@@ -64,16 +64,18 @@
 		min-width: 260px;
 		background: var(--white);
 		border-radius: 16px;
-		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+		box-shadow: var(--shadow-md);
 		overflow: hidden;
 		flex-shrink: 0;
 		cursor: pointer;
-		transition: all 0.3s ease;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		border: 1px solid var(--border-color);
 	}
 
 	.prop-card:hover {
-		box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
-		transform: translateY(-4px);
+		box-shadow: var(--shadow-xl);
+		transform: translateY(-8px);
+		border-color: var(--logo-green);
 	}
 
 	.prop-image {
@@ -81,6 +83,20 @@
 		position: relative;
 		background-size: cover;
 		background-position: center;
+		overflow: hidden;
+	}
+
+	.prop-image::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(135deg, transparent 0%, rgba(0, 0, 0, 0.1) 100%);
+		opacity: 0;
+		transition: opacity 0.3s;
+	}
+
+	.prop-card:hover .prop-image::after {
+		opacity: 1;
 	}
 
 	.badge-top {
@@ -95,19 +111,19 @@
 		display: flex;
 		align-items: center;
 		gap: 4px;
+		backdrop-filter: blur(4px);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 	}
-
-	/* Los colores del badge ahora se aplican inline desde resolvedBadgeColor */
 
 	.location-overlay {
 		position: absolute;
 		bottom: 12px;
 		left: 12px;
 		right: 12px;
-		background: rgba(0, 0, 0, 0.6);
-		backdrop-filter: blur(4px);
+		background: rgba(0, 0, 0, 0.7);
+		backdrop-filter: blur(8px);
 		color: var(--white);
-		padding: 8px 12px;
+		padding: 10px 12px;
 		border-radius: 8px;
 		font-size: 11px;
 		font-weight: 500;
@@ -126,8 +142,9 @@
 	.prop-title-row {
 		display: flex;
 		justify-content: space-between;
-		align-items: center;
+		align-items: flex-start;
 		margin-bottom: 8px;
+		gap: 8px;
 	}
 
 	.prop-title {
@@ -137,7 +154,8 @@
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
-		max-width: 150px;
+		flex: 1;
+		line-height: 1.2;
 	}
 
 	.type-badge {
@@ -147,7 +165,119 @@
 		border-radius: 8px;
 		font-size: 11px;
 		font-weight: 600;
+		flex-shrink: 0;
+		white-space: nowrap;
 	}
+
+	.prop-price {
+		font-size: 16px;
+		color: var(--logo-green);
+		font-weight: 700;
+		margin-bottom: 12px;
+	}
+
+	.prop-divider {
+		border: none;
+		border-top: 1px solid var(--border-color);
+		margin: 12px 0;
+	}
+
+	.prop-features {
+		display: flex;
+		gap: 12px;
+		font-size: 12px;
+		color: var(--text-gray);
+	}
+
+	.feature {
+		display: flex;
+		align-items: center;
+		gap: 4px;
+		white-space: nowrap;
+	}
+
+	.feature i {
+		color: var(--text-blue);
+		font-size: 14px;
+	}
+
+	/* Tablet */
+	@media (min-width: 768px) {
+		.prop-card {
+			min-width: unset;
+			border-radius: 20px;
+		}
+
+		.prop-image {
+			height: 200px;
+		}
+
+		.prop-content {
+			padding: 18px;
+		}
+
+		.prop-title {
+			font-size: 16px;
+		}
+
+		.prop-price {
+			font-size: 17px;
+		}
+	}
+
+	/* Desktop */
+	@media (min-width: 1024px) {
+		.prop-card {
+			min-width: unset;
+			border-radius: 20px;
+		}
+
+		.prop-image {
+			height: 220px;
+		}
+
+		.prop-content {
+			padding: 20px;
+		}
+
+		.prop-title {
+			font-size: 17px;
+		}
+
+		.prop-price {
+			font-size: 18px;
+			margin-bottom: 14px;
+		}
+
+		.prop-features {
+			gap: 16px;
+			font-size: 13px;
+		}
+
+		.feature i {
+			font-size: 15px;
+		}
+	}
+
+	/* Large Desktop */
+	@media (min-width: 1440px) {
+		.prop-image {
+			height: 240px;
+		}
+
+		.prop-content {
+			padding: 22px;
+		}
+
+		.prop-title {
+			font-size: 18px;
+		}
+
+		.prop-price {
+			font-size: 20px;
+		}
+	}
+</style>
 
 	.prop-price {
 		color: var(--logo-green);

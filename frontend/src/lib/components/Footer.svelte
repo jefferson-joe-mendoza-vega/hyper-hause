@@ -521,16 +521,16 @@
 	@media (min-width: 640px) {
 		.stats-grid {
 			grid-template-columns: repeat(4, 1fr);
+			gap: 40px;
+		}
+
+		.footer-container {
+			padding: 72px 28px;
 		}
 
 		.testimonials-grid {
-			grid-template-columns: repeat(3, 1fr);
-		}
-	}
-
-	@media (min-width: 768px) {
-		.footer-container {
-			padding: 80px 40px;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 24px;
 		}
 
 		.footer-main {
@@ -538,13 +538,51 @@
 		}
 	}
 
-	@media (min-width: 1024px) {
-		.footer-main {
-			grid-template-columns: repeat(4, 1fr);
+	@media (min-width: 768px) {
+		.footer-container {
+			padding: 80px 48px;
 		}
 
+		.testimonials-grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+
+		.footer-main {
+			grid-template-columns: repeat(4, 1fr);
+			gap: 48px;
+		}
+
+		.stats-grid {
+			gap: 48px;
+		}
+	}
+
+	@media (min-width: 1024px) {
 		.footer-container {
-			padding: 80px 60px;
+			padding: 100px 80px;
+		}
+
+		.footer-col-title {
+			font-size: 14px;
+		}
+
+		.footer-list-item {
+			font-size: 14px;
+		}
+	}
+
+	@media (min-width: 1440px) {
+		.footer-container {
+			padding: 120px 100px;
+			max-width: 1600px;
+		}
+
+		.stats-grid {
+			gap: 60px;
+		}
+
+		.footer-main {
+			gap: 60px;
 		}
 	}
 </style>

@@ -136,6 +136,7 @@
 		font-weight: 700;
 		line-height: 1.25;
 		letter-spacing: -0.5px;
+		margin: 0;
 	}
 
 	.hero h1 span {
@@ -153,6 +154,14 @@
 		align-items: flex-end;
 		padding-right: 24px;
 		margin-bottom: 16px;
+		gap: 16px;
+	}
+
+	.rec-header h2 {
+		margin: 0;
+		font-size: 18px;
+		font-weight: 600;
+		line-height: 1.3;
 	}
 
 	.rec-header a {
@@ -160,6 +169,14 @@
 		text-decoration: none;
 		font-size: 13px;
 		font-weight: 600;
+		white-space: nowrap;
+		padding: 6px 12px;
+		border-radius: 8px;
+		transition: all 0.3s;
+	}
+
+	.rec-header a:hover {
+		background: rgba(0, 208, 132, 0.1);
 	}
 
 	.rec-scroll-container {
@@ -168,11 +185,21 @@
 		overflow-x: auto;
 		padding-bottom: 12px;
 		padding-right: 24px;
-		scrollbar-width: none;
+		scrollbar-width: thin;
+		scrollbar-color: var(--border-color) transparent;
 	}
 
 	.rec-scroll-container::-webkit-scrollbar {
-		display: none;
+		height: 4px;
+	}
+
+	.rec-scroll-container::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	.rec-scroll-container::-webkit-scrollbar-thumb {
+		background: var(--border-color);
+		border-radius: 2px;
 	}
 
 	.projects-section {
@@ -180,9 +207,17 @@
 		margin-bottom: 24px;
 	}
 
+	.projects-section .section-title {
+		margin: 0 0 16px 0;
+	}
+
 	.resources-section {
 		padding: 0 24px;
 		margin-bottom: 24px;
+	}
+
+	.resources-section .section-title {
+		margin: 0 0 16px 0;
 	}
 
 	.resources-grid {
@@ -191,13 +226,194 @@
 		gap: 12px;
 	}
 
-	@media (min-width: 768px) {
+	@media (min-width: 640px) {
+		.hero {
+			padding: 28px 28px 24px;
+		}
+
+		.hero h1 {
+			font-size: 32px;
+		}
+
+		.recommendations-section {
+			padding: 0 28px;
+			margin-bottom: 32px;
+		}
+
+		.rec-header {
+			padding: 0;
+			margin-bottom: 20px;
+		}
+
+		.rec-header h2 {
+			font-size: 20px;
+		}
+
+		.projects-section {
+			padding: 0 28px;
+			margin-bottom: 32px;
+		}
+
+		.resources-section {
+			padding: 0 28px;
+			margin-bottom: 32px;
+		}
+
 		.resources-grid {
 			display: grid;
 			grid-template-columns: 1fr 1fr;
 			gap: 16px;
 		}
 	}
+
+	@media (min-width: 768px) {
+		.hero {
+			padding: 40px 48px 32px;
+		}
+
+		.hero h1 {
+			font-size: 44px;
+			line-height: 1.2;
+		}
+
+		.recommendations-section {
+			padding: 0 48px;
+			margin-bottom: 48px;
+		}
+
+		.rec-header {
+			margin-bottom: 28px;
+			align-items: center;
+		}
+
+		.rec-header h2 {
+			font-size: 24px;
+		}
+
+		.rec-header a {
+			font-size: 14px;
+		}
+
+		.rec-scroll-container {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+			gap: 20px;
+			overflow: visible;
+			padding: 0;
+			scrollbar-width: none;
+		}
+
+		.rec-scroll-container::-webkit-scrollbar {
+			display: none;
+		}
+
+		.projects-section {
+			padding: 0 48px;
+			margin-bottom: 48px;
+		}
+
+		.resources-section {
+			padding: 0 48px;
+			margin-bottom: 48px;
+		}
+
+		.resources-grid {
+			grid-template-columns: repeat(3, 1fr);
+			gap: 20px;
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.hero {
+			padding: 60px 80px 40px;
+		}
+
+		.hero h1 {
+			font-size: 52px;
+			line-height: 1.15;
+			letter-spacing: -1.5px;
+			max-width: 700px;
+		}
+
+		.recommendations-section {
+			padding: 0 80px;
+			margin-bottom: 64px;
+		}
+
+		.rec-header {
+			margin-bottom: 32px;
+		}
+
+		.rec-header h2 {
+			font-size: 28px;
+			line-height: 1.2;
+		}
+
+		.rec-header a {
+			font-size: 15px;
+			padding: 8px 16px;
+		}
+
+		.rec-scroll-container {
+			grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+			gap: 24px;
+		}
+
+		.projects-section {
+			padding: 0 80px;
+			margin-bottom: 64px;
+		}
+
+		.resources-section {
+			padding: 0 80px;
+			margin-bottom: 80px;
+		}
+
+		.resources-grid {
+			gap: 28px;
+		}
+	}
+
+	@media (min-width: 1440px) {
+		.hero {
+			padding: 80px 100px 50px;
+		}
+
+		.hero h1 {
+			font-size: 60px;
+			letter-spacing: -2px;
+			max-width: 800px;
+		}
+
+		.recommendations-section {
+			padding: 0 100px;
+			margin-bottom: 80px;
+		}
+
+		.rec-header h2 {
+			font-size: 32px;
+		}
+
+		.rec-scroll-container {
+			grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+			gap: 32px;
+		}
+
+		.projects-section {
+			padding: 0 100px;
+			margin-bottom: 80px;
+		}
+
+		.resources-section {
+			padding: 0 100px;
+			margin-bottom: 100px;
+		}
+
+		.resources-grid {
+			gap: 32px;
+		}
+	}
+</style>
 
 	/* ── Fade-in cuando las tarjetas reales aparecen (igual que carga.html) ── */
 	.cards-fadein {
