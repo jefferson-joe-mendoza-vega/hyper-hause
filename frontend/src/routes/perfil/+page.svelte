@@ -11,38 +11,101 @@
 	);
 
 	let sesionActiva = $derived(usuario !== null);
-	let loadingGoogle = $state(false);
 	let errorGoogle = $state('');
 	let googleInitialized = $state(false);
 
-	onMount(async () => {
-		// Cargar Google script una sola vez
-		if (typeof window !== 'undefined' && !window.google) {
-			const script = document.createElement('script');
-			script.src = 'https://accounts.google.com/gsi/client';
-			script.async = true;
-			script.defer = true;
-			script.onload = initializeGoogleAuth;
-			document.head.appendChild(script);
-		} else if (window.google?.accounts?.id) {
-			initializeGoogleAuth();
-		}
-	});
-
-	function initializeGoogleAuth() {
+	// MAX-IMPORTANT: Registrar callback globalmente para que Google pueda encontrarlo
+	const handleGoogleResponseGlobal = async (response) => {
 		try {
-			if (window.google?.accounts?.id && !googleInitialized) {
-				window.google.accounts.id.initialize({
-					client_id: GOOGLE_CLIENT_ID,
-					callback: handleGoogleResponse,
-					auto_select: false
-				});
-				googleInitialized = true;
+			errorGoogle = '';
+
+			// Decodificar JWT
+			const userData = decodeJwt(response.credential);
+
+			// Enviar al backend
+			const res = await fetch(`${API_URL}/api/auth/login-google`, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					idToken: response.credential,
+					googleId: userData.sub,
+					nombre: userData.name,
+					email: userData.email,
+					foto: userData.picture
+				})
+			});
+
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(errorData.error || 'Error en autenticación');
 			}
+
+			const data = await res.json();
+
+			// Guardar datos
+			if (typeof localStorage !== 'undefined') {
+				localStorage.setItem('auth_token', data.token);
+				localStorage.setItem('auth_user', JSON.stringify(data.usuario));
+			}
+
+			usuario = data.usuario;
 		} catch (err) {
-			console.error('Google init error:', err);
+			errorGoogle = 'Error al autenticar: ' + err.message;
+			console.error('Login error:', err);
 		}
-	}
+	};
+
+	onMount(() => {
+		// Asegurar que la callback está disponible globalmente
+		if (typeof window !== 'undefined') {
+			window.handleGoogleResponse = handleGoogleResponseGlobal;
+		}
+
+		// Esperar a que Google este disponible
+		const initGoogle = () => {
+			if (typeof window !== 'undefined' && window.google?.accounts?.id && !googleInitialized) {
+				try {
+					window.google.accounts.id.initialize({
+						client_id: GOOGLE_CLIENT_ID,
+						callback: handleGoogleResponseGlobal,
+						auto_select: false,
+						cancel_on_tap_outside: true
+					});
+					
+					// Renderizar el botón oficial de Google
+					const container = document.getElementById('google-button-render');
+					if (container) {
+						window.google.accounts.id.renderButton(container, {
+							theme: 'outline',
+							size: 'large',
+							text: 'signin_with',
+							width: '100%',
+							locale: 'es'
+						});
+					}
+					
+					googleInitialized = true;
+					console.log('✅ Google Sign-In initialized');
+				} catch (err) {
+					console.error('❌ Error initializing Google:', err);
+				}
+			}
+		};
+
+		// Intentar inicializar inmediatamente
+		initGoogle();
+
+		// Si aún no está listo, reintentar cada 100ms
+		const interval = setInterval(() => {
+			if (googleInitialized) {
+				clearInterval(interval);
+			} else {
+				initGoogle();
+			}
+		}, 100);
+
+		return () => clearInterval(interval);
+	});
 
 	const menuItems = [
 		{
@@ -70,80 +133,6 @@
 		}
 		usuario = null;
 		errorGoogle = '';
-	}
-
-	async function loginConGoogle() {
-		try {
-			loadingGoogle = true;
-			errorGoogle = '';
-
-			if (!googleInitialized || !window.google?.accounts?.id) {
-				throw new Error('Google Sign-In no está listo. Por favor recarga la página.');
-			}
-
-			// Renderizar button que dispara el callback
-			window.google.accounts.id.renderButton(
-				document.getElementById('google-button-container'),
-				{
-					theme: 'outline',
-					size: 'large',
-					text: 'signin_with',
-					width: '280'
-				}
-			);
-
-			// Disparar click automáticamente
-			const button = document.querySelector('[role="button"][data-button-type="standard"]');
-			if (button) {
-				button.click();
-			}
-
-			loadingGoogle = false;
-		} catch (err) {
-			errorGoogle = 'Error: ' + err.message;
-			loadingGoogle = false;
-			console.error('Google login error:', err);
-		}
-	}
-
-	async function handleGoogleResponse(response) {
-		try {
-			// Decodificar JWT
-			const userData = decodeJwt(response.credential);
-
-			// Enviar al backend
-			const res = await fetch(`${API_URL}/api/auth/login-google`, {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({
-					idToken: response.credential,
-					googleId: userData.sub,
-					nombre: userData.name,
-					email: userData.email,
-					foto: userData.picture
-				})
-			});
-
-			if (!res.ok) {
-				const data = await res.json();
-				throw new Error(data.error || 'Error en autenticación');
-			}
-
-			const data = await res.json();
-
-			// Guardar datos
-			if (typeof localStorage !== 'undefined') {
-				localStorage.setItem('auth_token', data.token);
-				localStorage.setItem('auth_user', JSON.stringify(data.usuario));
-			}
-
-			usuario = data.usuario;
-			loadingGoogle = false;
-		} catch (err) {
-			errorGoogle = 'Error: ' + err.message;
-			loadingGoogle = false;
-			console.error('Login error:', err);
-		}
 	}
 
 	function decodeJwt(token) {
@@ -284,25 +273,8 @@
 			</div>
 		{/if}
 
-		<!-- Botón Google -->
-		{#if loadingGoogle}
-			<button class="btn-google btn-loading" disabled>
-				<span class="spinner">⏳</span>
-				Autenticando...
-			</button>
-		{:else}
-			<button class="btn-google" onclick={loginConGoogle} data-google-login>
-				<svg class="google-logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-					<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-				<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-				<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
-				<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-			</svg>
-			Continuar con Google
-		</button>
-		{/if}
-
-		<div id="google-button-container" style="display: none;"></div>
+		<!-- Botón Google Oficial -->
+		<div id="google-button-render" style="display: flex; justify-content: center; margin: 24px 0;"></div>
 
 		<p class="terminos">
 			Al iniciar sesión aceptas nuestros <a href="/terminos">Términos de uso</a> y
@@ -612,52 +584,6 @@
 		font-size: 15px;
 		width: 18px;
 		text-align: center;
-	}
-
-	/* Botón Google */
-	.btn-google {
-		width: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 12px;
-		padding: 15px;
-		background: white;
-		border: 1.5px solid var(--border-color);
-		border-radius: 14px;
-		font-size: 15px;
-		font-weight: 600;
-		color: var(--text-main);
-		cursor: pointer;
-		font-family: 'Inter', sans-serif;
-		transition: border-color 0.2s, box-shadow 0.2s;
-		box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-	}
-
-	.btn-google:hover {
-		border-color: #4285F4;
-		box-shadow: 0 4px 16px rgba(66,133,244,0.15);
-	}
-
-	.btn-google.btn-loading {
-		opacity: 0.7;
-		cursor: not-allowed;
-	}
-
-	.spinner {
-		display: inline-block;
-		animation: spin 1s linear infinite;
-	}
-
-	@keyframes spin {
-		0% { transform: rotate(0deg); }
-		100% { transform: rotate(360deg); }
-	}
-
-	.google-logo {
-		width: 20px;
-		height: 20px;
-		flex-shrink: 0;
 	}
 
 	.error-message {

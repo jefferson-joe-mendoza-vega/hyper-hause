@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Integración Google</title>
+    <style>
+        /* UI Moderna para fondo claro */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #ffffff; /* Fondo blanco */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333333; /* Texto oscuro para contrastar con el blanco */
+        }
+
+        .login-container {
+            background: #ffffff;
+            border: 1px solid #eaeaec; /* Borde gris muy sutil */
+            border-radius: 24px;
+            padding: 40px 50px;
+            text-align: center;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.08); /* Sombra suave */
+        }
+
+        h2 {
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Acceso al Sistema</h2>
+
+        <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+        <div id="g_id_onload"
+             data-client_id="469356156937-pbc5ehis02bvshqjbvhvil8odq9trj7k.apps.googleusercontent.com"
+             data-context="signin"
+             data-ux_mode="popup"
+             data-callback="handleCredentialResponse"
+             data-auto_prompt="true"> 
+        </div>
+
+        <div class="g_id_signin"
+             data-type="standard"
+             data-shape="pill"
+             data-theme="filled_black"
+             data-text="signin_with"
+             data-size="large"
+             data-logo_alignment="left">
+        </div>
+    </div>
+
+    <script>
+        // Función Callback: Se ejecuta cuando el usuario selecciona una cuenta (ya sea por el botón o One Tap)
+        function handleCredentialResponse(response) {
+            console.log("Token JWT recibido:", response.credential);
+            
+            // Aquí puedes tomar 'response.credential' y enviarlo por fetch() a tu backend
+            // para decodificarlo, verificar su firma y establecer la sesión en tu arquitectura.
+        }
+    </script>
+
+</body>
+</html>
