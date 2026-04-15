@@ -412,22 +412,20 @@
 		.resources-grid {
 			gap: 32px;
 		}
-	}
-</style>
 
-	/* ── Fade-in cuando las tarjetas reales aparecen (igual que carga.html) ── */
-	.cards-fadein {
-		animation: fadeInCards 0.5s ease-in;
-	}
-
-	@keyframes fadeInCards {
-		from {
-			opacity: 0;
-			transform: translateY(10px);
+		.cards-fadein {
+			animation: fadeInCards 0.5s ease-in;
 		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
+
+		@keyframes fadeInCards {
+			from {
+				opacity: 0;
+				transform: translateY(10px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
 		}
 	}
 </style>

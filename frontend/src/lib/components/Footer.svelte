@@ -210,6 +210,9 @@
 		color: #ffffff;
 		font-family: 'Inter', system-ui, -apple-system, sans-serif;
 		width: 100%;
+		box-sizing: border-box;
+		padding: 0;
+		margin: 0;
 	}
 
 	.footer-container {
