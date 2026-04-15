@@ -11,6 +11,7 @@
 	const adminMenuItems = [
 		{ label: 'Dashboard', icon: 'fas fa-chart-line', path: '/admin/dashboard' },
 		{ label: 'Propiedades', icon: 'fas fa-building', path: '/admin/propiedades' },
+		{ label: 'Proyectos', icon: 'fas fa-city', path: '/admin/proyectos' },
 		{ label: 'Usuarios', icon: 'fas fa-users', path: '/admin/usuarios' }
 	];
 

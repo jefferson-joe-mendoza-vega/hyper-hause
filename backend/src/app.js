@@ -11,6 +11,7 @@
 
 import { Router } from './router.js';
 import { registerPropiedadesRoutes } from './modules/propiedades/index.js';
+import { registerProyectosRoutes } from './modules/proyectos/index.js';
 import { registerAuthRoutes } from './modules/auth/index.js';
 import { registerAdminRoutes } from './modules/admin/index.js';
 import { registerUploadRoutes } from './modules/upload/index.js';
@@ -47,6 +48,7 @@ export function createApp(env) {
 
   // ── Registro de módulos ──────────────────────────────────────────────────────
   registerPropiedadesRoutes(router, env);
+  registerProyectosRoutes(router, env);
   registerAuthRoutes(router, env);
   registerAdminRoutes(router, env);
   registerUploadRoutes(router, env);
