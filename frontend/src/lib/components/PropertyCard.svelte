@@ -62,6 +62,7 @@
 <style>
 	.prop-card {
 		min-width: 260px;
+		max-width: 260px;
 		background: var(--white);
 		border-radius: 16px;
 		box-shadow: var(--shadow-md);
@@ -205,6 +206,7 @@
 	@media (min-width: 768px) {
 		.prop-card {
 			min-width: unset;
+			max-width: 100%;
 			border-radius: 20px;
 		}
 

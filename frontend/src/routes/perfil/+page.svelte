@@ -69,7 +69,7 @@
 		return JSON.parse(jsonPayload);
 	}
 
-	onMount(() => {
+	onMount(async () => {
 		// Escuchar cambios en localStorage (para sincronizar sesión)
 		const handleStorageChange = () => {
 			const storedUser = localStorage.getItem('auth_user');
@@ -77,6 +77,40 @@
 		};
 
 		window.addEventListener('storage', handleStorageChange);
+
+		// ⭐ VERIFICAR ROL ACTUAL CON EL BACKEND
+		// Esto asegura que si otro admin cambió tu rol, lo detectemos
+		if (usuario) {
+			try {
+				const token = localStorage.getItem('auth_token');
+				const res = await fetch(`${API_URL}/api/auth/verify`, {
+					method: 'POST',
+					headers: {
+						'Authorization': `Bearer ${token}`,
+						'Content-Type': 'application/json'
+					}
+				});
+
+				if (res.ok) {
+					const data = await res.json();
+					// Si el rol cambió en el backend, actualizar localStorage
+					if (data.usuario && data.usuario.rol !== usuario.rol) {
+						console.log(`⚠️ Tu rol cambió de ${usuario.rol} a ${data.usuario.rol}`);
+						const usuarioActualizado = { ...usuario, rol: data.usuario.rol };
+						localStorage.setItem('auth_user', JSON.stringify(usuarioActualizado));
+						usuario = usuarioActualizado;
+					}
+				} else if (res.status === 403) {
+					// Token expirado o rol cambiado a inválido
+					console.warn('❌ Acceso denegado - tu rol ha cambiado');
+					localStorage.removeItem('auth_token');
+					localStorage.removeItem('auth_user');
+					usuario = null;
+				}
+			} catch (err) {
+				console.error('Error verificando rol:', err);
+			}
+		}
 
 		// Renderizar botón de Google si está disponible
 		// (GoogleOneTap.svelte ya inicializó Google)

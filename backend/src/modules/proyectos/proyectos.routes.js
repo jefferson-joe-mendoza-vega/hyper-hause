@@ -1,13 +1,16 @@
 import { ProyectosController } from './proyectos.controller.js';
 import { requireAdmin } from '../../core/middleware/admin.middleware.js';
+import { FirestoreClient } from '../../infrastructure/database/connection.js';
 
 /**
  * registerProyectosRoutes(router, env)
  * Registra las rutas del módulo de proyectos en el router central.
+ * ⭐ Las rutas admin están protegidas
  */
 export function registerProyectosRoutes(router, env) {
   const ctrl = new ProyectosController(env);
   const jwtSecret = env.JWT_SECRET || 'tu-secret-key-desarrollo';
+  const db = new FirestoreClient(env); // ⭐ Cliente Firestore
 
   // ============================================
   // PUBLIC ENDPOINTS (sin autenticación)
@@ -23,36 +26,36 @@ export function registerProyectosRoutes(router, env) {
   router.get('/api/proyectos/:id', (req, params) => ctrl.getById(req, params));
 
   // ============================================
-  // ADMIN ONLY ENDPOINTS (protegidos)
+  // ADMIN ONLY ENDPOINTS (protegidos) ⭐
   // ============================================
 
   // Crear proyecto (admin)
   router.post('/api/admin/proyectos', async (req, params) => {
-    // TODO: Descomentar auth en producción
-    // const authResult = await requireAdmin(req, jwtSecret);
-    // if (authResult instanceof Response) {
-    //   return authResult;
-    // }
+    // ⭐ Verificar que sea admin
+    const authResult = await requireAdmin(req, jwtSecret, db);
+    if (authResult instanceof Response) {
+      return authResult;
+    }
     return ctrl.create(req, params);
   });
 
   // Actualizar proyecto (admin)
   router.put('/api/admin/proyectos/:id', async (req, params) => {
-    // TODO: Descomentar auth en producción
-    // const authResult = await requireAdmin(req, jwtSecret);
-    // if (authResult instanceof Response) {
-    //   return authResult;
-    // }
+    // ⭐ Verificar que sea admin
+    const authResult = await requireAdmin(req, jwtSecret, db);
+    if (authResult instanceof Response) {
+      return authResult;
+    }
     return ctrl.update(req, params);
   });
 
   // Eliminar proyecto (admin)
   router.delete('/api/admin/proyectos/:id', async (req, params) => {
-    // TODO: Descomentar auth en producción
-    // const authResult = await requireAdmin(req, jwtSecret);
-    // if (authResult instanceof Response) {
-    //   return authResult;
-    // }
+    // ⭐ Verificar que sea admin
+    const authResult = await requireAdmin(req, jwtSecret, db);
+    if (authResult instanceof Response) {
+      return authResult;
+    }
     return ctrl.delete(req, params);
   });
 }

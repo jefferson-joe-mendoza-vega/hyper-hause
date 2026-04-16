@@ -1,5 +1,6 @@
 import { PropiedadesController } from './propiedades.controller.js';
 import { requireAdmin } from '../../core/middleware/admin.middleware.js';
+import { FirestoreClient } from '../../infrastructure/database/connection.js';
 
 /**
  * registerPropiedadesRoutes(router, env)
@@ -10,11 +11,12 @@ import { requireAdmin } from '../../core/middleware/admin.middleware.js';
  * 
  * NOTAS:
  * - GET endpoints: públicos (sin autenticación necesaria)
- * - POST/PUT/DELETE endpoints: requieren admin (protegidos por middleware)
+ * - POST/PUT/DELETE endpoints: requieren admin (protegidos) ⭐
  */
 export function registerPropiedadesRoutes(router, env) {
   const ctrl = new PropiedadesController(env);
   const jwtSecret = env.JWT_SECRET || 'tu-secret-key-desarrollo';
+  const db = new FirestoreClient(env); // ⭐ Cliente Firestore
 
   // ============================================
   // PUBLIC ENDPOINTS (sin autenticación)
@@ -33,12 +35,13 @@ export function registerPropiedadesRoutes(router, env) {
   router.get('/api/propiedades/:id',          (req, params) => ctrl.getById(req, params));
 
   // ============================================
-  // ADMIN ONLY ENDPOINTS (protegidos)
+  // ADMIN ONLY ENDPOINTS (protegidos) ⭐
   // ============================================
 
   // DEBUG: Test FormData (solo para desarrollo/admin)
   router.post('/api/propiedades/debug/formdata', async (req) => {
-    const authResult = await requireAdmin(req, jwtSecret);
+    // ⭐ Verificar que sea admin
+    const authResult = await requireAdmin(req, jwtSecret, db);
     if (authResult instanceof Response) {
       return authResult;
     }
@@ -47,31 +50,31 @@ export function registerPropiedadesRoutes(router, env) {
 
   // Crear propiedad (admin)
   router.post('/api/propiedades', async (req, params) => {
-    // TODO: Descomentar auth en producción
-    // const authResult = await requireAdmin(req, jwtSecret);
-    // if (authResult instanceof Response) {
-    //   return authResult;
-    // }
+    // ⭐ Verificar que sea admin
+    const authResult = await requireAdmin(req, jwtSecret, db);
+    if (authResult instanceof Response) {
+      return authResult;
+    }
     return ctrl.create(req, params);
   });
 
   // Actualizar propiedad (admin)
   router.put('/api/propiedades/:id', async (req, params) => {
-    // TODO: Descomentar auth en producción
-    // const authResult = await requireAdmin(req, jwtSecret);
-    // if (authResult instanceof Response) {
-    //   return authResult;
-    // }
+    // ⭐ Verificar que sea admin
+    const authResult = await requireAdmin(req, jwtSecret, db);
+    if (authResult instanceof Response) {
+      return authResult;
+    }
     return ctrl.update(req, params);
   });
 
   // Eliminar propiedad (admin)
   router.delete('/api/propiedades/:id', async (req, params) => {
-    // TODO: Descomentar auth en producción
-    // const authResult = await requireAdmin(req, jwtSecret);
-    // if (authResult instanceof Response) {
-    //   return authResult;
-    // }
+    // ⭐ Verificar que sea admin
+    const authResult = await requireAdmin(req, jwtSecret, db);
+    if (authResult instanceof Response) {
+      return authResult;
+    }
     return ctrl.delete(req, params);
   });
 }

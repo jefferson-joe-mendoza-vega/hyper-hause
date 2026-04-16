@@ -2,9 +2,10 @@ import { redirect } from '@sveltejs/kit';
 
 export const ssr = false; // Desabilitar SSR para acceso a localStorage
 
-export function load({ url }) {
+export async function load({ url }) {
 	// Verificar si está autenticado (verificar localStorage)
 	if (typeof localStorage === 'undefined') {
+		console.warn('❌ No hay localStorage disponible');
 		throw redirect(303, '/perfil');
 	}
 
@@ -12,6 +13,7 @@ export function load({ url }) {
 	const userStr = localStorage.getItem('auth_user');
 
 	if (!token || !userStr) {
+		console.warn('❌ No hay sesión activa');
 		throw redirect(303, '/perfil');
 	}
 
@@ -19,11 +21,11 @@ export function load({ url }) {
 
 	// ⭐ VERIFICAR QUE SEA ADMIN
 	if (user.rol !== 'admin') {
-		console.warn(`⚠️ Usuario ${user.email} intentó acceder a /admin sin permisos`);
+		console.warn(`⚠️ Usuario ${user.email} intentó acceder a /admin sin permisos (rol: ${user.rol})`);
 		throw redirect(303, '/perfil');
 	}
 
-	console.log(`✅ Admin ${user.email} accedió a ${url.pathname}`);
+	console.log(`✅ Admin ${user.email} autenticado en ${url.pathname}`);
 
 	// Pasar datos del usuario al layout
 	return {
