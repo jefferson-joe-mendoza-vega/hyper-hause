@@ -2,7 +2,7 @@
 	import ProyectoList from './components/ProyectoList.svelte';
 	import ProyectoForm from './components/ProyectoForm.svelte';
 
-	const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8787';
+	const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787';
 
 	let proyectos = $state([]);
 	let loading = $state(true);
@@ -48,8 +48,8 @@
 <div class="proyectos-admin">
 	<div class="page-header">
 		<h1 class="page-title">Gestionar Proyectos</h1>
-		<button class="btn-primary" on:click={() => (showForm = !showForm)}>
-			<i class="fas fa-plus" />
+		<button class="btn-primary" onclick={() => (showForm = !showForm)}>
+			<i class="fas fa-plus"></i>
 			Nuevo Proyecto
 		</button>
 	</div>

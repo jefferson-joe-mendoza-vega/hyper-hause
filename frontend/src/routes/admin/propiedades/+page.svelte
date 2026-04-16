@@ -2,7 +2,7 @@
 	import PropiedadList from './components/PropiedadList.svelte';
 	import PropiedadForm from './components/PropiedadForm.svelte';
 
-	const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8787';
+	const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787';
 
 	let propiedades = $state([]);
 	let loading = $state(true);
@@ -48,8 +48,8 @@
 <div class="propiedades-admin">
 	<div class="page-header">
 		<h1 class="page-title">Gestionar Propiedades</h1>
-		<button class="btn-primary" on:click={() => (showForm = !showForm)}>
-			<i class="fas fa-plus" />
+		<button class="btn-primary" onclick={() => (showForm = !showForm)}>
+			<i class="fas fa-plus"></i>
 			Nueva Propiedad
 		</button>
 	</div>

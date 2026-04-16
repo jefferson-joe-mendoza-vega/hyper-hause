@@ -1,7 +1,7 @@
 <script>
 	let { propiedades = [], onDelete = () => {} } = $props();
 
-	const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8787';
+	const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787';
 
 	async function deletePropiedadById(id) {
 		if (!confirm('¿Estás seguro de que deseas eliminar esta propiedad?')) return;
@@ -66,14 +66,14 @@
 							<td>
 								<div class="acciones">
 									<button class="btn-edit" title="Editar">
-										<i class="fas fa-edit" />
+									<i class="fas fa-edit"></i>
 									</button>
 									<button
 										class="btn-delete"
-										on:click={() => deletePropiedadById(propiedad.id)}
-										title="Eliminar"
-									>
-										<i class="fas fa-trash" />
+									onclick={() => deletePropiedadById(propiedad.id)}
+									title="Eliminar"
+								>
+									<i class="fas fa-trash"></i>
 									</button>
 								</div>
 							</td>
@@ -114,15 +114,15 @@
 
 					<div class="card-footer">
 						<button class="btn-edit" title="Editar">
-							<i class="fas fa-edit" />
+							<i class="fas fa-edit"></i>
 							Editar
 						</button>
 						<button
 							class="btn-delete"
-							on:click={() => deletePropiedadById(propiedad.id)}
+							onclick={() => deletePropiedadById(propiedad.id)}
 							title="Eliminar"
 						>
-							<i class="fas fa-trash" />
+							<i class="fas fa-trash"></i>
 							Eliminar
 						</button>
 					</div>

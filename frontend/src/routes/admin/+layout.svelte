@@ -3,7 +3,7 @@
 	import { goto } from '$app/navigation';
 	import { logout as authLogout, getUser } from '$lib/auth.js';
 
-	const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8787';
+	const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787';
 
 	let isAuthenticated = false;
 	let adminName = 'Admin';
@@ -51,8 +51,8 @@
 				<i class="fas fa-shield-alt" />
 				<span>Admin</span>
 			</div>
-			<button class="mobile-close-btn" on:click={closeMobileMenu}>
-				<i class="fas fa-times" />
+			<button class="mobile-close-btn" onclick={closeMobileMenu} aria-label="Cerrar menú">
+				<i class="fas fa-times"></i>
 			</button>
 		</div>
 
@@ -61,30 +61,30 @@
 				<a
 					href={item.path}
 					class="nav-link {isActive(item.path) ? 'active' : ''}"
-					on:click={closeMobileMenu}
+					onclick={closeMobileMenu}
 				>
-					<i class={item.icon} />
+					<i class={item.icon}></i>
 					<span>{item.label}</span>
 				</a>
 			{/each}
 		</nav>
 
 		<div class="sidebar-footer">
-			<button class="logout-btn" on:click={logout}>
-				<i class="fas fa-sign-out-alt" />
+			<button class="logout-btn" onclick={logout}>
+				<i class="fas fa-sign-out-alt"></i>
 				<span>Logout</span>
 			</button>
 		</div>
 	</aside>
 
 	{#if mobileMenuOpen}
-		<div class="mobile-overlay" on:click={closeMobileMenu}></div>
+		<div class="mobile-overlay" onclick={closeMobileMenu}></div>
 	{/if}
 
 	<main class="admin-main">
 		<header class="admin-header">
-			<button class="mobile-menu-btn" on:click={toggleMobileMenu}>
-				<i class="fas fa-bars" />
+			<button class="mobile-menu-btn" onclick={toggleMobileMenu} aria-label="Abrir menú">
+				<i class="fas fa-bars"></i>
 			</button>
 			<div class="header-right">
 				<div class="user-info">

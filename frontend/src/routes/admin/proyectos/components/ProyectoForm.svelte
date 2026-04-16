@@ -27,7 +27,7 @@
 	let error = $state(null);
 	let successMessage = $state(null);
 
-	const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8787';
+	const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787';
 	
 	const tiposInmuebles = ['Lotes Urbanos', 'Desarrollo Horizontal', 'Departamentos', 'Casas', 'Locales', 'Oficinas', 'Terrenos'];
 	const tiposOperacion = ['Comprar', 'Alquilar', 'Venta Directa'];
@@ -174,7 +174,7 @@
 		</div>
 	{/if}
 
-	<form on:submit={handleSubmit} class="proyecto-form">
+	<form onsubmit={handleSubmit} class="proyecto-form">
 		<!-- Información Básica -->
 		<fieldset class="form-section">
 			<legend>Información Básica</legend>
@@ -310,7 +310,7 @@
 						<input
 							type="checkbox"
 							checked={formData.amenidades.includes(amenidad)}
-							on:change={() => toggleAmenidad(amenidad)}
+							onchange={() => toggleAmenidad(amenidad)}
 						/>
 						<span>{amenidad}</span>
 					</label>
@@ -347,7 +347,7 @@
 					type="file"
 					multiple
 					accept="image/*"
-					on:change={handleFileSelect}
+					onchange={handleFileSelect}
 					disabled={uploadingImage}
 					style="display: none;"
 				/>
@@ -366,7 +366,7 @@
 								<button
 									type="button"
 									class="btn-remove"
-									on:click={() => removeImagen(index)}
+									onclick={() => removeImagen(index)}
 									title="Eliminar imagen"
 								>
 									<i class="fas fa-times"></i>
@@ -399,7 +399,7 @@
 					Guardar Proyecto
 				{/if}
 			</button>
-			<button type="button" class="btn-secondary" on:click={resetForm}>
+			<button type="button" class="btn-secondary" onclick={resetForm}>
 				<i class="fas fa-redo"></i>
 				Limpiar
 			</button>

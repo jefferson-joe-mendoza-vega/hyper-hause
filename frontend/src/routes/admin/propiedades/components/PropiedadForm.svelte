@@ -27,7 +27,7 @@
 	let uploadingImage = $state(false);
 	let error = $state(null);
 
-	const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8787';
+	const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787';
 	
 	const amenidadesOpciones = ['asensor', 'gm', 'piscina', 'gym', 'parque', 'seguridad 24h', 'terraza'];
 
@@ -172,7 +172,7 @@
 	}
 </script>
 
-<form on:submit|preventDefault={handleSubmit} class="form-container">
+<form onsubmit={(e) => { e.preventDefault(); handleSubmit(e); }} class="form-container">
 	<h2 class="form-title">Nueva Propiedad</h2>
 
 	{#if error}
@@ -285,7 +285,7 @@
 					<input
 						type="checkbox"
 						checked={formData.amenidades.includes(amenidad)}
-						on:change={() => toggleAmenidad(amenidad)}
+						onchange={() => toggleAmenidad(amenidad)}
 					/>
 					<span>{amenidad}</span>
 				</label>
@@ -333,7 +333,7 @@
 						type="file"
 						multiple
 						accept="image/*"
-						on:change={handleFileSelect}
+						onchange={handleFileSelect}
 						disabled={uploadingImage || loading}
 						class="file-input"
 					/>
@@ -363,7 +363,7 @@
 									/>
 									<button
 										type="button"
-										on:click={() => removeImagen(idx)}
+										onclick={() => removeImagen(idx)}
 										class="btn-remove"
 										title="Eliminar imagen"
 									>
@@ -514,12 +514,6 @@
 		outline: none;
 		border-color: var(--logo-green);
 		box-shadow: 0 0 0 3px rgba(0, 208, 132, 0.1);
-	}
-
-	.form-group small {
-		font-size: 12px;
-		color: var(--text-secondary);
-		margin-top: 4px;
 	}
 
 	.amenidades-grid {

@@ -1,7 +1,7 @@
 <script>
 	let { proyectos = [], onDelete = () => {} } = $props();
 
-	const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8787';
+	const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787';
 
 	let editingId = $state(null);
 	let deleteConfirmId = $state(null);
@@ -164,7 +164,7 @@
 
 						<button
 							class="btn-action btn-delete"
-							on:click={() => (deleteConfirmId = proyecto.id)}
+							onclick={() => (deleteConfirmId = proyecto.id)}
 							title="Eliminar proyecto"
 						>
 							<i class="fas fa-trash"></i>
@@ -173,7 +173,7 @@
 
 						<button
 							class="btn-action btn-toggle"
-							on:click={() => toggleActive(proyecto)}
+							onclick={() => toggleActive(proyecto)}
 							title={proyecto.activo ? 'Desactivar' : 'Activar'}
 						>
 							<i class={proyecto.activo ? 'fas fa-toggle-on' : 'fas fa-toggle-off'}></i>
@@ -185,21 +185,21 @@
 				<!-- Confirmación de eliminación -->
 				{#if deleteConfirmId === proyecto.id}
 					<div class="delete-confirm">
-						<div class="confirm-overlay" on:click={() => (deleteConfirmId = null)}></div>
+						<div class="confirm-overlay" onclick={() => (deleteConfirmId = null)}></div>
 						<div class="confirm-box">
 							<h3>¿Eliminar proyecto?</h3>
 							<p>Se eliminará <strong>{proyecto.nombre}</strong> y todos sus datos asociados.</p>
 							<div class="confirm-actions">
 								<button
 									class="btn-confirm btn-cancel"
-									on:click={() => (deleteConfirmId = null)}
+									onclick={() => (deleteConfirmId = null)}
 									disabled={loading}
 								>
 									Cancelar
 								</button>
 								<button
 									class="btn-confirm btn-ok"
-									on:click={() => handleDelete(proyecto.id)}
+									onclick={() => handleDelete(proyecto.id)}
 									disabled={loading}
 								>
 									{#if loading}

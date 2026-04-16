@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 
-	const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8787';
+	const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787';
 
 	let usuarios = $state([]);
 	let loading = $state(true);
