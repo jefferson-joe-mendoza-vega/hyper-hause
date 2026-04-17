@@ -4,7 +4,7 @@
 <header>
 	<div class="header-wrapper">
 		<div class="logo-wrapper">
-			<div class="logo-icon" />
+			<img src="/logo.webp" alt="Hyper House Logo" class="logo-icon" />
 			<div class="logo-text">
 				<span>HYPER HOUSE</span>
 				<span>Inmobiliaria</span>
@@ -56,32 +56,10 @@
 	}
 
 	.logo-icon {
-		width: 38px;
-		height: 38px;
-		border: 2px solid var(--logo-green);
-		border-radius: 8px;
-		position: relative;
+		width: 40px;
+		height: 40px;
+		object-fit: contain;
 		flex-shrink: 0;
-	}
-
-	.logo-icon::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: 12px;
-		width: 2px;
-		height: 100%;
-		background: var(--logo-green);
-	}
-
-	.logo-icon::after {
-		content: '';
-		position: absolute;
-		top: 16px;
-		left: 0;
-		width: 100%;
-		height: 2px;
-		background: var(--logo-green);
 	}
 
 	.logo-text {

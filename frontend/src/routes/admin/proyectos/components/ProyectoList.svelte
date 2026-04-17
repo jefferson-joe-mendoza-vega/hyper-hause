@@ -185,7 +185,12 @@
 				<!-- Confirmación de eliminación -->
 				{#if deleteConfirmId === proyecto.id}
 					<div class="delete-confirm">
-						<div class="confirm-overlay" onclick={() => (deleteConfirmId = null)}></div>
+						<button
+							class="confirm-overlay"
+							type="button"
+							onclick={() => (deleteConfirmId = null)}
+							aria-label="Cerrar confirmación"
+						></button>
 						<div class="confirm-box">
 							<h3>¿Eliminar proyecto?</h3>
 							<p>Se eliminará <strong>{proyecto.nombre}</strong> y todos sus datos asociados.</p>
