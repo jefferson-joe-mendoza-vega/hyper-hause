@@ -1,4 +1,5 @@
 <script>
+	import PWAInstaller from './PWAInstaller.svelte';
 </script>
 
 <header>
@@ -17,6 +18,7 @@
 			<a href="/proyectos" class="nav-link">Proyectos</a>
 		</nav>
 		<div class="header-right">
+			<PWAInstaller />
 			<button class="notification-btn">
 				<i class="far fa-bell" />
 				<span class="dot" />

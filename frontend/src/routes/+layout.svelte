@@ -1,4 +1,5 @@
 <script>
+	import { onMount } from 'svelte';
 	import Header from '$lib/components/Header.svelte';
 	import BottomNav from '$lib/components/BottomNav.svelte';
 	import Footer from '$lib/components/Footer.svelte';
@@ -6,6 +7,19 @@
 	import '../app.css';
 
 	let { children } = $props();
+
+	onMount(() => {
+		// Registrar service worker para PWA
+		if ('serviceWorker' in navigator) {
+			navigator.serviceWorker.register('/sw.js')
+				.then((registration) => {
+					console.log('✅ Service Worker registrado:', registration);
+				})
+				.catch((error) => {
+					console.error('❌ Error registrando Service Worker:', error);
+				});
+		}
+	});
 </script>
 
 <svelte:head>

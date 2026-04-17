@@ -1,0 +1,55 @@
+{
+  "name": "Hyper House - Inmobiliaria",
+  "short_name": "Hyper House",
+  "description": "Plataforma inmobiliaria profesional para búsqueda y gestión de propiedades",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#ffffff",
+  "theme_color": "#0066cc",
+  "icons": [
+    {
+      "src": "/logo.webp",
+      "sizes": "192x192",
+      "type": "image/webp",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo.webp",
+      "sizes": "192x192",
+      "type": "image/webp",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["business", "real-estate"],
+  "screenshots": [
+    {
+      "src": "/logo.webp",
+      "sizes": "540x720",
+      "type": "image/webp",
+      "form_factor": "narrow"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Buscar Propiedades",
+      "short_name": "Buscar",
+      "description": "Acceso rápido a búsqueda de propiedades",
+      "url": "/buscar",
+      "icons": [
+        {
+          "src": "/logo.webp",
+          "sizes": "192x192",
+          "type": "image/webp"
+        }
+      ]
+    }
+  ]
+}
