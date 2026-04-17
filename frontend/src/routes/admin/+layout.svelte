@@ -5,12 +5,12 @@
 
 	const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787';
 
-	let isAuthenticated = false;
-	let adminName = 'Admin';
-	let userEmail = '';
-	let mobileMenuOpen = false;
+	let isAuthenticated = $state(false);
+	let adminName = $state('Admin');
+	let userEmail = $state('');
+	let mobileMenuOpen = $state(false);
 
-	let { data } = $props();
+	let { data, children } = $props();
 
 	$effect(() => {
 		if (data?.user) {
@@ -45,10 +45,10 @@
 </script>
 
 <div class="admin-container">
-	<aside class="admin-sidebar {mobileMenuOpen ? 'mobile-open' : ''}">
+	<aside class="admin-sidebar" class:mobile-open={mobileMenuOpen}>
 		<div class="sidebar-header">
 			<div class="logo">
-				<i class="fas fa-shield-alt" />
+				<i class="fas fa-shield-alt"></i>
 				<span>Admin</span>
 			</div>
 			<button class="mobile-close-btn" onclick={closeMobileMenu} aria-label="Cerrar menú">
@@ -78,7 +78,7 @@
 	</aside>
 
 	{#if mobileMenuOpen}
-		<div class="mobile-overlay" onclick={closeMobileMenu}></div>
+		<div class="mobile-overlay" onclick={closeMobileMenu} onkeydown={closeMobileMenu} role="button" tabindex="-1" aria-label="Cerrar menú"></div>
 	{/if}
 
 	<main class="admin-main">
@@ -92,13 +92,13 @@
 						<span class="user-name">{adminName}</span>
 						<span class="user-email">{userEmail}</span>
 					</div>
-					<i class="fas fa-user-circle" />
+					<i class="fas fa-user-circle"></i>
 				</div>
 			</div>
 		</header>
 
 		<div class="admin-content">
-			<slot />
+			{@render children()}
 		</div>
 	</main>
 </div>

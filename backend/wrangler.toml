@@ -12,4 +12,5 @@ JWT_SECRET = "tu-secret-jwt-desarrollo"
 
 # CORS headers
 [env.production]
-vars = { ENVIRONMENT = "production", FIREBASE_PROJECT_ID = "hyper-hause", JWT_SECRET = "tu-secret-jwt-produccion" }
+name = "hyper-hause-backend"
+vars = { ENVIRONMENT = "production", FIREBASE_PROJECT_ID = "hyper-hause", FIREBASE_AUTH_DOMAIN = "hyper-hause.firebaseapp.com", FIREBASE_STORAGE_BUCKET = "hyper-hause.firebasestorage.app", FIREBASE_MESSAGING_SENDER_ID = "319373320177", FIREBASE_APP_ID = "1:319373320177:web:df82d1592d1e22aaaeee50", MEASUREMENT_ID = "G-3T1FPQ7MM3", IMGBB_API_KEY = "5c09ad7e4b520cfc7c50445d4eaa46ce", JWT_SECRET = "tu-secret-jwt-produccion" }

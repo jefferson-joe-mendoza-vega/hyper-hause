@@ -12,12 +12,20 @@ export async function load({ url }) {
 	const token = localStorage.getItem('auth_token');
 	const userStr = localStorage.getItem('auth_user');
 
+	console.log('🔍 Verificando acceso a admin:');
+	console.log('📦 Token existe:', !!token);
+	console.log('👤 userStr:', userStr);
+
 	if (!token || !userStr) {
 		console.warn('❌ No hay sesión activa');
 		throw redirect(303, '/perfil');
 	}
 
 	const user = JSON.parse(userStr);
+
+	console.log('📊 Usuario parseado de localStorage:', user);
+	console.log('🔐 Rol del usuario:', user.rol);
+	console.log('📧 Email del usuario:', user.email);
 
 	// ⭐ VERIFICAR QUE SEA ADMIN
 	if (user.rol !== 'admin') {

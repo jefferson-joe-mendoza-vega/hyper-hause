@@ -3,7 +3,7 @@
  */
 
 const GOOGLE_CLIENT_ID = '469356156937-pbc5ehis02bvshqjbvhvil8odq9trj7k.apps.googleusercontent.com';
-const API_URL = 'http://localhost:8787'; // Cambiar en producción
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787';
 
 /**
  * Cargar la biblioteca de Google OAuth

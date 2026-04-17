@@ -13,3 +13,15 @@ DEPLOY RAPIDO (PRODUCTION)
 	Propiedades:  https://hyper-hause-backend-production.aqualive.workers.dev/api/propiedades
 	Recomendadas: https://hyper-hause-backend-production.aqualive.workers.dev/api/propiedades/recomendadas?limit=10
 Set-Location "c:\Users\jefferson\Desktop\WEBSBISSNES\hyper hause oficial\backend"; npm run deploy:production; curl.exe -s -i "https://hyper-hause-backend-production.aqualive.workers.dev/api/propiedades/recomendadas?limit=10"
+
+El problema es que `FIREBASE_PROJECT_ID` no está siendo leída en producción. Dice `projects/undefined` - significa que falta esa variable.
+
+Necesito agregar esa variable a wrangler.toml: 
+
+Read [](file:///home/jjmendoza/Escritorio/webbusiness/hyperhausev2/hyper-hause/backend/wrangler.toml)
+
+Replacing 3 lines with 3 lines in [](file:///home/jjmendoza/Escritorio/webbusiness/hyperhausev2/hyper-hause/backend/wrangler.toml)
+
+
+```
+cd ~/Escritorio/webbusiness/hyperhausev2/hyper-hause/backend && npm run deploy:prod

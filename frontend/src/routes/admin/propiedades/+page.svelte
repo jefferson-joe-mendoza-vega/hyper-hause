@@ -12,7 +12,7 @@
 	async function cargarPropiedades() {
 		try {
 			loading = true;
-			const token = localStorage.getItem('authToken');
+			const token = localStorage.getItem('auth_token');
 			const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
 			const response = await fetch(`${BACKEND_URL}/api/admin/propiedades`, { headers });

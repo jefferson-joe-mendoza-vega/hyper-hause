@@ -9,7 +9,7 @@ const BASE = import.meta.env.VITE_API_URL ?? 'http://localhost:8787';
 
 function getToken() {
 	if (typeof localStorage === 'undefined') return null;
-	return localStorage.getItem('token');
+	return localStorage.getItem('auth_token'); // ← debe coincidir con auth.js setToken()
 }
 
 function authHeaders(extra = {}) {

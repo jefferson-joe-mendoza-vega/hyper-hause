@@ -7,6 +7,7 @@
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
     "deploy:production": "powershell -ExecutionPolicy Bypass -File ./scripts/deploy-production.ps1",
+    "deploy:prod": "bash deploy-production.sh",
     "start": "wrangler dev"
   },
   "keywords": ["cloudflare", "workers", "api"],

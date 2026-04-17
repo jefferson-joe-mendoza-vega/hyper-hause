@@ -53,6 +53,14 @@ export function registerAuthRoutes(router, env) {
 		try {
 			const usuario = await loginGoogle(googleId, nombre, email, foto);
 
+			console.log('🔐 Usuario después de login:', {
+				id: usuario.id,
+				nombre: usuario.nombre,
+				email: usuario.email,
+				rol: usuario.rol,
+				estado: usuario.estado
+			});
+
 			// Generar JWT token
 			const token = await generateToken(
 				{
@@ -65,6 +73,8 @@ export function registerAuthRoutes(router, env) {
 				jwtSecret,
 				7 * 24 * 60 * 60 // 7 días
 			);
+
+			console.log('✅ Token generado para usuario con rol:', usuario.rol);
 
 			return new Response(
 				JSON.stringify({
@@ -83,6 +93,7 @@ export function registerAuthRoutes(router, env) {
 				{ status: 200, headers: { 'Content-Type': 'application/json' } }
 			);
 		} catch (error) {
+			console.error('❌ Error en login:', error);
 			return new Response(
 				JSON.stringify({ error: error.message }),
 				{ status: 500, headers: { 'Content-Type': 'application/json' } }

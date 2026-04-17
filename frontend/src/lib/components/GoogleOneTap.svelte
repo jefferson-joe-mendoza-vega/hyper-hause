@@ -3,7 +3,7 @@
 	import { onMount } from 'svelte';
 
 	const GOOGLE_CLIENT_ID = '469356156937-pbc5ehis02bvshqjbvhvil8odq9trj7k.apps.googleusercontent.com';
-	const API_URL = 'http://localhost:8787';
+	const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787';
 
 	let usuario = $state(null);
 	let showOneTap = $derived(!$page.url.pathname.startsWith('/admin'));
@@ -31,16 +31,36 @@
 				});
 
 				if (!res.ok) {
-					const errorData = await res.json();
-					throw new Error(errorData.error || 'Error en autenticación');
+					const errText = await res.text();
+					let errMsg = 'Error en autenticación';
+					try { errMsg = JSON.parse(errText)?.error || errMsg; } catch {}
+					throw new Error(errMsg);
 				}
 
-				const data = await res.json();
+				const resText = await res.text();
+				let data;
+				try { data = JSON.parse(resText); } catch {
+					throw new Error('El servidor no devolvió una respuesta válida. Intenta de nuevo.');
+				}
+
+				console.log('📡 Respuesta COMPLETA del servidor:', JSON.stringify(data, null, 2));
+				console.log('👤 Usuario recibido:', JSON.stringify(data.usuario, null, 2));
+				console.log('🔐 Rol del usuario:', data.usuario?.rol);
 
 				// Guardar datos
 				if (typeof localStorage !== 'undefined') {
+					const usuarioJSON = JSON.stringify(data.usuario);
 					localStorage.setItem('auth_token', data.token);
-					localStorage.setItem('auth_user', JSON.stringify(data.usuario));
+					localStorage.setItem('auth_user', usuarioJSON);
+					
+					console.log('💾 Guardado en localStorage:');
+					console.log('   Token:', data.token?.substring(0, 30) + '...');
+					console.log('   Usuario JSON:', usuarioJSON);
+					console.log('   Rol que se guardó:', data.usuario?.rol);
+					
+					// Verificar que se guardó bien
+					const verificar = localStorage.getItem('auth_user');
+					console.log('✅ Verificación - Lo que quedó en localStorage:', verificar);
 				}
 
 				console.log('✅ Sesión iniciada:', data.usuario.email);

@@ -15,6 +15,8 @@ export function initializeAuth(env) {
  */
 export async function loginGoogle(googleId, nombre, email, foto) {
 	try {
+		console.log(`🔍 Buscando usuario con googleId: ${googleId}`);
+		
 		// Buscar usuario existente
 		const usuarios = await db.query('usuarios', [
 			{ field: 'googleId', op: 'EQUAL', value: googleId }
@@ -23,6 +25,7 @@ export async function loginGoogle(googleId, nombre, email, foto) {
 		let usuario;
 
 		if (usuarios.length === 0) {
+			console.log(`✨ Usuario nuevo, creando...`);
 			// Crear nuevo usuario
 			const nuevoUsuario = {
 				googleId,
@@ -37,11 +40,31 @@ export async function loginGoogle(googleId, nombre, email, foto) {
 
 			validarUsuario(nuevoUsuario);
 			usuario = await db.create('usuarios', nuevoUsuario);
+			console.log(`✅ Usuario creado con rol: ${usuario.rol}`);
 		} else {
-			// Actualizar último acceso
+			console.log(`👤 Usuario existente encontrado`);
+			// Actualizar último acceso y obtener datos actuales
 			usuario = usuarios[0];
+			console.log(`📊 Datos actuales de BD:`, {
+				id: usuario.id,
+				nombre: usuario.nombre,
+				email: usuario.email,
+				rol: usuario.rol,
+				estado: usuario.estado
+			});
+			
 			await db.update('usuarios', usuario.id, {
 				ultimoAcceso: new Date().toISOString()
+			});
+			
+			// ⭐ Obtener datos actuales de BD para asegurar que tiene el rol actualizado
+			usuario = await db.getById('usuarios', usuario.id);
+			console.log(`🔄 Datos ACTUALIZADOS de BD:`, {
+				id: usuario.id,
+				nombre: usuario.nombre,
+				email: usuario.email,
+				rol: usuario.rol,
+				estado: usuario.estado
 			});
 			usuario.ultimoAcceso = new Date().toISOString();
 		}

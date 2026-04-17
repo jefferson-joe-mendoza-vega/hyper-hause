@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 
 	const GOOGLE_CLIENT_ID = '469356156937-pbc5ehis02bvshqjbvhvil8odq9trj7k.apps.googleusercontent.com';
-	const API_URL = 'http://localhost:8787';
+	const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787';
 
 	let usuario = $state(
 		typeof localStorage !== 'undefined'
@@ -35,11 +35,17 @@
 				});
 
 				if (!res.ok) {
-					const errorData = await res.json();
-					throw new Error(errorData.error || 'Error en autenticación');
+					const errText = await res.text();
+					let errMsg = 'Error en autenticación';
+					try { errMsg = JSON.parse(errText)?.error || errMsg; } catch {}
+					throw new Error(errMsg);
 				}
 
-				const data = await res.json();
+				const resText = await res.text();
+				let data;
+				try { data = JSON.parse(resText); } catch {
+					throw new Error('El servidor no devolvió una respuesta válida. Intenta de nuevo.');
+				}
 
 				// Guardar datos
 				if (typeof localStorage !== 'undefined') {
@@ -91,24 +97,33 @@
 					}
 				});
 
-				if (res.ok) {
-					const data = await res.json();
-					// Si el rol cambió en el backend, actualizar localStorage
-					if (data.usuario && data.usuario.rol !== usuario.rol) {
+				// Parsear como texto primero para no crashear si el backend devuelve HTML
+				const text = await res.text();
+				let data = null;
+				try {
+					data = JSON.parse(text);
+				} catch {
+					// El backend no devolvió JSON (puede estar caído o hay un error de red)
+					// No hacemos nada — conservamos la sesión local
+					console.warn('⚠️ /api/auth/verify devolvió respuesta no-JSON, ignorando.');
+				}
+
+				if (data) {
+					if (res.ok && data.usuario && data.usuario.rol !== usuario.rol) {
 						console.log(`⚠️ Tu rol cambió de ${usuario.rol} a ${data.usuario.rol}`);
 						const usuarioActualizado = { ...usuario, rol: data.usuario.rol };
 						localStorage.setItem('auth_user', JSON.stringify(usuarioActualizado));
 						usuario = usuarioActualizado;
+					} else if (res.status === 403) {
+						console.warn('❌ Acceso denegado - tu rol ha cambiado');
+						localStorage.removeItem('auth_token');
+						localStorage.removeItem('auth_user');
+						usuario = null;
 					}
-				} else if (res.status === 403) {
-					// Token expirado o rol cambiado a inválido
-					console.warn('❌ Acceso denegado - tu rol ha cambiado');
-					localStorage.removeItem('auth_token');
-					localStorage.removeItem('auth_user');
-					usuario = null;
 				}
 			} catch (err) {
-				console.error('Error verificando rol:', err);
+				// Error de red (sin conexión, CORS, etc.) — conservamos sesión local
+				console.warn('⚠️ No se pudo verificar rol con el servidor:', err.message);
 			}
 		}
 
