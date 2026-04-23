@@ -8,6 +8,7 @@
 	let loading = $state(true);
 	let error = $state(null);
 	let showForm = $state(false);
+	let selectedPropiedad = $state(null);
 
 	async function cargarPropiedades() {
 		try {
@@ -37,11 +38,20 @@
 
 	function handleFormSubmit() {
 		showForm = false;
+		selectedPropiedad = null;
 		cargarPropiedades();
 	}
 
 	function handlePropertyDeleted() {
 		cargarPropiedades();
+	}
+
+	function handleEditProperty(id) {
+		const propiedad = propiedades.find(p => p.id === id);
+		if (propiedad) {
+			selectedPropiedad = propiedad;
+			showForm = true;
+		}
 	}
 </script>
 
@@ -55,7 +65,11 @@
 	</div>
 
 	{#if showForm}
-		<PropiedadForm onSubmit={handleFormSubmit} />
+		<PropiedadForm 
+			onSubmit={handleFormSubmit} 
+			propiedad={selectedPropiedad}
+			onCancel={() => { showForm = false; selectedPropiedad = null; }}
+		/>
 	{/if}
 
 	{#if loading}
@@ -67,7 +81,11 @@
 			<p>Error: {error}</p>
 		</div>
 	{:else}
-		<PropiedadList {propiedades} onDelete={handlePropertyDeleted} />
+		<PropiedadList 
+			{propiedades} 
+			onDelete={handlePropertyDeleted}
+			onEdit={handleEditProperty}
+		/>
 	{/if}
 </div>
 

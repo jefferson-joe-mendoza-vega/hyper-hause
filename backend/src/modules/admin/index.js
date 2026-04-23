@@ -32,6 +32,14 @@ export function registerAdminRoutes(router, env) {
     return ctrl.getPropiedadById(req, params);
   });
 
+  // PUT /api/admin/propiedades/:id - Actualiza una propiedad
+  router.put('/api/admin/propiedades/:id', async (req, params) => {
+    // ⭐ Verificar que sea admin
+    const authResult = await requireAdmin(req, jwtSecret, db);
+    if (authResult instanceof Response) return authResult;
+    return ctrl.updatePropiedadById(req, params);
+  });
+
   // DELETE /api/admin/propiedades/:id - Elimina una propiedad
   router.delete('/api/admin/propiedades/:id', async (req, params) => {
     // ⭐ Verificar que sea admin

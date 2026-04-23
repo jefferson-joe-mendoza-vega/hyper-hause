@@ -86,36 +86,41 @@ export class PropiedadesController {
     return json({ success: true, total: data.length, data });
   }
 
-  // POST /api/propiedades  (multipart/form-data)
+  // POST /api/propiedades  (multipart/form-data o JSON)
   async create(request) {
-    const formData = await request.formData();
+    const contentType = request.headers.get('content-type') ?? '';
+    let body;
 
-    // Extraer campos de texto del formData
-    const body = this._formDataToObject(formData);
+    if (contentType.includes('multipart/form-data')) {
+      // Manejo FormData (backward compatibility)
+      const formData = await request.formData();
+      body = this._formDataToObject(formData);
 
-    // Si el cliente proporciona un JSON de imágenes, usar directamente
-    let imagenes = [];
-    const imagenesStr = formData.get('imagenes');
-    if (imagenesStr && typeof imagenesStr === 'string' && imagenesStr.trim()) {
-      try {
-        imagenes = JSON.parse(imagenesStr);
-        if (!Array.isArray(imagenes)) imagenes = [];
-      } catch (e) {
-        console.warn('⚠️ Error parseando imagenes JSON:', e.message);
+      let imagenes = [];
+      const imagenesStr = formData.get('imagenes');
+      if (imagenesStr && typeof imagenesStr === 'string' && imagenesStr.trim()) {
+        try {
+          imagenes = JSON.parse(imagenesStr);
+          if (!Array.isArray(imagenes)) imagenes = [];
+        } catch (e) {
+          console.warn('⚠️ Error parseando imagenes JSON:', e.message);
+        }
       }
+
+      if (imagenes.length === 0) {
+        const { files, error: imgError } = extractImages(formData);
+        if (imgError) return error(imgError, 422);
+
+        const imagenesSubidas = await uploadImages(files, this.env.IMGBB_API_KEY);
+        const etiquetas = this._extractEtiquetas(formData);
+        imagenes = imagenesSubidas.map((img, i) => ({ ...img, etiqueta: etiquetas[i] ?? '' }));
+      }
+
+      body.imagenes = imagenes;
+    } else {
+      // Manejo JSON puro
+      body = await request.json();
     }
-
-    // Si no hay imágenes en JSON, intentar extraer archivos
-    if (imagenes.length === 0) {
-      const { files, error: imgError } = extractImages(formData);
-      if (imgError) return error(imgError, 422);
-
-      const imagenesSubidas = await uploadImages(files, this.env.IMGBB_API_KEY);
-      const etiquetas = this._extractEtiquetas(formData);
-      imagenes = imagenesSubidas.map((img, i) => ({ ...img, etiqueta: etiquetas[i] ?? '' }));
-    }
-
-    body.imagenes = imagenes;
 
     const dto = crearPropiedadDto(body);
     const created = await this.service.create(dto);

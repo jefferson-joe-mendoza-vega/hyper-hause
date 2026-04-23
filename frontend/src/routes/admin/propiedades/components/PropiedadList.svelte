@@ -1,13 +1,16 @@
 <script>
-	let { propiedades = [], onDelete = () => {} } = $props();
+	let { propiedades = [], onDelete = () => {}, onEdit = () => {} } = $props();
 
 	const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787';
+
+	// Token key consistente
+	const AUTH_TOKEN_KEY = 'auth_token';
 
 	async function deletePropiedadById(id) {
 		if (!confirm('¿Estás seguro de que deseas eliminar esta propiedad?')) return;
 
 		try {
-			const token = localStorage.getItem('authToken');
+			const token = localStorage.getItem(AUTH_TOKEN_KEY);
 			const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
 			const response = await fetch(`${BACKEND_URL}/api/admin/propiedades/${id}`, {
@@ -23,6 +26,10 @@
 		} catch (err) {
 			alert('Error: ' + err.message);
 		}
+	}
+
+	async function editPropiedadById(id) {
+		onEdit(id);
 	}
 </script>
 
@@ -65,15 +72,19 @@
 							<td class="font-bold">{propiedad.precio}</td>
 							<td>
 								<div class="acciones">
-									<button class="btn-edit" title="Editar">
-									<i class="fas fa-edit"></i>
+									<button 
+										class="btn-edit" 
+										title="Editar"
+										onclick={() => editPropiedadById(propiedad.id)}
+									>
+										<i class="fas fa-edit"></i>
 									</button>
 									<button
 										class="btn-delete"
-									onclick={() => deletePropiedadById(propiedad.id)}
-									title="Eliminar"
-								>
-									<i class="fas fa-trash"></i>
+										onclick={() => deletePropiedadById(propiedad.id)}
+										title="Eliminar"
+									>
+										<i class="fas fa-trash"></i>
 									</button>
 								</div>
 							</td>
@@ -113,7 +124,11 @@
 					</div>
 
 					<div class="card-footer">
-						<button class="btn-edit" title="Editar">
+						<button 
+							class="btn-edit" 
+							title="Editar"
+							onclick={() => editPropiedadById(propiedad.id)}
+						>
 							<i class="fas fa-edit"></i>
 							Editar
 						</button>

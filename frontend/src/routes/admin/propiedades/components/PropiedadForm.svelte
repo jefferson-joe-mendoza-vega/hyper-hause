@@ -1,35 +1,60 @@
 <script>
-	let { onSubmit = () => {} } = $props();
+	let { onSubmit = () => {}, onCancel = () => {}, propiedad = null } = $props();
 
-	let formData = $state({
-		titulo: '',
-		tipoInmueble: 'Departamento',
-		tipoOperacion: 'Comprar',
-		direccion: '',
-		precio: '',
-		precioDolares: '',
-		dormitorios: 0,
-		banos: 0,
-		estacionamientos: 0,
-		area: '',
-		descripcion: '',
-		amenidades: [],
-		mapaUrl: '',
-		recomendado: false,
-		recomendadoColor: '#f97316',
-		recomendadoEtiqueta: '',
-		imagenes: [],
-		activo: true
-	});
+	const AUTH_TOKEN_KEY = 'auth_token';
+	const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787';
+	const amenidadesOpciones = ['asensor', 'gm', 'piscina', 'gym', 'parque', 'seguridad 24h', 'terraza'];
 
-	let imagenesSubidas = $state([]);
+	function getInitialFormData() {
+		if (propiedad) {
+			return {
+				titulo: propiedad.titulo || '',
+				tipoInmueble: propiedad.tipoInmueble || 'Departamento',
+				tipoOperacion: propiedad.tipoOperacion || 'Comprar',
+				direccion: propiedad.direccion || '',
+				precio: propiedad.precio || '',
+				precioDolares: propiedad.precioDolares || '',
+				dormitorios: propiedad.dormitorios || 0,
+				banos: propiedad.banos || 0,
+				estacionamientos: propiedad.estacionamientos || 0,
+				area: propiedad.area || '',
+				descripcion: propiedad.descripcion || '',
+				amenidades: propiedad.amenidades || [],
+				mapaUrl: propiedad.mapaUrl || '',
+				recomendado: propiedad.recomendado || false,
+				recomendadoColor: propiedad.recomendadoColor || '#f97316',
+				recomendadoEtiqueta: propiedad.recomendadoEtiqueta || '',
+				imagenes: propiedad.imagenes || [],
+				activo: propiedad.activo !== false
+			};
+		}
+		return {
+			titulo: '',
+			tipoInmueble: 'Departamento',
+			tipoOperacion: 'Comprar',
+			direccion: '',
+			precio: '',
+			precioDolares: '',
+			dormitorios: 0,
+			banos: 0,
+			estacionamientos: 0,
+			area: '',
+			descripcion: '',
+			amenidades: [],
+			mapaUrl: '',
+			recomendado: false,
+			recomendadoColor: '#f97316',
+			recomendadoEtiqueta: '',
+			imagenes: [],
+			activo: true
+		};
+	}
+
+	let formData = $state(getInitialFormData());
+	let imagenesSubidas = $state(propiedad?.imagenes || []);
 	let loading = $state(false);
 	let uploadingImage = $state(false);
 	let error = $state(null);
-
-	const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787';
-	
-	const amenidadesOpciones = ['asensor', 'gm', 'piscina', 'gym', 'parque', 'seguridad 24h', 'terraza'];
 
 	function toggleAmenidad(amenidad) {
 		if (formData.amenidades.includes(amenidad)) {
@@ -100,44 +125,61 @@
 				throw new Error('Debes subir al menos una imagen');
 			}
 
-			const token = localStorage.getItem('authToken');
+			const token = localStorage.getItem(AUTH_TOKEN_KEY);
 			const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
-			const bodyData = new FormData();
-			bodyData.append('titulo', formData.titulo);
-			bodyData.append('tipoInmueble', formData.tipoInmueble);
-			bodyData.append('tipoOperacion', formData.tipoOperacion);
-			bodyData.append('direccion', formData.direccion);
-			bodyData.append('precio', parseInt(formData.precio) || 0);
-			if (formData.precioDolares.trim()) {
-				bodyData.append('precioDolares', parseInt(formData.precioDolares) || 0);
-			}
-			bodyData.append('dormitorios', formData.dormitorios);
-			bodyData.append('banos', formData.banos);
-			bodyData.append('estacionamientos', formData.estacionamientos);
-			bodyData.append('area', formData.area ? parseInt(formData.area) : 0);
-			bodyData.append('descripcion', formData.descripcion);
-			bodyData.append('amenidades', JSON.stringify(formData.amenidades));
-			bodyData.append('mapaUrl', formData.mapaUrl);
-			bodyData.append('recomendado', formData.recomendado);
-			
-			if (formData.recomendado) {
-				bodyData.append('recomendadoColor', formData.recomendadoColor);
-				bodyData.append('recomendadoEtiqueta', formData.recomendadoEtiqueta);
-			}
-			
-			bodyData.append('activo', formData.activo);
-			bodyData.append('imagenes', JSON.stringify(imagenesSubidas));
+			// Función auxiliar para convertir a número de forma segura
+			const parseNum = (val) => {
+				const num = parseInt(val);
+				return isNaN(num) ? 0 : num;
+			};
 
-			const response = await fetch(`${BACKEND_URL}/api/propiedades`, {
-				method: 'POST',
-				headers,
-				body: bodyData
+			// Preparar datos en JSON (no FormData)
+			const jsonData = {
+				titulo: String(formData.titulo).trim(),
+				tipoInmueble: String(formData.tipoInmueble).trim(),
+				tipoOperacion: String(formData.tipoOperacion).trim(),
+				direccion: String(formData.direccion).trim(),
+				precio: parseNum(formData.precio),
+				dormitorios: parseNum(formData.dormitorios),
+				banos: parseNum(formData.banos),
+				estacionamientos: parseNum(formData.estacionamientos),
+				area: parseNum(formData.area),
+				descripcion: String(formData.descripcion).trim(),
+				amenidades: formData.amenidades,
+				mapaUrl: String(formData.mapaUrl).trim(),
+				recomendado: Boolean(formData.recomendado),
+				activo: Boolean(formData.activo),
+				imagenes: imagenesSubidas
+			};
+
+			if (formData.precioDolares && String(formData.precioDolares).trim()) {
+				jsonData.precioDolares = parseNum(formData.precioDolares);
+			}
+
+			if (formData.recomendado) {
+				jsonData.recomendadoColor = String(formData.recomendadoColor).trim();
+				jsonData.recomendadoEtiqueta = String(formData.recomendadoEtiqueta).trim();
+			}
+
+			// Determine if create or update
+			const method = propiedad ? 'PUT' : 'POST';
+			const url = propiedad 
+				? `${BACKEND_URL}/api/admin/propiedades/${propiedad.id}`
+				: `${BACKEND_URL}/api/propiedades`;
+
+			const response = await fetch(url, {
+				method,
+				headers: {
+					...headers,
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(jsonData)
 			});
 
 			if (!response.ok) {
 				const errData = await response.json();
-				throw new Error(errData.error || 'Error crear propiedad');
+				throw new Error(errData.error || `Error ${propiedad ? 'actualizando' : 'creando'} propiedad`);
 			}
 
 			// Reset form
@@ -173,7 +215,18 @@
 </script>
 
 <form onsubmit={(e) => { e.preventDefault(); handleSubmit(e); }} class="form-container">
-	<h2 class="form-title">Nueva Propiedad</h2>
+	<div class="form-header">
+		<h2 class="form-title">{propiedad ? 'Editar Propiedad' : 'Nueva Propiedad'}</h2>
+		{#if propiedad}
+			<button 
+				type="button"
+				class="btn-cancel"
+				onclick={onCancel}
+			>
+				<i class="fas fa-times"></i>
+			</button>
+		{/if}
+	</div>
 
 	{#if error}
 		<div class="alert-error">{error}</div>
@@ -393,7 +446,11 @@
 
 	<div class="form-actions">
 		<button type="submit" class="btn-submit" disabled={loading}>
-			{loading ? 'Creando...' : 'Crear Propiedad'}
+			{#if loading}
+				{propiedad ? 'Actualizando...' : 'Creando...'}
+			{:else}
+				{propiedad ? 'Actualizar Propiedad' : 'Crear Propiedad'}
+			{/if}
 		</button>
 	</div>
 </form>
@@ -407,11 +464,32 @@
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 	}
 
+	.form-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 30px;
+	}
+
 	.form-title {
 		font-size: 24px;
 		color: var(--text-main);
 		font-weight: 700;
-		margin-bottom: 30px;
+		margin: 0;
+	}
+
+	.btn-cancel {
+		background: none;
+		border: none;
+		font-size: 24px;
+		color: var(--text-gray);
+		cursor: pointer;
+		padding: 0;
+		transition: color 0.2s;
+	}
+
+	.btn-cancel:hover {
+		color: var(--text-main);
 	}
 
 	.form-section {

@@ -44,10 +44,21 @@ export class AdminController {
     }
   }
 
+  // PUT /api/admin/propiedades/:id - Actualiza una propiedad (admin)
+  async updatePropiedadById(request, { id }) {
+    try {
+      const data = await request.json();
+      const result = await this.propiedadesService.update(id, data);
+      return json({ success: true, message: 'Propiedad actualizada', data: result });
+    } catch (err) {
+      return error(err.message, 500);
+    }
+  }
+
   // DELETE /api/admin/propiedades/:id - Elimina una propiedad (admin)
   async deletePropiedadById(request, { id }) {
     try {
-      const result = await this.propiedadesService.deleteById(id);
+      const result = await this.propiedadesService.delete(id);
       if (!result) return error('Propiedad no encontrada', 404);
       return json({ success: true, message: 'Propiedad eliminada' });
     } catch (err) {
