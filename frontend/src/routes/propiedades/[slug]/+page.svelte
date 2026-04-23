@@ -1,50 +1,106 @@
 <script>
 	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
 	import TopBar from '$lib/components/property/TopBar.svelte';
 	import HeroGallery from '$lib/components/property/HeroGallery.svelte';
 	import FeaturesGrid from '$lib/components/property/FeaturesGrid.svelte';
 	import PropertyContent from '$lib/components/property/PropertyContent.svelte';
 	import MapSection from '$lib/components/property/MapSection.svelte';
 
-	// Datos de ejemplo - en una app real vendrían de una API
-	const propertyData = {
-		slug: $page.params.slug,
-		title: 'xd 2 Prada Residencial: Departamentos modernos en Jesús María, Lima – Desde S/478,700',
-		typeBadge: 'Departamento',
-		price: 'USD 479,000',
-		location: 'Av. Tizón y Bueno 639, Jesus Maria, Lima, Jesús María, Lima',
-		image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80',
-		badge: 'ALQUILAR',
-		bedrooms: 3,
-		bathrooms: 3,
-		parking: 5,
-		years: 0,
-		description:
-			'Prada, proyecto ubicado en la Av. Tizón y Bueno 639 - Jesús María, una de las zonas más residenciales y céntricas de Lima. Donde vivirás cómodamente y conectarás con rapidez con distintos distritos y a un paso de diversos...',
-		address: 'Av. Tizón y Bueno 639, Jesus Maria, Lima, Jesús Maria, Lima'
-	};
+	const API_BASE = import.meta.env.VITE_API_URL ?? 'http://localhost:8787';
+
+	let propiedad = $state(null);
+	let loading = $state(true);
+	let error = $state(null);
+
+	onMount(async () => {
+		const slug = $page.params.slug;
+		try {
+			const res = await fetch(`${API_BASE}/api/propiedades/slug/${slug}`);
+			if (!res.ok) throw new Error(`Error ${res.status}`);
+			const json = await res.json();
+			propiedad = json.data;
+		} catch (err) {
+			error = err.message;
+		} finally {
+			loading = false;
+		}
+	});
 </script>
 
 <main>
-	<TopBar slug={propertyData.slug} />
-	<HeroGallery
-		image={propertyData.image}
-		badge={propertyData.badge}
-		currentPhoto={1}
-		totalPhotos={3}
-	/>
-	<PropertyContent
-		typeBadge={propertyData.typeBadge}
-		price={propertyData.price}
-		title={propertyData.title}
-		location={propertyData.location}
-		description={propertyData.description}
-	/>
-	<FeaturesGrid
-		bedrooms={propertyData.bedrooms}
-		bathrooms={propertyData.bathrooms}
-		parking={propertyData.parking}
-		years={propertyData.years}
-	/>
-	<MapSection address={propertyData.address} />
+	{#if loading}
+		<div class="state-box">
+			<div class="spinner"></div>
+			<p>Cargando propiedad...</p>
+		</div>
+	{:else if error || !propiedad}
+		<div class="state-box error">
+			<i class="fas fa-exclamation-circle"></i>
+			<p>No se pudo cargar la propiedad.</p>
+		</div>
+	{:else}
+		<TopBar slug={propiedad.slug} />
+		<HeroGallery
+			image={propiedad.imagenes?.[0]?.url ?? ''}
+			badge={propiedad.tipoOperacion ?? ''}
+			currentPhoto={1}
+			totalPhotos={propiedad.imagenes?.length ?? 1}
+		/>
+		<PropertyContent
+			typeBadge={propiedad.tipoInmueble ?? ''}
+			price={propiedad.precio != null ? `S/ ${Number(propiedad.precio).toLocaleString('es-PE')}` : ''}
+			title={propiedad.titulo ?? ''}
+			location={propiedad.direccion ?? ''}
+			description={propiedad.descripcion ?? ''}
+		/>
+		<FeaturesGrid
+			bedrooms={propiedad.dormitorios ?? 0}
+			bathrooms={propiedad.banos ?? 0}
+			parking={propiedad.estacionamientos ?? 0}
+			years={propiedad.anos ?? 0}
+		/>
+		<MapSection
+			address={propiedad.direccion ?? ''}
+			mapaUrl={propiedad.mapaUrl ?? ''}
+		/>
+	{/if}
 </main>
+
+<style>
+	main {
+		min-height: 100vh;
+	}
+
+	.state-box {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 16px;
+		padding: 80px 20px;
+		color: var(--text-secondary, #666);
+	}
+
+	.state-box.error {
+		color: #dc2626;
+	}
+
+	.state-box i {
+		font-size: 40px;
+		opacity: 0.5;
+	}
+
+	.spinner {
+		width: 36px;
+		height: 36px;
+		border: 3px solid rgba(0, 208, 132, 0.2);
+		border-top-color: #00d084;
+		border-radius: 50%;
+		animation: spin 0.8s linear infinite;
+	}
+
+	@keyframes spin {
+		to { transform: rotate(360deg); }
+	}
+</style>

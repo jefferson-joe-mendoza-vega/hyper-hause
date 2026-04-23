@@ -1,17 +1,29 @@
 <script>
-	let { mapImage = 'https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=600&q=80', address = '' } = $props();
+	let { mapImage = 'https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=600&q=80', address = '', mapaUrl = '' } = $props();
 </script>
 
 <div class="map-section">
 	<h2 class="section-title">Ubicación</h2>
-	<div class="map-container">
-		<div class="map-overlay-tint" />
-		<a href="#" class="open-maps-btn">Open in Maps <i class="fas fa-external-link-alt" style="font-size: 10px;" /></a>
-		<i class="fas fa-map-marker-alt pin-center" />
-		<div class="expand-btn"><i class="fas fa-expand" /></div>
+	<div class="map-container" class:has-iframe={!!mapaUrl}>
+		{#if mapaUrl}
+			<iframe
+				src={mapaUrl}
+				title="Mapa de ubicación"
+				allowfullscreen
+				loading="lazy"
+				referrerpolicy="no-referrer-when-downgrade"
+			></iframe>
+		{:else}
+			<div class="map-overlay-tint"></div>
+			<i class="fas fa-map-marker-alt pin-center"></i>
+		{/if}
+		<a href={mapaUrl || '#'} target="_blank" rel="noopener noreferrer" class="open-maps-btn">
+			Open in Maps <i class="fas fa-external-link-alt" style="font-size: 10px;"></i>
+		</a>
+		<div class="expand-btn"><i class="fas fa-expand"></i></div>
 	</div>
 	<div class="address-box">
-		<i class="fas fa-map-marker-alt" />
+		<i class="fas fa-map-marker-alt"></i>
 		<p>{address}</p>
 	</div>
 </div>
@@ -101,10 +113,25 @@
 		margin-top: 2px;
 	}
 
+	.map-container.has-iframe {
+		height: 320px;
+		background-image: none;
+	}
+
+	.map-container iframe {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		border: 0;
+		border-radius: 12px;
+	}
+
 	.address-box p {
 		color: var(--text-main);
 		font-size: 12px;
 		font-weight: 600;
 		line-height: 1.4;
 	}
+
 </style>
